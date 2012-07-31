@@ -160,7 +160,33 @@
               </p>
               
               <h2 id="Users">Users</h2>
-              <p><code>TBD</code></p>
+              <p>Summary: Read access to the metadata about the user using the app (the authenticated user using the application)</p>
+              <p>Supported methods: <code>GET</code></p>
+              <p>Request: <code>GET /&lt;shop-handle&gt;/rest/users</code></p>
+              <p>Response:
+                  <pre class="prettyprint lang-js">
+[
+    {
+        "id": 1,
+        "created_at": "Sat, 28 Apr 2012 19:24:05 UTC",
+        "updated_at": "Mon, 14 May 2012 10:49:52 UTC",
+        "email": "john.doe@example.com",
+        "first_name": "John",
+        "last_name": "Doe",
+        "roles": [
+            "merchant",
+            "developer"
+        ],
+        "shop_handles": [
+            "sample-store",
+            "another-store"
+        ],
+        "sandbox_id": "asdasud2342f",
+        "locale": "en"
+    }
+]
+                  </pre>
+              </p>
               
               <h2 id="Products">Products</h2>
               <p><code>TBD</code></p>
