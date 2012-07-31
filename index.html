@@ -1,82 +1,112 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset='utf-8'>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>SellMate REST API Documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-  <title>commercetools/box-api @ GitHub</title>
+    <!-- styles -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/css/prettify.css" rel="stylesheet" />
+	<script type="text/javascript" src="assets/js/prettify/prettify.js"></script>
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+    </style>
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
 
-  <style type="text/css">
-    body {
-      margin-top: 1.0em;
-      background-color: #ffffff;
-      font-family: Helvetica, Arial, FreeSans, san-serif;
-      color: #000000;
-    }
-    #container {
-      margin: 0 auto;
-      width: 700px;
-    }
-    h1 { font-size: 3.8em; color: #000000; margin-bottom: 3px; }
-    h1 .small { font-size: 0.4em; }
-    h1 a { text-decoration: none }
-    h2 { font-size: 1.5em; color: #000000; }
-    h3 { text-align: center; color: #000000; }
-    a { color: #000000; }
-    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
-    .download { float: right; }
-    pre { background: #000; color: #fff; padding: 15px;}
-    hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
-    .footer { text-align:center; padding-top:30px; font-style: italic; }
-  </style>
-</head>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-<body>
-  <a href="https://github.com/commercetools/box-api"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+    <!-- fav and touch icons -->
+    <link rel="shortcut icon" href="assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
 
-  <div id="container">
+  <body>
 
-    <div class="download">
-      <a href="https://github.com/commercetools/box-api/zipball/master">
-        <img border="0" width="90" src="https://github.com/images/modules/download/zip.png"></a>
-      <a href="https://github.com/commercetools/box-api/tarball/master">
-        <img border="0" width="90" src="https://github.com/images/modules/download/tar.png"></a>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="#">SellMate Developer Portal</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="#">API Documentation</a></li>
+              <li><a href="http://www.sellmate.com/developer/tools/restconsole">REST Console</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
     </div>
 
-    <h1><a href="https://github.com/commercetools/box-api">box-api</a>
-      <span class="small">by <a href="https://github.com/commercetools">commercetools</a></span></h1>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span3">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">Auth URL</li>
+              <a href="http://auth.sellmate.com">http://auth.sellmate.com</a>
+              <li class="nav-header">Base Api URL</li>
+              <a href="http://api.sellmate.com">http://api.sellmate.com</a>
+            </ul>
+          </div><!--/.well -->
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">General</li>
+              <li><a href="#Overview">Overview</a></li>
+              <li><a href="#ErrorHandling">Error Handling</a></li>
+              <li><a href="#">Authentication</a></li>
+              <li class="nav-header">Resources</li>
+              <li><a href="#">Shops</a></li>
+              <li><a href="#">Users</a></li>
+              <li><a href="#">Products</a></li>
+              <li><a href="#">Collections</a></li>
+              <li><a href="#">Orders</a></li>
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
+        <div class="span9">
+              <h2 id="Overview">Overview</h2>
+              <p>The SellMate HTTP API follows the common REST API principles, supports JSON data format (<code>application/json</code> content-type) and all 4 HTTP verbs (GET/POST/PUT/DELETE) in a way consistent with the HTTP protocol and REST API best practices. Each resource (e.g. Products, Collections, Orders) has its own URL scheme and is manipulated in isolation.</p>
+              <p>The SellMate REST API is implemented in JSON format for all 4 verbs (<code>GET</code>/<code>POST</code>/<code>PUT</code>/<code>DELETE</code>). Each resource (e.g. Products, Collections, Orders) has its own URL scheme and is manipulated in isolation.</p>
+              <p>We provide a convenient testing tool to work with both Auth and API endpoints to simplify the debugging of API usage.</p>
+              <p><a class="btn" href="#">REST Console &raquo;</a></p>
 
-    <div class="description">
-      
-    </div>
+              <h2 id="ErrorHandling">Error Handling</h2>
+              <p>A REST call may result in an error. In that case a JSON string is sent with the response containing the HTTP status code and a status description.</p>
+              <p>
+              <pre class="prettyprint lang-js">
+{
+    "statusCode": 400,
+    "statusMessage": "The request could not be understood by the server due to malformed syntax."
+}</pre>
+</p>
 
-    
+        </div><!--/span-->
+      </div><!--/row-->
 
-    
+      <hr>
 
-    
-
-    
-
-    
-
-    
-
-    <h2>Download</h2>
-    <p>
-      You can download this project in either
-      <a href="https://github.com/commercetools/box-api/zipball/master">zip</a> or
-      <a href="https://github.com/commercetools/box-api/tarball/master">tar formats.
-    </p>
-    <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
-      by running:
-      <pre>$ git clone git://github.com/commercetools/box-api</pre>
-    </p>
-
-    <div class="footer">
-      get the source code on GitHub : <a href="https://github.com/commercetools/box-api">commercetools/box-api</a>
-    </div>
-
-  </div>
-
-</body>
+      <footer>
+        <p>&copy; 2012 commercetools GmbH. All rights reserved.</p>
+      </footer>
+    </div><!--/.fluid-container-->
+  </body>
 </html>
