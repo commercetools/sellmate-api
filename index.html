@@ -72,8 +72,8 @@
               <li class="nav-header">General</li>
               <li><a href="#Overview">Overview</a></li>
               <li><a href="#ErrorHandling">Error Handling</a></li>
-              <li><a href="#">Authentication</a></li>
-              <li class="nav-header">Resource Endpoint	s</li>
+              <li><a href="#Authentication">Authentication</a></li>
+              <li class="nav-header">Resource Endpoints</li>
               <li><a href="#">Shops</a></li>
               <li><a href="#">Users</a></li>
               <li><a href="#">Products</a></li>
@@ -87,10 +87,26 @@
               <p>The SellMate HTTP API follows the common REST API principles, supports JSON data format (<code>application/json</code> content-type) and all 4 HTTP verbs (GET/POST/PUT/DELETE) in a way consistent with the HTTP protocol and REST API best practices. Each resource (e.g. Products, Collections, Orders) has its own URL scheme and is manipulated in isolation.</p>
               <p>The SellMate REST API is implemented in JSON format for all 4 verbs (<code>GET</code>/<code>POST</code>/<code>PUT</code>/<code>DELETE</code>). Each resource (e.g. Products, Collections, Orders) has its own URL scheme and is manipulated in isolation.</p>
               <p>We provide a convenient testing tool to work with both Auth and API endpoints to simplify the debugging of API usage.</p>
-              <p><a class="btn" href="#">REST Console &raquo;</a></p>
+              <p><a class="btn" href="http://www.sellmate.com/developer/tools/restconsole">REST Console &raquo;</a></p>
 
               <h2 id="ErrorHandling">Error Handling</h2>
               <p>A REST call may result in an error. In that case a JSON string is sent with the response containing the HTTP status code and a status description.</p>
+              <p>
+              <pre class="prettyprint lang-js">
+{
+    "statusCode": 400,
+    "statusMessage": "The request could not be understood by the server due to malformed syntax."
+}</pre>
+</p>
+              <h2 id="Authentication">Authentication</h2>
+              <p>SellMate REST API uses OAuth2 flow to provide authentication and authorization. The initial OAuth2 exchange is done over SSL via the auth URL (<code>https://auth.sellmate.com</code>), subsequent REST API calls are done over plain http (<code>http://api.sellmate.com</code>) using generated Mac tokens to protect against abuse.</p>
+              <p>Before you can start using the REST API, you will need to finish couple registration steps:
+                  <ul>
+                      <li>Signup for a Developer Account on the <a href="https://secure.sellmate.com/developer/signup">Developer Signup</a> page and log in.</li>
+                      <li>Create an <strong>Application</strong>, which will provide you with <code>Client ID</code> and <code>Client Secret</code> that uniquely identify your application, and give you the general ability to make the REST API calls.</li>
+                      <li><strong>Install</strong> the Application for a specific Shop. This will enable you client/application to access data in a specific shop. If you are just getting started with your app, just use the Install button on top of your Application edit page in the Developer Center, and install the app for the Sandbox (sample store that comes with every Developer account).</li>
+                  </ul>
+              </p>
               <p>
               <pre class="prettyprint lang-js">
 {
