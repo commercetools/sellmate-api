@@ -11,25 +11,7 @@
     <link href="assets/css/bootstrap.css" rel="stylesheet">
     <link href="assets/css/prettify.css" rel="stylesheet" />
     <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
-    <style type="text/css">
-      body {
-        padding-top: 60px;
-        padding-bottom: 40px;
-      }
-      .sidebar-nav .well {
-        padding: 9px 0;
-      }
-      .scrollto { cursor: pointer; }
-
-      @media (min-width: 768px) {
-        .sidebar-nav .well {
-          padding: 9px 0;
-          position: fixed;
-          width: 23.076923077%;
-        }
-        .sidebar-nav .well:last-child { top: 185px; }
-      }
-    </style>
+    <link href="assets/css/style.css" rel="stylesheet">
     
     <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
 
@@ -41,7 +23,7 @@
           var target = $(this).attr('data-target');
           $.scrollTo($(target), {
             duration: 1000,
-            offset: -50
+            offset: -52
           });
           e.stopPropagation();
         });
@@ -71,7 +53,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#">SellMate Developer Portal</a>
+          <a class="brand context" href="#">SellMate Developer Portal</a>
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="#">API Documentation</a></li>
@@ -101,7 +83,7 @@
               <li><a class="scrollto" data-target="#Authentication">Authentication &amp; Authorization</a></li>
               <li><a class="scrollto" data-target="#AppApproval">Application Approval Process</a></li>
               <li class="nav-header">Resource Endpoints</li>
-              <li><a class="scrollto" data-target="#Shop">Shop</a></li>
+              <li><a class="scrollto" href="#Shop" data-target="#Shop">Shop</a></li>
               <li><a class="scrollto" data-target="#User">User</a></li>
               <li><a class="scrollto" data-target="#Products">Products</a></li>
               <li><a class="scrollto" data-target="#Collections">Collections</a></li>
@@ -110,7 +92,7 @@
           </div><!--/.well -->
         </div><!--/span-->
         <div class="span9">
-              <div class="alert alert-error"><strong>Warning:</strong> This documentation describes the API of a Beta version of sellmate.com, the API may change in an incompatible way before the final release of SellMate.</div>
+              <div class="alert alert-warning"><strong>Warning:</strong> This documentation describes the API of a Beta version of sellmate.com, the API may change in an incompatible way before the final release of SellMate.</div>
             
               <div class="page-header">
                 <h1>General <small>General concepts & getting started</small></h1>

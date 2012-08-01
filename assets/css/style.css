@@ -1,0 +1,82 @@
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+.sidebar-nav .well {
+  padding: 9px 0;
+}
+.scrollto { cursor: pointer; }
+
+.navbar-inner {
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: #1996d3;
+  background-image: -moz-linear-gradient(top, #1996d3, #1996d3);
+  background-image: -ms-linear-gradient(top, #1996d3, #1996d3);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#1996d3), to(#1996d3));
+  background-image: -webkit-linear-gradient(top, #1996d3, #1996d3);
+  background-image: -o-linear-gradient(top, #1996d3, #1996d3);
+  background-image: linear-gradient(top, #1996d3, #1996d3);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#1996d3', endColorstr='#1996d3', GradientType=0);
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  border-bottom:1px solid #fff;
+}
+.navbar .nav > li > a.active { border-top: 3px solid #fff; padding-top: 6px; }
+.navbar .nav > .active > a, .navbar .nav > li > a:hover { border-top: 3px solid #fff; padding-top: 6px; background-color:transparent !important; }
+.navbar .nav > li > a { line-height: 24px; color:#fff; font-size: 16px; color: rgba(255, 255, 255, .7); }
+.brand.context, .navbar .nav > li > .context { line-height: 24px; color: white; font-size: 24px; font-style: italic; text-decoration: none; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25); }
+.brand.context:hover, .navbar .nav > li > a.context:hover { border-top: none !important; }
+.dropdown .caret { margin-top: 10px; }
+.navbar .nav.pull-right .dropdown-menu li > a:hover,
+.navbar .nav.pull-right .dropdown-menu .active > a,
+.navbar .nav.pull-right .dropdown-menu .active > a:hover { 
+  color: #ffffff; 
+  text-decoration: none;
+  background-color: #1996d3;
+    background-image: -moz-linear-gradient(top, #1996d3, #1996d3);
+    background-image: -ms-linear-gradient(top, #1996d3, #1996d3);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#1996d3), to(#1996d3));
+    background-image: -webkit-linear-gradient(top, #1996d3, #1996d3);
+    background-image: -o-linear-gradient(top, #1996d3, #1996d3);
+    background-image: linear-gradient(top, #1996d3, #1996d3);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#1996d3', endColorstr='#1996d3', GradientType=0); 
+}
+.dropdown-menu > li > a { color: #333; }
+.navbar .divider-vertical { height: 45px; background-color: #188CC4; border-right: 1px solid #2EA4DE; }
+.navbar .btn-navbar {
+  background-color: #188CC4;
+  background-image: -moz-linear-gradient(top, #188CC4, #188CC4);
+  background-image: -ms-linear-gradient(top, #188CC4, #188CC4);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#188CC4), to(#188CC4));
+  background-image: -webkit-linear-gradient(top, #188CC4, #188CC4);
+  background-image: -o-linear-gradient(top, #188CC4, #188CC4);
+  background-image: linear-gradient(top, #188CC4, #188CC4);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#188CC4', endColorstr='#188CC4', GradientType=0);
+  border-color: #188CC4 #188CC4 #000000;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  filter: progid:dximagetransform.microsoft.gradient(enabled=false);
+  -webkit-box-shadow: inset 0 0px 1px rgba(0, 0, 0, 0.2), 0 10px 10px rgba(255, 255, 255, 0.075);
+  -moz-box-shadow: inset 0 0px 1px rgba(0, 0, 0, 0.2), 0 10px 10px rgba(255, 255, 255, 0.075);
+  box-shadow: inset 0 0px 1px rgba(0, 0, 0, 0.2), 0 10px 10px rgba(255, 255, 255, 0.075);
+}
+.navbar .btn-navbar:hover,
+.navbar .btn-navbar:active,
+.navbar .btn-navbar.active,
+.navbar .btn-navbar.disabled,
+.navbar .btn-navbar[disabled] {
+  background-color: #188CC4;
+}
+
+@media (min-width: 768px) {
+  .sidebar-nav .well {
+    padding: 9px 0;
+    position: fixed;
+    width: 23.076923077%;
+  }
+  .sidebar-nav .well:last-child { top: 185px; }
+}
