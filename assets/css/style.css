@@ -7,6 +7,9 @@ body {
 }
 .scrollto { cursor: pointer; }
 
+tr td:nth-child(3) { width:1%; }
+tr td:last-child { width:35%; }
+
 .navbar-inner {
   padding-left: 20px;
   padding-right: 20px;
