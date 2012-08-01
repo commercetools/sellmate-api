@@ -75,6 +75,13 @@ tr td:last-child { width:35%; }
   background-color: #188CC4;
 }
 
+@media (max-width: 979px) {
+  body { padding:0; }
+}
+@media (max-width: 930px) {
+  body { padding:0; }
+  .navbar-fixed-top { position: static; margin-bottom: 18px; }
+}
 @media (min-width: 768px) {
   .sidebar-nav .well {
     padding: 9px 0;
@@ -82,4 +89,7 @@ tr td:last-child { width:35%; }
     width: 23.076923077%;
   }
   .sidebar-nav .well:last-child { top: 185px; }
+}
+@media (max-width: 767px) {
+  body { padding:0 20px; }
 }
