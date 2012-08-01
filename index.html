@@ -256,7 +256,7 @@
                     <tr><td>id</td><td>Number</td><td>o</td><td><code>1</code></td><td>Resource ID. Must be given when updating the Product.</td></tr>
                     <tr><td>created_at</td><td>String</td><td>---</td><td><code>Sat, 28 Apr 2012 19:24:05 UTC</code></td><td>Resource create date</td></tr>
                     <tr><td>updated_at</td><td>String</td><td>---</td><td><code>Mon, 14 May 2012 10:49:52 UTC</code></td><td>Resource last update date or <code>null</code> if it has not been updated yet</td></tr>
-                    <tr><td>published_at</td><td>String</td><td>---</td><td><code>Mon, 14 May 2012 10:49:52 UTC</code></td><td>Product last publish date (cannot be overwritten)</td></tr>
+                    <tr><td>published_at</td><td>String</td><td>---</td><td><code>Mon, 14 May 2012 10:49:52 UTC</code></td><td>Product last publish date (<code>GET</code> only)</td></tr>
                     <tr><td>published</td><td>Boolean</td><td>x</td><td><code>true</code></td><td>true if the product is published, false otherwise or <code>null</code> if not specified</td></tr>
                     <tr><td>title</td><td>String</td><td>x</td><td><code>Adidas T-Shirt</code></td><td>Product title or <code>null</code> if not specified</td></tr>
                     <tr><td>description</td><td>String</td><td>---</td><td><code>A Cool Adidas T-Shirt</code></td><td>Product description (HTML) or <code>null</code> if not specified</td></tr>
@@ -264,10 +264,10 @@
                     <tr><td>handle</td><td>String</td><td>o</td><td><code>adidas-1</code></td><td>Product unique handle (appears in URL) or <code>null</code> if not specified. It's automatically generated from the Product.title when a new Product is created.</td></tr>
                     <tr><td>collection_ids</td><td>Array of Numbers</td><td>---</td><td><code>[1, 2]</code></td><td>A list of collections (their IDs) that contain the product or <code>null</code> if not specified</td></tr>
                     <tr><td>tags</td><td>Array of Strings</td><td>---</td><td><code>["t-shirts", "blue-shirts"]</code></td><td>A list of tag names or <code>null</code> if not specified</td></tr>
-                    <tr><td>stock</td><td>Number</td><td>---</td><td><code>10</code></td><td>The number of items in stock (cannot be overwritten)</td></tr>
-                    <tr><td>url</td><td>String</td><td>---</td><td><code>en</code></td><td>The public product URL (if published) or <code>null</code> (cannot be overwritten)</td></tr>
+                    <tr><td>stock</td><td>Number</td><td>---</td><td><code>10</code></td><td>The number of items in stock (<code>GET</code> only)</td></tr>
+                    <tr><td>url</td><td>String</td><td>---</td><td><code>en</code></td><td>The public product URL (if published) or <code>null</code> (<code>GET</code> only)</td></tr>
                     <tr><td>image_ids</td><td>Array of Strings</td><td>---</td><td><code>TBD</code></td><td>TBD</td></tr>
-                    <tr><td>featured_image</td><td>String</td><td>---</td><td><code>TBD</code></td><td>The main image or <code>null</code> if none (cannot be overwritten)</td></tr>
+                    <tr><td>featured_image</td><td>String</td><td>---</td><td><code>TBD</code></td><td>The main image or <code>null</code> if none (<code>GET</code> only)</td></tr>
                     <tr><td>options</td><td>Array of Objects</td><td>o</td><td><code>TBD</code></td><td>The product options or <code>null</code> if not specified. An empty array will delete the old values.</td></tr>
                     <tr><td>variants</td><td>Array of Objects</td><td>x</td><td><code>TBD</code></td><td>The product variants or <code>null</code> if not specified. There has to be at least one variant. An empty array will delete the old values.</td></tr>
                     <tr><td>googleProductCategory</td><td>String</td><td>x</td><td><code>Apparel &amp; Accessories &gt; Clothing</code></td><td>Google Product category or <code>null</code> if not specified</td></tr>
@@ -353,15 +353,15 @@ DELETE /&lt;shop-handle&gt;/rest/products/{id}     to delete an existing product
                 <table class="table table-striped table-bordered table-condensed">
                   <thead><tr><th>Attribute</th><th>Type</th><th>Required</th><th>Example value</th><th>Description</th></tr></thead>
                   <tbody>
-                    <tr><td>id</td><td>Number</td><td>---</td><td><code>1</code></td><td>Resource id</td></tr>
-                    <tr><td>created_at</td><td>String</td><td>---</td><td><code>Sat, 28 Apr 2012 19:24:05 UTC</code></td><td>Resource create date</td></tr>
+                    <tr><td>id</td><td>Number</td><td>o</td><td><code>1</code></td><td>Resource ID. Must be given when updating the Collection.</td></tr>
+                    <tr><td>created_at</td><td>String</td><td>---</td><td><code>Sat, 28 Apr 2012 19:24:05 UTC</code></td><td>Resource create date or <code>null</code> if not specified</td></tr>
                     <tr><td>updated_at</td><td>String</td><td>---</td><td><code>Mon, 14 May 2012 10:49:52 UTC</code></td><td>Resource last update date or <code>null</code> if it has not been updated yet</td></tr>
                     <tr><td>title</td><td>String</td><td>x</td><td><code>Adidas T-Shirts</code></td><td>Collection title</td></tr>
-                    <tr><td>handle</td><td>String</td><td>x</td><td><code>adidas-1</code></td><td>Collection unique handle (appears in URL)</td></tr>
-                    <tr><td>description</td><td>String</td><td>x</td><td><code>The Best selection of Adidas T-Shirts</code></td><td>Collection description (HTML)</td></tr>
-                    <tr><td>tags</td><td>Array of Strings</td><td></td><td><code>["t-shirts", "adidas"]</code></td><td>A list of tag names</td></tr>
-                    <tr><td>image_ids</td><td>Array of Strings</td><td></td><td><code>TBD</code></td><td>TBD</td></tr>
-                    <tr><td>featured_image</td><td>String</td><td></td><td><code>TBD</code></td><td>The main image or <code>null</code> if none</td></tr>
+                    <tr><td>handle</td><td>String</td><td>o</td><td><code>adidas-1</code></td><td>Collection unique handle (appears in URL) or <code>null</code> if not specified. It's automatically generated from the Collection.title when a new Collection is created.</td></tr>
+                    <tr><td>description</td><td>String</td><td>---</td><td><code>The Best selection of Adidas T-Shirts</code></td><td>Collection description (HTML) or <code>null</code> if not specified</td></tr>
+                    <tr><td>tags</td><td>Array of Strings</td><td>---</td><td><code>["t-shirts", "adidas"]</code></td><td>A list of tag names or <code>null</code> if not specified</td></tr>
+                    <tr><td>image_ids</td><td>Array of Numbers</td><td>---</td><td><code>TBD</code></td><td>TBD</td></tr>
+                    <tr><td>featured_image</td><td>String</td><td>---</td><td><code>TBD</code></td><td>The main image or <code>null</code> if none (<code>GET</code> only)</td></tr>
                     <tr><td>num_of_products</td><td>Number</td><td>---</td><td><code>1</code></td><td>Number of products in the collection (<code>GET</code> only)</td></tr>
                   </tbody>
                 </table>
