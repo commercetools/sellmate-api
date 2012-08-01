@@ -243,31 +243,31 @@
               <p>Supported methods: <code>GET</code>, <code>POST</code>, <code>PUT</code>, <code>DELETE</code></p>
               <p>Product Resource properties:
                 <table class="table table-striped table-bordered table-condensed">
-                  <thead><tr><th>Attribute</th><th>Type</th><th>Example value</th><th>Description</th></tr></thead>
+                  <thead><tr><th>Attribute</th><th>Type</th><th>Required</th><th>Example value</th><th>Description</th></tr></thead>
                   <tbody>
-                    <tr><td>id</td><td>Number</td><td><code>1</code></td><td>Resource id</td></tr>
-                    <tr><td>created_at</td><td>String</td><td><code>Sat, 28 Apr 2012 19:24:05 UTC</code></td><td>Resource create date</td></tr>
-                    <tr><td>updated_at</td><td>String</td><td><code>Mon, 14 May 2012 10:49:52 UTC</code></td><td>Resource last update date or <code>null</code> if it has not been updated yet</td></tr>
-                    <tr><td>published_at</td><td>String</td><td><code>Mon, 14 May 2012 10:49:52 UTC</code></td><td>Product last publish date or <code>null</code> if it has not been published yet</td></tr>
-                    <tr><td>published</td><td>Boolean</td><td><code>true</code></td><td>true if the product is published, false otherwise</td></tr>
-                    <tr><td>title</td><td>String</td><td><code>Adidas T-Shirt</code></td><td>Product title</td></tr>
-                    <tr><td>description</td><td>String</td><td><code>A Cool Adidas T-Shirt</code></td><td>Product description (HTML)</td></tr>
-                    <tr><td>vendor</td><td>String</td><td><code>Adidas</code></td><td>Product vendor</td></tr>
-                    <tr><td>handle</td><td>String</td><td><code>adidas-1</code></td><td>Product unique handle (appears in URL)</td></tr>
-                    <tr><td>collection_ids</td><td>Array of Strings</td><td><code>["apparel", "on-sale"]</code></td><td>A list of collections (their handles) that contain the product</td></tr>
-                    <tr><td>tags</td><td>Array of Strings</td><td><code>["t-shirts", "blue-shirts"]</code></td><td>A list of tag names</td></tr>
-                    <tr><td>stock</td><td>Number</td><td><code>10</code></td><td>The number of items in stock</td></tr>
-                    <tr><td>url</td><td>String</td><td><code>en</code></td><td>The public product URL (if published) or <code>null</code></td></tr>
-                    <tr><td>image_ids</td><td>Array of Strings</td><td><code>TBD</code></td><td>TBD</td></tr>
-                    <tr><td>featured_image</td><td>String</td><td><code>TBD</code></td><td>The main image</td></tr>
-                    <tr><td>options</td><td>Array of Objects</td><td><code>TBD</code></td><td>The product options or empty array</td></tr>
-                    <tr><td>variants</td><td>Array of Objects</td><td><code>TBD</code></td><td>The product variants or empty array</td></tr>
-                    <tr><td>googleProductCategory</td><td>String</td><td><code>Apparel &amp; Accessories &gt; Clothing &gt; Tops &gt; T-Shirts</code></td><td>Google Product category or <code>null</code> if not specified</td></tr>
-                    <tr><td>gender</td><td>String</td><td><code>Unisex</code></td><td>Target gender or <code>null</code> if not specified</td></tr>
-                    <tr><td>age_group</td><td>String</td><td><code>Adult</code></td><td>Target age group or <code>null</code> if not specified</td></tr>
-                    <tr><td>mpn</td><td>String</td><td><code>my-product-id-1</code></td><td>Product MPN or <code>null</code> if not specified</td></tr>
-                    <tr><td>gtin</td><td>String</td><td><code>1234567890</code></td><td>Product GTIN or <code>null</code> if not specified</td></tr>
-                    <tr><td>condition</td><td>String</td><td><code>New</code></td><td>Condition (Used, New) or <code>null</code> if not specified</td></tr>
+                    <tr><td>id</td><td>Number</td><td>x</td><td><code>1</code></td><td>Resource id</td></tr>
+                    <tr><td>created_at</td><td>String</td><td>x</td><td><code>Sat, 28 Apr 2012 19:24:05 UTC</code></td><td>Resource create date</td></tr>
+                    <tr><td>updated_at</td><td>String</td><td>x</td><td><code>Mon, 14 May 2012 10:49:52 UTC</code></td><td>Resource last update date or <code>null</code> if it has not been updated yet</td></tr>
+                    <tr><td>published_at</td><td>String</td><td>x</td><td><code>Mon, 14 May 2012 10:49:52 UTC</code></td><td>Product last publish date or <code>null</code> if it has not been published yet</td></tr>
+                    <tr><td>published</td><td>Boolean</td><td>x</td><td><code>true</code></td><td>true if the product is published, false otherwise</td></tr>
+                    <tr><td>title</td><td>String</td><td>x</td><td><code>Adidas T-Shirt</code></td><td>Product title</td></tr>
+                    <tr><td>description</td><td>String</td><td>x</td><td><code>A Cool Adidas T-Shirt</code></td><td>Product description (HTML)</td></tr>
+                    <tr><td>vendor</td><td>String</td><td>x</td><td><code>Adidas</code></td><td>Product vendor</td></tr>
+                    <tr><td>handle</td><td>String</td><td>x</td><td><code>adidas-1</code></td><td>Product unique handle (appears in URL)</td></tr>
+                    <tr><td>collection_ids</td><td>Array of Strings</td><td>x</td><td><code>["apparel", "on-sale"]</code></td><td>A list of collections (their handles) that contain the product</td></tr>
+                    <tr><td>tags</td><td>Array of Strings</td><td>x</td><td><code>["t-shirts", "blue-shirts"]</code></td><td>A list of tag names</td></tr>
+                    <tr><td>stock</td><td>Number</td><td>x</td><td><code>10</code></td><td>The number of items in stock</td></tr>
+                    <tr><td>url</td><td>String</td><td>x</td><td><code>en</code></td><td>The public product URL (if published) or <code>null</code></td></tr>
+                    <tr><td>image_ids</td><td>Array of Strings</td><td>x</td><td><code>TBD</code></td><td>TBD</td></tr>
+                    <tr><td>featured_image</td><td>String</td><td>x</td><td><code>TBD</code></td><td>The main image</td></tr>
+                    <tr><td>options</td><td>Array of Objects</td><td>x</td><td><code>TBD</code></td><td>The product options or empty array</td></tr>
+                    <tr><td>variants</td><td>Array of Objects</td><td>x</td><td><code>TBD</code></td><td>The product variants or empty array</td></tr>
+                    <tr><td>googleProductCategory</td><td>String</td><td></td><td><code>Apparel &amp; Accessories &gt; Clothing</code></td><td>Google Product category or <code>null</code> if not specified</td></tr>
+                    <tr><td>gender</td><td>String</td><td></td><td><code>Unisex</code></td><td>Target gender or <code>null</code> if not specified</td></tr>
+                    <tr><td>age_group</td><td>String</td><td></td><td><code>Adult</code></td><td>Target age group or <code>null</code> if not specified</td></tr>
+                    <tr><td>mpn</td><td>String</td><td></td><td><code>my-product-id-1</code></td><td>Product MPN or <code>null</code> if not specified</td></tr>
+                    <tr><td>gtin</td><td>String</td><td></td><td><code>1234567890</code></td><td>Product GTIN or <code>null</code> if not specified</td></tr>
+                    <tr><td>condition</td><td>String</td><td></td><td><code>New</code></td><td>Condition (Used, New) or <code>null</code> if not specified</td></tr>
                   </tbody>
                 </table>
               </p>
