@@ -141,7 +141,6 @@
                     <tr><td>locked</td><td>boolean</td><td><code>false</code></td><td>If true, the shop is locked and not accessible</td></tr>
                     <tr><td>showAddress</td><td>boolean</td><td><code>false</code></td><td>Show Address preference of the shop</td></tr>
                     <tr><td>customDomain</td><td>String</td><td><code>shop.example.com</code></td><td>Custom domain setting for the shop, empty string if not set</td></tr>
-                    <tr><td>installedApps</td><td>Array of Strings</td><td><code>["1001", "10001"]</code></td><td>List of apps installed for the shop</td></tr>
                     <tr><td>address</td><td>Object</td><td></td><td>Address of the shop</td></tr>
                     <tr><td>&rsaquo;&rsaquo; first_name</td><td>String</td><td><code>John</code></td><td>First name of the shop owner</td></tr>
                     <tr><td>&rsaquo;&rsaquo; last_name</td><td>String</td><td><code>Doe</code></td><td>Last name of the shop owner</td></tr>
@@ -151,11 +150,10 @@
                     <tr><td>&rsaquo;&rsaquo; city</td><td>String</td><td><code>New York</code></td><td>City</td></tr>
                     <tr><td>&rsaquo;&rsaquo; zip</td><td>String</td><td><code>10000</code></td><td>ZIP code</td></tr>
                     <tr><td>&rsaquo;&rsaquo; province</td><td>String</td><td><code>NY</code></td><td>Province/State</td></tr>
-                    <tr><td>&rsaquo;&rsaquo; province_code</td><td>String</td><td><code>NY</code></td><td>Province/State code</td></tr>
                     <tr><td>&rsaquo;&rsaquo; country</td><td>String</td><td><code>USA</code></td><td>Country</td></tr>
-                    <tr><td>&rsaquo;&rsaquo; country_code</td><td>String</td><td><code>us</code></td><td>ISO Country code</td></tr>
+                    <tr><td>&rsaquo;&rsaquo; country_code</td><td>String</td><td><code>us</code></td><td>2-letter <a href="http://en.wikipedia.org/wiki/ISO_3166-1">ISO 3166-1</a> country code</td></tr>
                     <tr><td>&rsaquo;&rsaquo; phone</td><td>String</td><td><code>615-123-4567</code></td><td>Phone number</td></tr>
-                    <tr><td>logo</td><td>String</td><td><code>asdasud2342f</code></td><td>Shop logo</td></tr>
+                    <tr><td>logo</td><td>Object</td><td><code>TBD</code></td><td>Shop logo or null if not present</td></tr>
                     <tr><td>html_snippet</td><td>String</td><td><code>My &lt;b&gt;great&lt;b&gt; store!</code></td><td>The HTML snippet of the rich text shop description</td></tr>
                   </tbody>
                 </table>
@@ -173,11 +171,7 @@
     "isSandbox": false,
     "locked": false,
     "showAddress": false,
-    "cnameDomain": "shop.example.com",
-    "installedApps": [
-        1001,
-        10001
-    ],
+    "customDomain": "shop.example.com",
     "address": {
         "first_name": "John",
         "last_name": "Doe",
@@ -187,7 +181,6 @@
         "city": "New York",
         "zip": "10000",
         "province": "NY",
-        "province_code": "NY",
         "country": "USA",
         "country_code": "us",
         "phone": "615-123-4567"
