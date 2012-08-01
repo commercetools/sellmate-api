@@ -10,7 +10,7 @@
     <!-- styles -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
     <link href="assets/css/prettify.css" rel="stylesheet" />
-	<script type="text/javascript" src="assets/js/prettify/prettify.js"></script>
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
     <style type="text/css">
       body {
         padding-top: 60px;
@@ -19,6 +19,7 @@
       .sidebar-nav .well {
         padding: 9px 0;
       }
+      .scrollto { cursor: pointer; }
 
       @media (min-width: 768px) {
         .sidebar-nav .well {
@@ -29,7 +30,23 @@
         .sidebar-nav .well:last-child { top: 185px; }
       }
     </style>
-    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+    
+    <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+        prettyPrint();
+
+        $('.scrollto').click(function(e){
+          var target = $(this).attr('data-target');
+          $.scrollTo($(target), {
+            duration: 1000,
+            offset: -50
+          });
+          e.stopPropagation();
+        });
+      });
+    </script>
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -44,7 +61,7 @@
     <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
   </head>
 
-  <body onload="prettyPrint()">
+  <body>
 
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
@@ -71,24 +88,24 @@
           <div class="well">
             <ul class="nav nav-list">
               <li class="nav-header">Auth URL</li>
-              <a href="https://auth.sellmate.com">https://auth.sellmate.com</a>
+              <code>https://auth.sellmate.com</code>
               <li class="nav-header">Base Api URL</li>
-              <a href="http://api.sellmate.com">http://api.sellmate.com</a>
+              <code>http://api.sellmate.com</code>
             </ul>
           </div><!--/.well -->
           <div class="well">
             <ul class="nav nav-list">
               <li class="nav-header">General</li>
-              <li><a href="#Overview">Overview</a></li>
-              <li><a href="#ErrorHandling">Error Handling</a></li>
-              <li><a href="#Authentication">Authentication &amp; Authorization</a></li>
-              <li><a href="#AppApproval">Application Approval Process</a></li>
+              <li><a class="scrollto" data-target="#Overview">Overview</a></li>
+              <li><a class="scrollto" data-target="#ErrorHandling">Error Handling</a></li>
+              <li><a class="scrollto" data-target="#Authentication">Authentication &amp; Authorization</a></li>
+              <li><a class="scrollto" data-target="#AppApproval">Application Approval Process</a></li>
               <li class="nav-header">Resource Endpoints</li>
-              <li><a href="#Shops">Shops</a></li>
-              <li><a href="#Users">Users</a></li>
-              <li><a href="#Products">Products</a></li>
-              <li><a href="#Collections">Collections</a></li>
-              <li><a href="#Orders">Orders</a></li>
+              <li><a class="scrollto" data-target="#Shop">Shop</a></li>
+              <li><a class="scrollto" data-target="#User">User</a></li>
+              <li><a class="scrollto" data-target="#Products">Products</a></li>
+              <li><a class="scrollto" data-target="#Collections">Collections</a></li>
+              <li><a class="scrollto" data-target="#Orders">Orders</a></li>
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
@@ -133,7 +150,7 @@
                 <h1>Resource endpoints <small>The operations and data available via the REST API</small></h1>
               </div>
 
-              <h2 id="Shops">Shops</h2>
+              <h2 id="Shop">Shop</h2>
               <p>Summary: Read access to the metadata and settings of the shop the application accesses</p>
               <p>Supported methods: <code>GET</code></p>
               <p>Shop Resource properties:
@@ -204,7 +221,7 @@
 }</pre>
               </p>
               
-              <h2 id="Users">Users</h2>
+              <h2 id="User">User</h2>
               <p>Summary: Read access to the metadata about the user using the app (the authenticated user using the application)</p>
               <p>Supported methods: <code>GET</code></p>
               <p>User Resource properties:
@@ -413,5 +430,10 @@ DELETE /&lt;shop-handle&gt;/rest/collections/{id}     to delete an existing coll
         <p>&copy; 2012 commercetools GmbH. All rights reserved.</p>
       </footer>
     </div><!--/.fluid-container-->
+
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type='text/javascript' src='assets/js/bootstrap.min.js'></script>
+    <script type="text/javascript" src="assets/js/prettify/prettify.js"></script>
+    <script type="text/javascript" src="assets/js/jquery.scrollTo-min.js"></script>
   </body>
 </html>
