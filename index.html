@@ -105,7 +105,7 @@
 }</pre>
 </p>
               <h2 id="Authentication">Authentication</h2>
-              <p>SellMate REST API uses OAuth2 flow to provide authentication and authorization. The initial OAuth2 exchange is done over SSL via the auth URL (<code>https://auth.sellmate.com</code>), subsequent REST API calls are done over plain http (<code>http://api.sellmate.com</code>) using generated Mac tokens to protect against abuse.</p>
+              <p>SellMate REST API uses OAuth2 flow to provide authentication and authorization. The initial OAuth2 exchange is done over SSL via the auth URL (<code>https://auth.sellmate.com</code>), subsequent REST API calls are done over plain http (<code>http://api.sellmate.com</code>) and need to contain an <pre>"Authorization": "Mac XXXXXXXXXXX"</pre> HTTP header. SellMate API uses combination of http protocol + one time calculated Mac tokens to protect against abuse.</p>
               <p>Before you can start using the REST API, you will need to finish couple registration steps:
                   <ul>
                       <li>Signup for a Developer Account on the <a href="https://secure.sellmate.com/developer/signup">Developer Signup</a> page and log in.</li>
