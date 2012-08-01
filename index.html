@@ -73,6 +73,7 @@
               <li><a href="#Overview">Overview</a></li>
               <li><a href="#ErrorHandling">Error Handling</a></li>
               <li><a href="#Authentication">Authentication</a></li>
+              <li><a href="#AppApproval">Application Approval Process</a></li>
               <li class="nav-header">Resource Endpoints</li>
               <li><a href="#Shops">Shops</a></li>
               <li><a href="#Users">Users</a></li>
@@ -109,11 +110,15 @@
                   <ul>
                       <li>Signup for a Developer Account on the <a href="https://secure.sellmate.com/developer/signup">Developer Signup</a> page and log in.</li>
                       <li>Create an <strong>Application</strong>, which will provide you with <code>Client ID</code> and <code>Client Secret</code> that uniquely identify your application, and give you the general ability to make the REST API calls.</li>
-                      <li><strong>Install</strong> the Application for a specific Shop. This will enable you client/application to access data in a specific shop. If you are just getting started with your app, just use the Install button on top of your Application edit page in the Developer Center, and install the app for the Sandbox (sample store that comes with every Developer account).</li>
+                      <li>(optionally) <strong>Install</strong> the Application for a specific Shop. This will enable you client/application to access data in a specific shop. If you are just getting started with your app, just use the Install button on top of your Application edit page in the Developer Center, and install the app for the Sandbox (sample store that comes with every Developer account). If you do not install the app, the OAuth2 authentication flow will contain the selection of the shop to allow the access to.</li>
                   </ul>
-                  <code>TBD</code>
               </p>
 
+              <h2 id="AppApproval">Application Approval Process</h2>
+              <p>For any application that requests to access SellMate data for regular merchant accounts (which will be the case for vast majority of applications), it needs to be approved by the SellMate team as a last step. If you create a new Application in the Developer Center, it only has an access to the Sandbox store and any stores owned by you (as the developer user). This will allow you to develop the application against the sandbox or real shop with a fully functioning REST API.</p>
+              <p>Once the application is finished, you can request the approval on the Application page in the Developer Center - this will notify the SellMate team, which will review the application and enable it to be installed for any shop. The approval process is in place to prevent abuse and/or malicious applications to be able to access the real stores.</p>
+              <p>A separate step will allow to request the Application to be listed in the SellMate App Store. Details for this will be published later.</p>
+              
               <div class="page-header">
                 <h1>Resource endpoints <small>The operations and data available via the REST API</small></h1>
               </div>
