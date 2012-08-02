@@ -79,6 +79,7 @@
             <ul class="nav nav-list">
               <li class="nav-header">General</li>
               <li><a class="scrollto" data-target="#Overview">Overview</a></li>
+              <li><a class="scrollto" data-target="#HTTPVerbs">HTTP Verbs</a></li>
               <li><a class="scrollto" data-target="#ErrorHandling">Error Handling</a></li>
               <li><a class="scrollto" data-target="#Authentication">Authentication &amp; Authorization</a></li>
               <li><a class="scrollto" data-target="#AppApproval">Application Approval Process</a></li>
@@ -103,6 +104,15 @@
               <p>We provide a convenient testing tool to work with both Auth and API endpoints to simplify the debugging of API usage:<br/>
               <a class="btn" href="http://www.sellmate.com/developer/tools/restconsole">REST Console</a></p>
 
+              <h2 id="HTTPVerbs">HTTP Verbs</h2>
+              <p>The general meaning of HTTP verbs for SellMate API is:
+                <ul class="unstyled">
+                  <li><code>GET</code> - Get a resource or a list of resources</li>
+                  <li><code>DELETE</code> - Delete existing resource</li>
+                  <li><code>POST</code> - Create a new resource</li>
+                  <li><code>PUT</code> - Change/update existing resource</li>
+                </ul>
+              </p>
               <h2 id="ErrorHandling">Error Handling</h2>
               <p>A REST call may result in an error. In that case a JSON string is sent with the response containing the HTTP status code and a status description.</p>
               <p>
