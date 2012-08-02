@@ -140,7 +140,98 @@
                       <li>(optionally) <strong>Install</strong> the Application for a specific Shop. This will enable you client/application to access data in a specific shop. If you are just getting started with your app, just use the Install button on top of your Application edit page in the Developer Center, and install the app for the Sandbox (sample store that comes with every Developer account). If you do not install the app, the OAuth2 authentication flow will contain the selection of the shop to allow the access to.</li>
                   </ul>
               </p>
-              <p><code>TBD - OAuth flow + using Mac tokens</code></p>
+              <p>Here are the steps needed for obtaining the necessary credentials to make the calls to the REST API:</p>
+              <table class="table table-condensed">
+                <tbody>
+                  <tr><td><span class="badge badge-info">1</span></td>
+                    <td>
+                      <p>Request an Authorization Grant Code by directing the user to the following URL (link in a browser app or embedded WebView for mobile devices):</p>
+                      <p><code>https://auth.sellmate.com/oauth2/auth?response_type=code&client_id=1234</code></p>
+                      <p>The user is asked to authenticate and select a store to access and the result is a call to the registered redirect URI like this:</p>
+                      <p><code>http://example.com/?code=QF1r5biAVz&state=xyz&shop=sample-shop</code> where the code parameter is the Authorization grant code and the shop parameter the handle of the selected shop.</p>
+                      <div class="alert alert-warning">Note: The Authorization Grant expires after 5min and is not valid anymore once you request an Access Token with it.</div>
+                    </td>
+                  </tr>
+                  <tr><td><span class="badge badge-info">2</span></td>
+                    <td>
+                      <p>Request an Access Token </p>
+                    </td>
+                  </tr>
+                  <tr><td><span class="badge badge-info">3</span></td><td><p>Make a REST Call</p></td></tr>
+                </tbody>
+              </table>
+              <p>Here is a sample Java code to calculate the Mac token from the credentials:
+              <pre class="prettyprint lang-java">
+import java.net.URL;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.util.Date;
+
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
+
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang.RandomStringUtils;
+
+public class SellMateClient {
+	private final static String MAC_ALGORITHM = "HmacSHA256";
+
+	public static void main (String[] args) {
+
+		String mac_key = ""; // {mac_key};
+		String access_token = ""; // {access_token};
+		String requestURL = ""; // {requestURL to rest resource};
+		String method = ""; // {GET,POST,PUT,DELETE};
+
+		// Get the timestamp in seconds
+		Long timestamp = Long.valueOf(new Date().getTime() / 1000);
+
+		// Set port
+		URL targetURL = new URL(requestURL);
+		int port = 80;
+		if (targetURL.getPort() != -1)
+			port = targetURL.getPort();
+
+		// Define a random nonce
+		String nonce = RandomStringUtils.randomAlphanumeric(12);
+
+		// Create the normalized string:
+		// timestamp\n
+		// nonce\n
+		// method\n
+		// target_url\n
+		// host\n
+		// port\n
+		// \n
+		StringBuffer normalized = new StringBuffer();
+		normalized.append(timestamp).append("\n").append(nonce).append('\n').append(method).append('\n')
+			.append(targetURL.getPath()).append('\n').append(targetURL.getHost()).append('\n').append(port)
+			.append("\n");
+
+		// Create the request mac
+		SecretKeySpec signingKey = new SecretKeySpec(mac_key.getBytes(), MAC_ALGORITHM);
+		String mac_string = "";
+		try {
+			Mac mac = Mac.getInstance(MAC_ALGORITHM);
+			mac.init(signingKey);
+			byte[] rawHmac = mac.doFinal(normalized.toString().getBytes());
+			mac_string = Base64.encodeBase64String(rawHmac);
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		} catch (InvalidKeyException e) {
+			e.printStackTrace();
+		}
+
+		// Build the MAC header string
+		// id
+		// ts
+		// nonce
+		// mac
+		String authHeader = " Mac id=\"" + access_token + "\"," + "ts=\"" + timestamp + "\"," + "nonce=\"" + nonce
+			+ "\"," + "mac=\"" + mac_string + "\"";
+	}
+}
+</pre>
 
               <h2 id="AppApproval">Application Approval Process</h2>
               <p>For any application that requests to access SellMate data for regular merchant accounts (which will be the case for vast majority of applications), it needs to be approved by the SellMate team as a last step. If you create a new Application in the Developer Center, it only has an access to the Sandbox store and any stores owned by you (as the developer user). This will allow you to develop the application against the sandbox or real shop with a fully functioning REST API.</p>
