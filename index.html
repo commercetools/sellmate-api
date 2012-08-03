@@ -44,7 +44,8 @@
 
         // Intercept all anchor clicks and append the query parameters to the new target
         $('a').click(function(e){
-          if (!$(this).hasClass('scrollto')) {
+          console.log($(this).attr('class'));
+          if (!$(this).hasClass('scrollto') && !$(this).hasClass('btn-navbar')) {
             e.preventDefault();
             var target = $(this).attr('href') + document.location.search;
             window.open(target, '_self');
