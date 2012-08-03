@@ -147,6 +147,16 @@
                     <td>
                       <p>Request an Authorization Grant Code by directing the user to the following URL (link in a browser app or embedded WebView for mobile devices):</p>
                       <p><code>https://auth.sellmate.com/oauth2/auth?response_type=code&client_id=1234</code></p>
+                      <table class="table table-striped table-bordered table-condensed">
+                        <thead><tr><th>Attribute</th><th class="width1">Required</th><th class="width30">Example value</th><th>Description</th></tr></thead>
+                        <tbody>
+                          <tr><td>response_type</td><td>x</td><td><code>code</code></td><td>Response type must be <code>code</code> or <code>token</code> for <i>Implicit Grant</i> (see below).</td></tr>
+                          <tr><td>client_id</td><td>x</td><td><code>1234</code></td><td>The Id of the Application.</td></tr>
+                          <tr><td>redirect_uri</td><td>o</td><td><code>http://my-app-site.com/callback</code></td><td>The redirect uri registered with your Application. If provided, it must match the one registered.</td></tr>
+                          <tr><td>shop</td><td>o</td><td><code>sample-shop</code></td><td>The id of the shop that you're trying to access. If not provided, a prompt will ask the user to select one of his shops during the OAuth process (if he has more then one).</td></tr>
+                          <tr><td>state</td><td>---</td><td><code>xyz</code></td><td>An opaque value used by the client to maintain state between the request and the callback. The authorization server includes this value when redirecting the user-agent back to the client.</td></tr>
+                        </tbody>
+                      </table>
                       <p>The user is asked to authenticate and select a store to access and the result is a call to the registered redirect URI like this:</p>
                       <p><code>http://example.com/?code=QF1r5biAVz&state=xyz&shop=sample-shop</code> where the code parameter is the Authorization grant code and the shop parameter the handle of the selected shop.</p>
                       <div class="alert alert-warning">Note: The Authorization Grant expires after 5min and is not valid anymore once you request an Access Token with it.</div>
@@ -247,7 +257,7 @@ public class SellMateClient {
               <p>Supported methods: <code>GET</code></p>
               <p>Shop Resource properties:</p>
               <table class="table table-striped table-bordered table-condensed">
-                <thead><tr><th>Attribute</th><th>Type</th><th>Example value</th><th>Description</th></tr></thead>
+                <thead><tr><th>Attribute</th><th>Type</th><th>Example value</th><th class="width35">Description</th></tr></thead>
                 <tbody>
                   <tr><td>handle</td><td>Number</td><td><code>sample-store</code></td><td>Resource id</td></tr>
                   <tr><td>created_at</td><td>String</td><td><code>Sat, 28 Apr 2012 19:24:06 UTC</code></td><td>Resource create date</td></tr>
@@ -324,7 +334,7 @@ public class SellMateClient {
               <p>Supported methods: <code>GET</code></p>
               <p>User Resource properties:</p>
               <table class="table table-striped table-bordered table-condensed">
-                <thead><tr><th>Attribute</th><th>Type</th><th>Example value</th><th>Description</th></tr></thead>
+                <thead><tr><th>Attribute</th><th>Type</th><th>Example value</th><th class="width35">Description</th></tr></thead>
                 <tbody>
                   <tr><td>id</td><td>Number</td><td><code>1</code></td><td>Resource id</td></tr>
                   <tr><td>created_at</td><td>String</td><td><code>Sat, 28 Apr 2012 19:24:05 UTC</code></td><td>Resource create date</td></tr>
@@ -365,7 +375,7 @@ public class SellMateClient {
               <p>Supported methods: <code>GET</code>, <code>POST</code>, <code>PUT</code>, <code>DELETE</code></p>
               <p>Product Resource properties:</p>
               <table class="table table-striped table-bordered table-condensed">
-                <thead><tr><th>Attribute</th><th>Type</th><th class="required">Required</th><th>Example value</th><th>Description</th></tr></thead>
+                <thead><tr><th>Attribute</th><th>Type</th><th class="width1">Required</th><th>Example value</th><th class="width35">Description</th></tr></thead>
                 <tbody>
                   <tr><td>id</td><td>Number</td><td>o</td><td><code>1</code></td><td>Resource Id. Must be given when updating the Product.</td></tr>
                   <tr><td>created_at</td><td>String</td><td>---</td><td><code>Sat, 28 Apr 2012 19:24:05 UTC</code></td><td>Resource create date</td></tr>
@@ -501,7 +511,7 @@ public class SellMateClient {
               <p>Supported methods: <code>GET</code>, <code>POST</code>, <code>PUT</code>, <code>DELETE</code></p>
               <p>Collection Resource properties:</p>
               <table class="table table-striped table-bordered table-condensed">
-                <thead><tr><th>Attribute</th><th>Type</th><th class="required">Required</th><th>Example value</th><th>Description</th></tr></thead>
+                <thead><tr><th>Attribute</th><th>Type</th><th class="width1">Required</th><th>Example value</th><th class="width35">Description</th></tr></thead>
                 <tbody>
                   <tr><td>id</td><td>Number</td><td>o</td><td><code>1</code></td><td>Resource ID. Must be given when updating the Collection.</td></tr>
                   <tr><td>created_at</td><td>String</td><td>---</td><td><code>Sat, 28 Apr 2012 19:24:05 UTC</code></td><td>Resource create date or <code>null</code> if not specified</td></tr>

@@ -7,8 +7,9 @@ body {
 }
 .scrollto { cursor: pointer; }
 
-tr th.required { width:1%; }
-tr th:last-child { width:35%; }
+tr th.width1 { width:1%; }
+tr th.width30 { width:30%; }
+tr th.width35 { width:35%; }
 
 .navbar-inner {
   padding-left: 20px;
