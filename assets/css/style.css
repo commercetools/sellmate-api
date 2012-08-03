@@ -1,6 +1,9 @@
-body {
-  padding-top: 60px;
-}
+@font-face { font-family: "Fontin Sans"; src: url('../fonts/Fontin_Sans/Fontin_Sans_R_45b.otf'); }
+@font-face { font-family: "Fontin Sans"; src: url('../fonts/Fontin_Sans/Fontin_Sans_B_45b.otf'); font-weight: bold; }
+@font-face { font-family: "Fontin Sans"; src: url('../fonts/Fontin_Sans/Fontin_Sans_I_45b.otf'); font-style:italic; }
+
+body { font-family:"Fontin Sans", "Helvetica New", Arial, sans-serif; background-color:#FFF; color: #4D4D4D; margin:0; padding:70px 0 0; }
+
 .sidebar-nav .well {
   padding: 9px 0;
 }
