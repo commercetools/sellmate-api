@@ -26,6 +26,7 @@
             offset: -55
           });
           e.stopPropagation();
+          e.preventDefault();
         });
 
         $('.footer').bind('inview', function(event, visible){
@@ -36,6 +37,29 @@
             // element has gone out of viewport
             $('.sidebar-nav .well').removeAttr('style');
           }
+        });
+
+        $('a').click(function(e){
+          if (!$(this).hasClass('scrollto')) {
+            e.preventDefault();
+            var target = $(this).attr('href') + document.location.search;
+            window.open(target, '_self');
+          }
+        });
+
+        var locale_param = document.location.search.split('locale=').length > 1 ? document.location.search.split('locale=')[1] : '';
+        $('select[name="lang_switcher"] option').each(function(){
+          if ($(this).val() == locale_param) {
+            $(this).attr('selected','selected');
+          }
+        });
+
+        $('select[name="lang_switcher"]').change(function() {
+          var locale = $(this).val();
+          var url = location.protocol + '//' + location.host + location.pathname;
+          url = url + "?locale=" + locale;
+             
+          window.location = url;
         });
       });
     </script>
