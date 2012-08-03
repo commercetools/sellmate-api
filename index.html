@@ -92,113 +92,131 @@
               <li><a class="scrollto" data-target="#Orders">Orders</a></li>
             </ul>
           </div><!--/.well -->
-        </div><!--/span-->
+        </div>
+        <!-- /span3 -->
+        <!-- span9 -->
         <div class="span9">
-              <div class="alert alert-warning"><strong>Warning:</strong> This documentation describes the API of a Beta version of sellmate.com, the API may change in an incompatible way before the final release of SellMate.</div>
-            
-              <div class="page-header">
-                <h1>General <small>General concepts & getting started</small></h1>
-              </div>
-              <h2 id="Overview">Overview</h2>
-              <p>The SellMate HTTP API follows the common REST API principles, supports JSON data format (<code>application/json</code> content-type) and all 4 HTTP verbs (GET/POST/PUT/DELETE) in a way consistent with the HTTP protocol and REST API best practices. Each resource (e.g. Products, Collections, Orders) has its own URL scheme and is manipulated in isolation.</p>
-              <p>The SellMate REST API is implemented in JSON format for all 4 verbs (<code>GET</code>/<code>POST</code>/<code>PUT</code>/<code>DELETE</code>). Each resource (e.g. Products, Collections, Orders) has its own URL scheme and is manipulated in isolation.</p>
-              <p>We provide a convenient testing tool to work with both Auth and API endpoints to simplify the debugging of API usage:<br/>
-              <a class="btn" href="http://www.sellmate.com/developer/tools/restconsole">REST Console</a></p>
-
-              <h2 id="HTTPVerbs">HTTP Verbs</h2>
-              <p>The general meaning of HTTP verbs for SellMate API is:
-                <ul class="unstyled">
-                  <li><code>GET</code> - Get a resource or a list of resources</li>
-                  <li><code>DELETE</code> - Delete existing resource</li>
-                  <li><code>POST</code> - Create a new resource</li>
-                  <li><code>PUT</code> - Change/update existing resource</li>
-                </ul>
-              </p>
-              <h2 id="ErrorHandling">Error Handling</h2>
-              <p>A REST call may result in an error. In that case a JSON string is sent with the response containing the HTTP status code and a status description.</p>
-              <p>
+          <div class="alert alert-warning"><strong>Warning:</strong> This documentation describes the API of a Beta version of sellmate.com, the API may change in an incompatible way before the final release of SellMate.</div>
+        
+          <div class="page-header">
+            <h1>General <small>General concepts & getting started</small></h1>
+          </div>
+          <!-- overview -->
+          <div id="Overview">
+            <h2>Overview</h2>
+            <p>The SellMate HTTP API follows the common REST API principles, supports JSON data format (<code>application/json</code> content-type) and all 4 HTTP verbs (GET/POST/PUT/DELETE) in a way consistent with the HTTP protocol and REST API best practices. Each resource (e.g. Products, Collections, Orders) has its own URL scheme and is manipulated in isolation.</p>
+            <p>The SellMate REST API is implemented in JSON format for all 4 verbs (<code>GET</code>/<code>POST</code>/<code>PUT</code>/<code>DELETE</code>). Each resource (e.g. Products, Collections, Orders) has its own URL scheme and is manipulated in isolation.</p>
+            <p>We provide a convenient testing tool to work with both Auth and API endpoints to simplify the debugging of API usage:<br/>
+            <a class="btn" href="http://www.sellmate.com/developer/tools/restconsole">REST Console</a></p>
+          </div>
+          <!-- /overview -->
+          <!-- http verbs -->
+          <div id="HTTPVerbs">
+            <h2>HTTP Verbs</h2>
+            <p>The general meaning of HTTP verbs for SellMate API is:
+              <ul class="unstyled">
+                <li><code>GET</code> - Get a resource or a list of resources</li>
+                <li><code>DELETE</code> - Delete existing resource</li>
+                <li><code>POST</code> - Create a new resource</li>
+                <li><code>PUT</code> - Change/update existing resource</li>
+              </ul>
+            </p>
+          </div>
+          <!-- /http verbs -->
+          <!-- error handling -->
+          <div id="ErrorHandling">
+            <h2>Error Handling</h2>
+            <p>A REST call may result in an error. In that case a JSON string is sent with the response containing the HTTP status code and a status description.</p>
+            <p>
               <pre class="prettyprint lang-js">
 {
     "statusCode": 400,
     "statusMessage": "The request could not be understood by the server due to malformed syntax."
-}</pre>
-</p>
-              <h2 id="Authentication">Authentication &amp; Authorization</h2>
-              <p>SellMate REST API uses OAuth2 flow to provide authentication and authorization. The initial OAuth2 exchange is done over SSL via the auth URL (<code>https://auth.sellmate.com</code>), subsequent REST API calls are done over plain http (<code>http://api.sellmate.com</code>) and need to contain an <pre>"Authorization": "Mac XXXXXXXXXXX"</pre> HTTP header. SellMate API uses combination of http protocol + one time calculated Mac tokens to protect against abuse.</p>
-              <p>Before you can start using the REST API, you will need to finish couple registration steps:
-                  <ul>
-                      <li>Signup for a Developer Account on the <a href="https://secure.sellmate.com/developer/signup">Developer Signup</a> page and log in.</li>
-                      <li>Create an <strong>Application</strong>, which will provide you with <code>Client ID</code> and <code>Client Secret</code> that uniquely identify your application, and give you the general ability to make the REST API calls.</li>
-                      <li>(optionally) <strong>Install</strong> the Application for a specific Shop. This will enable you client/application to access data in a specific shop. If you are just getting started with your app, just use the Install button on top of your Application edit page in the Developer Center, and install the app for the Sandbox (sample store that comes with every Developer account). If you do not install the app, the OAuth2 authentication flow will contain the selection of the shop to allow the access to.</li>
-                  </ul>
-              </p>
-              <p>Here are the steps needed for obtaining the necessary credentials to make the calls to the REST API:</p>
-              <table class="table table-condensed">
-                <tbody>
-                  <tr><td><span class="badge badge-info">1</span></td>
-                    <td>
-                      <p>Request an <strong>Authorization Grant code</strong> by directing the user to the following URL (link in a browser app or embedded WebView for mobile devices):</p>
-                      <p><code>https://auth.sellmate.com/oauth2/auth?response_type=code&client_id=1234</code></p>
-                      <table class="table table-striped table-bordered table-condensed">
-                        <thead><tr><th>Attribute</th><th class="width1">Required</th><th class="width30">Example value</th><th>Description</th></tr></thead>
-                        <tbody>
-                          <tr><td>response_type</td><td>x</td><td><code>code</code></td><td>Response type must be <code>code</code> or <code>token</code> for <i>Implicit Grant</i> (see below).</td></tr>
-                          <tr><td>client_id</td><td>x</td><td><code>1234</code></td><td>The Id of the Application.</td></tr>
-                          <tr><td>redirect_uri</td><td>o</td><td><code>http://example.com/callback</code></td><td>The redirect uri registered with your Application. If provided, it must match the one registered.</td></tr>
-                          <tr><td>shop</td><td>o</td><td><code>sample-shop</code></td><td>The id of the shop that you're trying to access. If not provided, a prompt will ask the user to select one of his shops during the OAuth process (if he has more then one).</td></tr>
-                          <tr><td>state</td><td>---</td><td><code>xyz</code></td><td>An opaque value used by the client to maintain state between the request and the callback. The authorization server includes this value when redirecting the user-agent back to the client.</td></tr>
-                        </tbody>
-                      </table>
-                      <p>The user is asked to authenticate and select a store to access and the result is a call to the registered redirect URI like this:</p>
-                      <p><code>http://example.com/callback?code=QF1r5biAVz&state=xyz&shop=sample-shop</code> where the code parameter is the Authorization grant code and the shop parameter the handle of the selected shop.</p>
-                      <div class="alert alert-info">Note: The Authorization Grant expires after <b>5min</b> and becomes invalid once used (requested an Access Token with it).</div>
-                    </td>
-                  </tr>
-                  <tr><td><span class="badge badge-info">2</span></td>
-                    <td>
-                      <p>Request an <strong>Access and Refresh tokens</strong> by issuing a POST request to the token endpoint</p>
-                      <p><code>https://auth.sellmate.com/oauth2/token</code></p>
-                      <p>Header must contain an Authorization, calculated from your Client Id and Client Secret, and Content-Type such as:
-                      <p>
-                        <pre>Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW
-                        <br>Content-Type: application/x-www-form-urlencoded</pre>
-                      </p>
-                      <p>Example Java code to calculate the authorization key value:
-                        <pre class="prettyprint lang-java">
-String auth_header = "Basic " + new String(Base64.encodeBase64((client_id+":"+client_secret).getBytes()));</pre>
-                      </p>
-                      <p>Body payload comes in 2 variants:
-                        <ol>
-                          <li><h4>When requesting a new access + refresh tokens:</h4><br> <code>grant_type=authorization_code&code={authorization-grant-code}&shop={shop-handle}&redirect_uri={redirect-uri}</code>
-                            <br>
-                            <br>
-                            <table class="table table-striped table-bordered table-condensed">
-                              <thead><tr><th>Attribute</th><th class="width1">Required</th><th class="width30">Example value</th><th>Description</th></tr></thead>
-                              <tbody>
-                                <tr><td>grant_type</td><td>x</td><td><code>authorization_code</code></td><td>It must be set to <code>authorization_code</code>.</td></tr>
-                                <tr><td>code</td><td>x</td><td><code>SplxlOBeZQQYbYS6WxSbIA</code></td><td>The The Authorization Grant Code received from the authorization server.</td></tr>
-                                <tr><td>shop</td><td>x</td><td><code>sample-shop</code></td><td>The id of the shop that you're trying to access.</td></tr>
-                                <tr><td>redirect_uri</td><td>x</td><td><code>http://example.com/callback</code></td><td>The redirect uri registered with your Application.</td></tr>
-                              </tbody>
-                            </table>
-                          </li>
-                          <li><h4>When requesting a new access token, using the refresh token:</h4><br> <code>grant_type=refresh_token&refresh_token={refresh-token}&shop={shop-handle}&redirect_uri={redirect-uri}</code>
-                            <br>
-                            <br>
-                            <table class="table table-striped table-bordered table-condensed">
-                              <thead><tr><th>Attribute</th><th class="width1">Required</th><th class="width30">Example value</th><th>Description</th></tr></thead>
-                              <tbody>
-                                <tr><td>grant_type</td><td>x</td><td><code>refresh_token</code></td><td>It must be set to <code>refresh_token</code>.</td></tr>
-                                <tr><td>refresh_token</td><td>x</td><td><code>P4xv2UOgfJTxQcTBeZyF05moNPt2VN</code></td><td>The The Refresh Token initially received with the first Token Request.</td></tr>
-                                <tr><td>shop</td><td>x</td><td><code>sample-shop</code></td><td>The id of the shop that you're trying to access.</td></tr>
-                                <tr><td>redirect_uri</td><td>x</td><td><code>http://example.com/callback</code></td><td>The redirect uri registered with your Application.</td></tr>
-                              </tbody>
-                            </table>
-                          </li>
-                        </ol>
-                      </p>
-                      <p>Response is a JSON which contains all the necessary data to calculate the Mac tokens to use in the next step to access the REST endpoints:
-                        <pre class="prettyprint lang-js">
+}
+              </pre>
+            </p>
+          </div>
+          <!-- /error handling -->
+          <!-- authentication -->
+          <div id="Authentication">
+            <h2>Authentication &amp; Authorization</h2>
+            <p>SellMate REST API uses OAuth2 flow to provide authentication and authorization. The initial OAuth2 exchange is done over SSL via the auth URL (<code>https://auth.sellmate.com</code>), subsequent REST API calls are done over plain http (<code>http://api.sellmate.com</code>) and need to contain an <pre>"Authorization": "Mac XXXXXXXXXXX"</pre> HTTP header. SellMate API uses combination of http protocol + one time calculated Mac tokens to protect against abuse.
+            </p>
+            <p>Before you can start using the REST API, you will need to finish couple registration steps:
+                <ul>
+                    <li>Signup for a Developer Account on the <a href="https://secure.sellmate.com/developer/signup">Developer Signup</a> page and log in.</li>
+                    <li>Create an <strong>Application</strong>, which will provide you with <code>Client ID</code> and <code>Client Secret</code> that uniquely identify your application, and give you the general ability to make the REST API calls.</li>
+                    <li>(optionally) <strong>Install</strong> the Application for a specific Shop. This will enable you client/application to access data in a specific shop. If you are just getting started with your app, just use the Install button on top of your Application edit page in the Developer Center, and install the app for the Sandbox (sample store that comes with every Developer account). If you do not install the app, the OAuth2 authentication flow will contain the selection of the shop to allow the access to.</li>
+                </ul>
+            </p>
+            <p>Here are the steps needed for obtaining the necessary credentials to make the calls to the REST API:</p>
+            <table class="table table-condensed">
+              <tbody>
+                <tr><td><span class="badge badge-info">1</span></td>
+                  <td>
+                    <p>Request an <strong>Authorization Grant code</strong> by directing the user to the following URL (link in a browser app or embedded WebView for mobile devices):</p>
+                    <p><code>https://auth.sellmate.com/oauth2/auth?response_type=code&client_id=1234</code></p>
+                    <table class="table table-striped table-bordered table-condensed">
+                      <thead><tr><th>Attribute</th><th class="width1">Required</th><th class="width30">Example value</th><th>Description</th></tr></thead>
+                      <tbody>
+                        <tr><td>response_type</td><td>x</td><td><code>code</code></td><td>Response type must be <code>code</code> or <code>token</code> for <i>Implicit Grant</i> (see below).</td></tr>
+                        <tr><td>client_id</td><td>x</td><td><code>1234</code></td><td>The Id of the Application.</td></tr>
+                        <tr><td>redirect_uri</td><td>o</td><td><code>http://example.com/callback</code></td><td>The redirect uri registered with your Application. If provided, it must match the one registered.</td></tr>
+                        <tr><td>shop</td><td>o</td><td><code>sample-shop</code></td><td>The id of the shop that you're trying to access. If not provided, a prompt will ask the user to select one of his shops during the OAuth process (if he has more then one).</td></tr>
+                        <tr><td>state</td><td>---</td><td><code>xyz</code></td><td>An opaque value used by the client to maintain state between the request and the callback. The authorization server includes this value when redirecting the user-agent back to the client.</td></tr>
+                      </tbody>
+                    </table>
+                    <p>The user is asked to authenticate and select a store to access and the result is a call to the registered redirect URI like this:</p>
+                    <p><code>http://example.com/callback?code=QF1r5biAVz&state=xyz&shop=sample-shop</code> where the code parameter is the Authorization grant code and the shop parameter the handle of the selected shop.</p>
+                    <div class="alert alert-info">Note: The Authorization Grant expires after <b>5min</b> and becomes invalid once used (requested an Access Token with it).</div>
+                  </td>
+                </tr>
+                <tr><td><span class="badge badge-info">2</span></td>
+                  <td>
+                    <p>Request an <strong>Access and Refresh tokens</strong> by issuing a POST request to the token endpoint</p>
+                    <p><code>https://auth.sellmate.com/oauth2/token</code></p>
+                    <p>Header must contain an Authorization, calculated from your Client Id and Client Secret, and Content-Type such as:
+                    <p>
+                      <pre>Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW
+                      <br>Content-Type: application/x-www-form-urlencoded</pre>
+                    </p>
+                    <p>Example Java code to calculate the authorization key value:
+                      <pre class="prettyprint lang-java">
+String auth_header = "Basic " + new String(Base64.encodeBase64((client_id+":"+client_secret).getBytes()));
+                      </pre>
+                    </p>
+                    <p>Body payload comes in 2 variants:
+                      <ol>
+                        <li><h4>When requesting a new access + refresh tokens:</h4><br> <code>grant_type=authorization_code&code={authorization-grant-code}&shop={shop-handle}&redirect_uri={redirect-uri}</code>
+                          <br>
+                          <br>
+                          <table class="table table-striped table-bordered table-condensed">
+                            <thead><tr><th>Attribute</th><th class="width1">Required</th><th class="width30">Example value</th><th>Description</th></tr></thead>
+                            <tbody>
+                              <tr><td>grant_type</td><td>x</td><td><code>authorization_code</code></td><td>It must be set to <code>authorization_code</code>.</td></tr>
+                              <tr><td>code</td><td>x</td><td><code>SplxlOBeZQQYbYS6WxSbIA</code></td><td>The The Authorization Grant Code received from the authorization server.</td></tr>
+                              <tr><td>shop</td><td>x</td><td><code>sample-shop</code></td><td>The id of the shop that you're trying to access.</td></tr>
+                              <tr><td>redirect_uri</td><td>x</td><td><code>http://example.com/callback</code></td><td>The redirect uri registered with your Application.</td></tr>
+                            </tbody>
+                          </table>
+                        </li>
+                        <li><h4>When requesting a new access token, using the refresh token:</h4><br> <code>grant_type=refresh_token&refresh_token={refresh-token}&shop={shop-handle}&redirect_uri={redirect-uri}</code>
+                          <br>
+                          <br>
+                          <table class="table table-striped table-bordered table-condensed">
+                            <thead><tr><th>Attribute</th><th class="width1">Required</th><th class="width30">Example value</th><th>Description</th></tr></thead>
+                            <tbody>
+                              <tr><td>grant_type</td><td>x</td><td><code>refresh_token</code></td><td>It must be set to <code>refresh_token</code>.</td></tr>
+                              <tr><td>refresh_token</td><td>x</td><td><code>P4xv2UOgfJTxQcTBeZyF05moNPt2VN</code></td><td>The The Refresh Token initially received with the first Token Request.</td></tr>
+                              <tr><td>shop</td><td>x</td><td><code>sample-shop</code></td><td>The id of the shop that you're trying to access.</td></tr>
+                              <tr><td>redirect_uri</td><td>x</td><td><code>http://example.com/callback</code></td><td>The redirect uri registered with your Application.</td></tr>
+                            </tbody>
+                          </table>
+                        </li>
+                      </ol>
+                    </p>
+                    <p>Response is a JSON which contains all the necessary data to calculate the Mac tokens to use in the next step to access the REST endpoints:
+                      <pre class="prettyprint lang-js">
 {
     "mac_algorithm": "hmac-sha-256",
     "mac_key": "B5y5Rah4H4GqPCThWY1p",
@@ -206,36 +224,44 @@ String auth_header = "Basic " + new String(Base64.encodeBase64((client_id+":"+cl
     "token_type": "mac",
     "refresh_token": "P4xv2UOgfJTxQcTBeZyF05moNPt2VN",
     "access_token": "H2kgGYmN6Hylj3F0XKvjUYdB5m4SQA"
-}</pre>
-                      <div class="alert alert-info">Note: The Access Token expires after <b>1h</b> from the time the response was generated.</div>                        
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><span class="badge badge-info">3</span></td>
-                    <td><p>Make a <b>REST Call</b> by issuing a GET/POST/PUT/DELETE request to</p>
-                      <p><code>http://api.sellmate.com/&lt;shop-handle&gt;/rest/&lt;resource&gt;</code></p>
-                      <p>Each HTTP request to the REST endpoints needs to include a HTTP Authorization Header and a Content-Type such as:</p>
-                      <p>
-                        <pre>Authorization: Mac id=ksynNsJ67xNs3BB8vgIlXl65qnhMwu,ts=1343842942,nonce=LgLZugNat3Qt,mac=B+BsVY7wU0rh4Lk3p/mWaygAoK5GmZWW+jC7UGgAed8="
-                        <br>Content-Type: application/json</pre>
-                      </p>
-                      <p>The Mac token has the following format:<pre>
+}
+                      </pre>
+                    <div class="alert alert-info">Note: The Access Token expires after <b>1h</b> from the time the response was generated.</div>                        
+                  </td>
+                </tr>
+                <tr>
+                  <td><span class="badge badge-info">3</span></td>
+                  <td><p>Make a <b>REST Call</b> by issuing a GET/POST/PUT/DELETE request to</p>
+                    <p><code>http://api.sellmate.com/&lt;shop-handle&gt;/rest/&lt;resource&gt;</code></p>
+                    <p>Each HTTP request to the REST endpoints needs to include a HTTP Authorization Header and a Content-Type such as:</p>
+                    <p>
+                      <pre>
+Authorization: Mac id=ksynNsJ67xNs3BB8vgIlXl65qnhMwu,ts=1343842942,nonce=LgLZugNat3Qt,mac=B+BsVY7wU0rh4Lk3p/mWaygAoK5GmZWW+jC7UGgAed8="
+Content-Type: application/json
+                      </pre>
+                    </p>
+                    <p>The Mac token has the following format:
+                      <pre>
 Mac id={access_token},
-    ts={timestamp in sec (unix epoch time)},
-    nonce={a random alphanumeric string},
-    mac={Base64 encoded result of Mac algorithm applied on a normalized encoded string}</pre>
-                      <p>The normalized encoded string is built this way:<pre>
+ts={timestamp in sec (unix epoch time)},
+nonce={a random alphanumeric string},
+mac={Base64 encoded result of Mac algorithm applied on a normalized encoded string}
+                      </pre>
+                    </p>
+                    <p>The normalized encoded string is built this way:
+                      <pre>
 timestamp\n
 nonce\n
 method\n
 target_url\n
 host\n
 port\n
-\n</pre>
-                      </p>
-                      <p>The value is calculated from the credentials obtained in the previous step</p>
-                      <p>Here is a sample Java code to calculate the Mac token from the credentials:
-                        <pre class="prettyprint lang-java">
+\n
+                      </pre>
+                    </p>
+                    <p>The value is calculated from the credentials obtained in the previous step</p>
+                    <p>Here is a sample Java code to calculate the Mac token from the credentials:
+                      <pre class="prettyprint lang-java">
 import java.net.URL;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -248,126 +274,138 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.RandomStringUtils;
 
 public class SellMateClient {
-	private final static String MAC_ALGORITHM = "HmacSHA256";
+  private final static String MAC_ALGORITHM = "HmacSHA256";
 
-	public static void main (String[] args) {
+  public static void main (String[] args) {
 
-		String mac_key = ""; // {mac_key};
-		String access_token = ""; // {access_token};
-		String requestURL = ""; // {requestURL to rest resource};
-		String method = ""; // {GET,POST,PUT,DELETE};
+  String mac_key = ""; // {mac_key};
+  String access_token = ""; // {access_token};
+  String requestURL = ""; // {requestURL to rest resource};
+  String method = ""; // {GET,POST,PUT,DELETE};
 
-		// Get the timestamp in seconds
-		Long timestamp = Long.valueOf(new Date().getTime() / 1000);
+  // Get the timestamp in seconds
+  Long timestamp = Long.valueOf(new Date().getTime() / 1000);
 
-		// Set port
-		URL targetURL = new URL(requestURL);
-		int port = 80;
-		if (targetURL.getPort() != -1)
-			port = targetURL.getPort();
+  // Set port
+  URL targetURL = new URL(requestURL);
+  int port = 80;
+  if (targetURL.getPort() != -1)
+  	port = targetURL.getPort();
 
-		// Define a random nonce
-		String nonce = RandomStringUtils.randomAlphanumeric(12);
+  // Define a random nonce
+  String nonce = RandomStringUtils.randomAlphanumeric(12);
 
-		// Create the normalized string:
-		// timestamp\n
-		// nonce\n
-		// method\n
-		// target_url\n
-		// host\n
-		// port\n
-		// \n
-		StringBuffer normalized = new StringBuffer();
-		normalized.append(timestamp).append("\n").append(nonce).append('\n').append(method).append('\n')
-			.append(targetURL.getPath()).append('\n').append(targetURL.getHost()).append('\n').append(port)
-			.append("\n");
+  // Create the normalized string:
+  // timestamp\n
+  // nonce\n
+  // method\n
+  // target_url\n
+  // host\n
+  // port\n
+  // \n
+  StringBuffer normalized = new StringBuffer();
+  normalized.append(timestamp).append("\n").append(nonce).append('\n').append(method).append('\n')
+  	.append(targetURL.getPath()).append('\n').append(targetURL.getHost()).append('\n').append(port)
+  	.append("\n");
 
-		// Create the request mac
-		SecretKeySpec signingKey = new SecretKeySpec(mac_key.getBytes(), MAC_ALGORITHM);
-		String mac_string = "";
-		try {
-			Mac mac = Mac.getInstance(MAC_ALGORITHM);
-			mac.init(signingKey);
-			byte[] rawHmac = mac.doFinal(normalized.toString().getBytes());
-			mac_string = Base64.encodeBase64String(rawHmac);
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		} catch (InvalidKeyException e) {
-			e.printStackTrace();
-		}
+  // Create the request mac
+  SecretKeySpec signingKey = new SecretKeySpec(mac_key.getBytes(), MAC_ALGORITHM);
+  String mac_string = "";
+  try {
+  	Mac mac = Mac.getInstance(MAC_ALGORITHM);
+  	mac.init(signingKey);
+  	byte[] rawHmac = mac.doFinal(normalized.toString().getBytes());
+  	mac_string = Base64.encodeBase64String(rawHmac);
+  } catch (NoSuchAlgorithmException e) {
+  	e.printStackTrace();
+  } catch (InvalidKeyException e) {
+  	e.printStackTrace();
+  }
 
-		// Build the MAC header string
-		// id
-		// ts
-		// nonce
-		// mac
-		String authHeader = " Mac id=\"" + access_token + "\"," + "ts=\"" + timestamp + "\"," + "nonce=\"" + nonce
-			+ "\"," + "mac=\"" + mac_string + "\"";
-	}
+  // Build the MAC header string
+  // id
+  // ts
+  // nonce
+  // mac
+  String authHeader = " Mac id=\"" + access_token + "\"," + "ts=\"" + timestamp + "\"," + "nonce=\"" + nonce
+  	+ "\"," + "mac=\"" + mac_string + "\"";
+  }
 }
-</pre>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-
-
-              <h2 id="AppApproval">Application Approval Process</h2>
-              <p>For any application that requests to access SellMate data for regular merchant accounts (which will be the case for vast majority of applications), it needs to be approved by the SellMate team as a last step. If you create a new Application in the Developer Center, it only has an access to the Sandbox store and any stores owned by you (as the developer user). This will allow you to develop the application against the sandbox or real shop with a fully functioning REST API.</p>
-              <p>Once the application is finished, you can request the approval on the Application page in the Developer Center - this will notify the SellMate team, which will review the application and enable it to be installed for any shop. The approval process is in place to prevent abuse and/or malicious applications to be able to access the real stores.</p>
-              <p>A separate step will allow to request the Application to be listed in the SellMate App Store. Details for this will be published later.</p>
-              
-              <div class="page-header">
-                <h1>Resource endpoints <small>The operations and data available via the REST API</small></h1>
-              </div>
-
-              <h2 id="Shop">Shop</h2>
-              <p>Summary: Read access to the metadata and settings of the shop the application accesses</p>
-              <p>Supported methods: <code>GET</code></p>
-              <div style="margin-top:10px;" id="Shop-patterns">
-                <h3>Request patterns:</h3>
-                <pre>
+                    </pre>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- /authentication -->
+          <!-- approval -->
+          <div id="AppApproval">
+            <h2>Application Approval Process</h2>
+            <p>For any application that requests to access SellMate data for regular merchant accounts (which will be the case for vast majority of applications), it needs to be approved by the SellMate team as a last step. If you create a new Application in the Developer Center, it only has an access to the Sandbox store and any stores owned by you (as the developer user). This will allow you to develop the application against the sandbox or real shop with a fully functioning REST API.</p>
+            <p>Once the application is finished, you can request the approval on the Application page in the Developer Center - this will notify the SellMate team, which will review the application and enable it to be installed for any shop. The approval process is in place to prevent abuse and/or malicious applications to be able to access the real stores.</p>
+            <p>A separate step will allow to request the Application to be listed in the SellMate App Store. Details for this will be published later.</p>
+          </div>
+          <!-- /approval -->
+          <!-- RESOURCE ENDPOINTS -->
+          <div class="page-header">
+            <h1>Resource endpoints <small>The operations and data available via the REST API</small></h1>
+          </div>
+          <!-- shop -->
+          <div id="Shop">
+            <h2>Shop</h2>
+            <p>Summary: Read access to the metadata and settings of the shop the application accesses</p>
+            <p>Supported methods: <code>GET</code></p>
+            <div style="margin-top:10px;" id="Shop-patterns">
+              <h3>Request patterns:</h3>
+              <pre>
   GET    /&lt;shop-handle&gt;/rest/shop          to get shop info and settings</pre>
-              </div>
-              <h3>Shop Resource properties:</h3>
-              <table class="table table-striped table-bordered table-condensed">
-                <thead><tr><th>Attribute</th><th>Type</th><th>Example value</th><th class="width35">Description</th></tr></thead>
-                <tbody>
-                  <tr><td>handle</td><td>Number</td><td><code>sample-store</code></td><td>Resource id</td></tr>
-                  <tr><td>created_at</td><td>String</td><td><code>Sat, 28 Apr 2012 19:24:06 UTC</code></td><td>Resource create date</td></tr>
-                  <tr><td>updated_at</td><td>String</td><td><code>Tue, 31 Jul 2012 17:01:45 UTC</code></td><td>Resource last update date or <code>null</code> if it has not been updated yet</td></tr>
-                  <tr><td>name</td><td>String</td><td><code>My great store</code></td><td>The shop (human-friendly) name</td></tr>
-                  <tr><td>currency</td><td>String</td><td><code>USD</code></td><td>Currency setting of the shop</td></tr>
-                  <tr><td>locale</td><td>String</td><td><code>en</code></td><td>Locale setting of the shop</td></tr>
-                  <tr><td>isSandbox</td><td>boolean</td><td><code>true</code></td><td>true for Sandbox shops, false for regular shops</td></tr>
-                  <tr><td>locked</td><td>boolean</td><td><code>false</code></td><td>If true, the shop is locked and not accessible</td></tr>
-                  <tr><td>showAddress</td><td>boolean</td><td><code>false</code></td><td>Show Address preference of the shop</td></tr>
-                  <tr><td>customDomain</td><td>String</td><td><code>shop.example.com</code></td><td>Custom domain setting for the shop, empty string if not set or <code>null</code> if not specified</td></tr>
-                  <tr><td>address</td><td>Object</td><td></td><td>Address of the shop</td></tr>
-                  <tr><td>&rsaquo;&rsaquo; first_name</td><td>String</td><td><code>John</code></td><td>First name of the shop owner</td></tr>
-                  <tr><td>&rsaquo;&rsaquo; last_name</td><td>String</td><td><code>Doe</code></td><td>Last name of the shop owner</td></tr>
-                  <tr><td>&rsaquo;&rsaquo; company</td><td>String</td><td><code>Example Corp.</code></td><td>Company name</td></tr>
-                  <tr><td>&rsaquo;&rsaquo; address1</td><td>String</td><td><code>42 My Street</code></td><td>Address line 1</td></tr>
-                  <tr><td>&rsaquo;&rsaquo; address2</td><td>String</td><td><code></code></td><td>Address line 2 or <code>null</code> if not specified</td></tr>
-                  <tr><td>&rsaquo;&rsaquo; city</td><td>String</td><td><code>New York</code></td><td>City</td></tr>
-                  <tr><td>&rsaquo;&rsaquo; zip</td><td>String</td><td><code>10000</code></td><td>ZIP code</td></tr>
-                  <tr><td>&rsaquo;&rsaquo; province</td><td>String</td><td><code>NY</code></td><td>Province/State or <code>null</code> if not specified</td></tr>
-                  <tr><td>&rsaquo;&rsaquo; country</td><td>String</td><td><code>USA</code></td><td>Country</td></tr>
-                  <tr><td>&rsaquo;&rsaquo; country_code</td><td>String</td><td><code>us</code></td><td>2-letter <a target="_blank" href="http://en.wikipedia.org/wiki/ISO_3166-1">ISO 3166-1</a> country code</td></tr>
-                  <tr><td>&rsaquo;&rsaquo; phone</td><td>String</td><td><code>615-123-4567</code></td><td>Phone number</td></tr>
-                  <tr><td>logo</td><td>Object</td><td></td><td>Shop logo or <code>null</code> if not specified</td></tr>
-                  <tr><td>&rsaquo;&rsaquo; id</td><td>Number</td><td><code>11</code></td><td>Resource id</td></tr>
-                  <tr><td>&rsaquo;&rsaquo; created_at</td><td>String</td><td><code>Sat, 28 Apr 2012 19:24:06 UTC</code></td><td>Resource create date</td></tr>
-                  <tr><td>&rsaquo;&rsaquo; updated_at</td><td>String</td><td><code></code></td><td>Resource last update date or <code>null</code> if it has not been updated yet</td></tr>
-                  <tr><td>&rsaquo;&rsaquo; name</td><td>String</td><td><code>logo.png</code></td><td>The name of the image</td></tr>
-                  <tr><td>&rsaquo;&rsaquo; url</td><td>String</td><td><code>http://lh5.ggpht.com/eoc_kFpwewhjv6lNQlWi...</code></td><td>Image url</td></tr>
-                  <tr><td>&rsaquo;&rsaquo; type</td><td>String</td><td><code>image/png</code></td><td>The content-type string with the image type</td></tr>
-                  <tr><td>html_snippet</td><td>String</td><td><code>My &lt;b&gt;great&lt;b&gt; store!</code></td><td>The HTML snippet of the rich text shop description</td></tr>
-                </tbody>
-              </table>
-              <h3>Examples:</h3>
-              <p><code>GET /&lt;shop-handle&gt;/rest/shop</code></p>
-                  <pre class="prettyprint lang-js">
+            </div>
+            <h3>Shop Resource properties:</h3>
+            <table class="table table-striped table-bordered table-condensed">
+              <thead>
+                <tr>
+                  <th>Attribute</th>
+                  <th>Type</th>
+                  <th>Example value</th>
+                  <th class="width35">Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>handle</td><td>Number</td><td><code>sample-store</code></td><td>Resource id</td></tr>
+                <tr><td>created_at</td><td>String</td><td><code>Sat, 28 Apr 2012 19:24:06 UTC</code></td><td>Resource create date</td></tr>
+                <tr><td>updated_at</td><td>String</td><td><code>Tue, 31 Jul 2012 17:01:45 UTC</code></td><td>Resource last update date or <code>null</code> if it has not been updated yet</td></tr>
+                <tr><td>name</td><td>String</td><td><code>My great store</code></td><td>The shop (human-friendly) name</td></tr>
+                <tr><td>currency</td><td>String</td><td><code>USD</code></td><td>Currency setting of the shop</td></tr>
+                <tr><td>locale</td><td>String</td><td><code>en</code></td><td>Locale setting of the shop</td></tr>
+                <tr><td>isSandbox</td><td>boolean</td><td><code>true</code></td><td>true for Sandbox shops, false for regular shops</td></tr>
+                <tr><td>locked</td><td>boolean</td><td><code>false</code></td><td>If true, the shop is locked and not accessible</td></tr>
+                <tr><td>showAddress</td><td>boolean</td><td><code>false</code></td><td>Show Address preference of the shop</td></tr>
+                <tr><td>customDomain</td><td>String</td><td><code>shop.example.com</code></td><td>Custom domain setting for the shop, empty string if not set or <code>null</code> if not specified</td></tr>
+                <tr><td>address</td><td>Object</td><td></td><td>Address of the shop</td></tr>
+                <tr><td>&rsaquo;&rsaquo; first_name</td><td>String</td><td><code>John</code></td><td>First name of the shop owner</td></tr>
+                <tr><td>&rsaquo;&rsaquo; last_name</td><td>String</td><td><code>Doe</code></td><td>Last name of the shop owner</td></tr>
+                <tr><td>&rsaquo;&rsaquo; company</td><td>String</td><td><code>Example Corp.</code></td><td>Company name</td></tr>
+                <tr><td>&rsaquo;&rsaquo; address1</td><td>String</td><td><code>42 My Street</code></td><td>Address line 1</td></tr>
+                <tr><td>&rsaquo;&rsaquo; address2</td><td>String</td><td><code></code></td><td>Address line 2 or <code>null</code> if not specified</td></tr>
+                <tr><td>&rsaquo;&rsaquo; city</td><td>String</td><td><code>New York</code></td><td>City</td></tr>
+                <tr><td>&rsaquo;&rsaquo; zip</td><td>String</td><td><code>10000</code></td><td>ZIP code</td></tr>
+                <tr><td>&rsaquo;&rsaquo; province</td><td>String</td><td><code>NY</code></td><td>Province/State or <code>null</code> if not specified</td></tr>
+                <tr><td>&rsaquo;&rsaquo; country</td><td>String</td><td><code>USA</code></td><td>Country</td></tr>
+                <tr><td>&rsaquo;&rsaquo; country_code</td><td>String</td><td><code>us</code></td><td>2-letter <a target="_blank" href="http://en.wikipedia.org/wiki/ISO_3166-1">ISO 3166-1</a> country code</td></tr>
+                <tr><td>&rsaquo;&rsaquo; phone</td><td>String</td><td><code>615-123-4567</code></td><td>Phone number</td></tr>
+                <tr><td>logo</td><td>Object</td><td></td><td>Shop logo or <code>null</code> if not specified</td></tr>
+                <tr><td>&rsaquo;&rsaquo; id</td><td>Number</td><td><code>11</code></td><td>Resource id</td></tr>
+                <tr><td>&rsaquo;&rsaquo; created_at</td><td>String</td><td><code>Sat, 28 Apr 2012 19:24:06 UTC</code></td><td>Resource create date</td></tr>
+                <tr><td>&rsaquo;&rsaquo; updated_at</td><td>String</td><td><code></code></td><td>Resource last update date or <code>null</code> if it has not been updated yet</td></tr>
+                <tr><td>&rsaquo;&rsaquo; name</td><td>String</td><td><code>logo.png</code></td><td>The name of the image</td></tr>
+                <tr><td>&rsaquo;&rsaquo; url</td><td>String</td><td><code>http://lh5.ggpht.com/eoc_kFpwewhjv6lNQlWi...</code></td><td>Image url</td></tr>
+                <tr><td>&rsaquo;&rsaquo; type</td><td>String</td><td><code>image/png</code></td><td>The content-type string with the image type</td></tr>
+                <tr><td>html_snippet</td><td>String</td><td><code>My &lt;b&gt;great&lt;b&gt; store!</code></td><td>The HTML snippet of the rich text shop description</td></tr>
+              </tbody>
+            </table>
+            <h3>Examples:</h3>
+            <p><code>GET /&lt;shop-handle&gt;/rest/shop</code></p>
+                <pre class="prettyprint lang-js">
 {
     "handle": "sample-store",
     "created_at": "Sat, 28 Apr 2012 19:24:06 UTC",
@@ -401,35 +439,38 @@ public class SellMateClient {
         "type": "image/png"
     },
     "html_snippet": "My great store"
-}</pre>
-              
-              <h2 id="User">User</h2>
-              <p>Summary: Read access to the metadata about the user using the app (the authenticated user using the application)</p>
-              <p>Supported methods: <code>GET</code></p>
-              <div style="margin-top:10px;" id="User-patterns">
-                <h3>Request patterns:</h3>
-                <pre>
-  GET    /&lt;shop-handle&gt;/rest/user          to get (currently authenticated) user info and settings</pre>
-              </div>
-              <h3>User Resource properties:</h3>
-              <table class="table table-striped table-bordered table-condensed">
-                <thead><tr><th>Attribute</th><th>Type</th><th>Example value</th><th class="width35">Description</th></tr></thead>
-                <tbody>
-                  <tr><td>id</td><td>Number</td><td><code>1</code></td><td>Resource id</td></tr>
-                  <tr><td>created_at</td><td>String</td><td><code>Sat, 28 Apr 2012 19:24:05 UTC</code></td><td>Resource create date</td></tr>
-                  <tr><td>updated_at</td><td>String</td><td><code>Mon, 14 May 2012 10:49:52 UTC</code></td><td>Resource last update date or <code>null</code> if it has not been updated yet</td></tr>
-                  <tr><td>email</td><td>String</td><td><code>john.doe@example.com</code></td><td>User email</td></tr>
-                  <tr><td>first_name</td><td>String</td><td><code>John</code></td><td>User first name</td></tr>
-                  <tr><td>last_name</td><td>String</td><td><code>Doe</code></td><td>User last name</td></tr>
-                  <tr><td>roles</td><td>Array of Strings</td><td><code>["merchant", "developer"]</code></td><td>The set of roles of the user (current possible values: merchant, developer)</td></tr>
-                  <tr><td>shop_handles</td><td>Array of Strings</td><td><code>["sample-store", "another-store"]</code></td><td>A list of the resource ids of shops the user owns (can be empty)</td></tr>
-                  <tr><td>sandbox_id</td><td>String</td><td><code>ids4h5sd8e</code></td><td>The resource id of the associated Sandbox shop</td></tr>
-                  <tr><td>locale</td><td>String</td><td><code>en</code></td><td>Locale preference of the user</td></tr>
-                </tbody>
-              </table>
-              <h3>Examples:</h3>
-              <p><code>GET /&lt;shop-handle&gt;/rest/user</code></p>
-                  <pre class="prettyprint lang-js">
+}
+            </pre>          
+          </div>
+          <!-- /shop -->
+          <!-- user -->
+          <h2 id="User">User</h2>
+          <p>Summary: Read access to the metadata about the user using the app (the authenticated user using the application)</p>
+          <p>Supported methods: <code>GET</code></p>
+          <div style="margin-top:10px;" id="User-patterns">
+            <h3>Request patterns:</h3>
+            <pre>
+GET    /&lt;shop-handle&gt;/rest/user          to get (currently authenticated) user info and settings</pre>
+          </div>
+          <h3>User Resource properties:</h3>
+          <table class="table table-striped table-bordered table-condensed">
+            <thead><tr><th>Attribute</th><th>Type</th><th>Example value</th><th class="width35">Description</th></tr></thead>
+            <tbody>
+              <tr><td>id</td><td>Number</td><td><code>1</code></td><td>Resource id</td></tr>
+              <tr><td>created_at</td><td>String</td><td><code>Sat, 28 Apr 2012 19:24:05 UTC</code></td><td>Resource create date</td></tr>
+              <tr><td>updated_at</td><td>String</td><td><code>Mon, 14 May 2012 10:49:52 UTC</code></td><td>Resource last update date or <code>null</code> if it has not been updated yet</td></tr>
+              <tr><td>email</td><td>String</td><td><code>john.doe@example.com</code></td><td>User email</td></tr>
+              <tr><td>first_name</td><td>String</td><td><code>John</code></td><td>User first name</td></tr>
+              <tr><td>last_name</td><td>String</td><td><code>Doe</code></td><td>User last name</td></tr>
+              <tr><td>roles</td><td>Array of Strings</td><td><code>["merchant", "developer"]</code></td><td>The set of roles of the user (current possible values: merchant, developer)</td></tr>
+              <tr><td>shop_handles</td><td>Array of Strings</td><td><code>["sample-store", "another-store"]</code></td><td>A list of the resource ids of shops the user owns (can be empty)</td></tr>
+              <tr><td>sandbox_id</td><td>String</td><td><code>ids4h5sd8e</code></td><td>The resource id of the associated Sandbox shop</td></tr>
+              <tr><td>locale</td><td>String</td><td><code>en</code></td><td>Locale preference of the user</td></tr>
+            </tbody>
+          </table>
+          <h3>Examples:</h3>
+          <p><code>GET /&lt;shop-handle&gt;/rest/user</code></p>
+              <pre class="prettyprint lang-js">
 {
     "id": 1,
     "created_at": "Sat, 28 Apr 2012 19:24:05 UTC",
@@ -447,80 +488,80 @@ public class SellMateClient {
     ],
     "sandbox_id": "ids4h5sd8e",
     "locale": "en"
-}</pre>
-              
-              <h2 id="Products">Products</h2>
-              <p>Summary: Read/Write access to products within a shop</p>
-              <p>Supported methods: <code>GET</code>, <code>POST</code>, <code>PUT</code>, <code>DELETE</code></p>
-              <div id="Products-patterns">
-                <h3>Request patterns:</h3>
-                <pre>
-  GET    /&lt;shop-handle&gt;/rest/products          to get list of all products in the shop
-  GET    /&lt;shop-handle&gt;/rest/products/count    to get the count of all products in the shop
-  POST   /&lt;shop-handle&gt;/rest/products          to create a new product
-  GET    /&lt;shop-handle&gt;/rest/products/{id}     to get a specific product
-  PUT    /&lt;shop-handle&gt;/rest/products/{id}     to modify an existing product
-  DELETE /&lt;shop-handle&gt;/rest/products/{id}     to delete an existing product</pre>
-              </div>
-              <p>Common URL query parameters:
-                <ul>
-                  <li>fields - comma-separated list of fields to include in the response</li>
-                  <li>query - semi-column-separated list of filters (using operators ><=)</li>
-                </ul>
-              </p>
-              <h3>Product Resource properties:</h3>
-              <table class="table table-striped table-bordered table-condensed">
-                <thead><tr><th>Attribute</th><th>Type</th><th class="width1">Required</th><th>Example value</th><th class="width35">Description</th></tr></thead>
-                <tbody>
-                  <tr><td>id</td><td>Number</td><td>o</td><td><code>1</code></td><td>Resource Id. Must be given when updating the Product.</td></tr>
-                  <tr><td>created_at</td><td>String</td><td>---</td><td><code>Sat, 28 Apr 2012 19:24:05 UTC</code></td><td>Resource create date</td></tr>
-                  <tr><td>updated_at</td><td>String</td><td>---</td><td><code>Mon, 14 May 2012 10:49:52 UTC</code></td><td>Resource last update date or <code>null</code> if it has not been updated yet</td></tr>
-                  <tr><td>published_at</td><td>String</td><td>---</td><td><code>Mon, 14 May 2012 10:49:52 UTC</code></td><td>Product last publish date (<code>GET</code> only)</td></tr>
-                  <tr><td>published</td><td>Boolean</td><td>x</td><td><code>true</code></td><td>true if the product is published, false otherwise or <code>null</code> if not specified</td></tr>
-                  <tr><td>title</td><td>String</td><td>x</td><td><code>Adidas T-Shirt</code></td><td>Product title or <code>null</code> if not specified</td></tr>
-                  <tr><td>description</td><td>String</td><td>---</td><td><code>A Cool Adidas T-Shirt</code></td><td>Product description (HTML) or <code>null</code> if not specified</td></tr>
-                  <tr><td>vendor</td><td>String</td><td>x</td><td><code>Adidas</code></td><td>Product vendor or <code>null</code> if not specified</td></tr>
-                  <tr><td>handle</td><td>String</td><td>o</td><td><code>adidas-1</code></td><td>Product unique handle (appears in URL) or <code>null</code> if not specified. It's automatically generated from the Product.title when a new Product is created.</td></tr>
-                  <tr><td>collection_ids</td><td>Array of Numbers</td><td>---</td><td><code>[4, 5]</code></td><td>A list of collections (their IDs) that contain the product or <code>null</code> if not specified</td></tr>
-                  <tr><td>tags</td><td>Array of Strings</td><td>---</td><td><code>["t-shirts", "blue-shirts"]</code></td><td>A list of tag names or <code>null</code> if not specified</td></tr>
-                  <tr><td>stock</td><td>Number</td><td>---</td><td><code>10</code></td><td>The number of items in stock, based on the Variant values (<code>GET</code> only)</td></tr>
-                  <tr><td>url</td><td>String</td><td>---</td><td><code>en</code></td><td>The public product URL (if published) or <code>null</code> (<code>GET</code> only)</td></tr>
-                  <tr><td>image_ids</td><td>Array of Numbers</td><td>---</td><td><code>[11,12,13]</code></td><td>A list of Ids of the Images associated to the Product or <code>null</code> if not specified. An empty array will delete the old values.</td></tr>
-                  <tr><td>featured_image</td><td>Object</td><td>---</td><td></td><td>The main image or <code>null</code> if none (<code>GET</code> only)</td></tr>
-                  <tr><td>&rsaquo;&rsaquo; id</td><td>Number</td><td>---</td><td><code>11</code></td><td>Resource id</td></tr>
-                  <tr><td>&rsaquo;&rsaquo; created_at</td><td>String</td><td>---</td><td><code>Sat, 28 Apr 2012 19:24:06 UTC</code></td><td>Resource create date</td></tr>
-                  <tr><td>&rsaquo;&rsaquo; updated_at</td><td>String</td><td>---</td><td><code>Mon, 14 May 2012 10:49:52 UTC</code></td><td>Resource last update date or <code>null</code> if it has not been updated yet</td></tr>
-                  <tr><td>&rsaquo;&rsaquo; name</td><td>String</td><td>---</td><td><code>jersey.png</code></td><td>The name of the image</td></tr>
-                  <tr><td>&rsaquo;&rsaquo; url</td><td>String</td><td>---</td><td><code>http://lh5.ggpht.com/JeuOabgSa7SOpPug...</code></td><td>Image url</td></tr>
-                  <tr><td>&rsaquo;&rsaquo; type</td><td>String</td><td>---</td><td><code>image/png</code></td><td>The content-type string with the image type</td></tr>
-                  <tr><td>options</td><td>Array of Strings</td><td>o</td><td><code>["size", "color"]</code></td><td>The product options or <code>null</code> if not specified. An empty array will delete the old values.</td></tr>
-                  <tr><td>variants</td><td>Array of Objects</td><td>x</td><td></td><td>The product variants or <code>null</code> if not specified. There has to be at least one variant. An empty array will delete the old values.</td></tr>
-                  <tr><td>&rsaquo;&rsaquo; id</td><td>Number</td><td>---</td><td><code>20</code></td><td>Resource id</td></tr>
-                  <tr><td>&rsaquo;&rsaquo; created_at</td><td>String</td><td>---</td><td><code>Sat, 28 Apr 2012 19:24:06 UTC</code></td><td>Resource create date</td></tr>
-                  <tr><td>&rsaquo;&rsaquo; updated_at</td><td>String</td><td>---</td><td><code>Mon, 14 May 2012 10:49:52 UTC</code></td><td>Resource last update date or <code>null</code> if it has not been updated yet</td></tr>
-                  <tr><td>&rsaquo;&rsaquo; product_id</td><td>Number</td><td>o</td><td><code>1</code></td><td>The Resource Id of the related Product. Must be given when updating the Variant.</td></tr>
-                  <tr><td>&rsaquo;&rsaquo; option1</td><td>String</td><td>o</td><td><code>XL</code></td><td>The value of the Variant Option1 or <code>null</code> if not specified. Must be given if the Product has at least 1 Option.</td></tr>
-                  <tr><td>&rsaquo;&rsaquo; option2</td><td>String</td><td>o</td><td><code>Blue</code></td><td>The value of the Variant Option2 or <code>null</code> if not specified. Must be given if the Product has at least 2 Options.</td></tr>
-                  <tr><td>&rsaquo;&rsaquo; option3</td><td>String</td><td>o</td><td><code></code></td><td>The value of the Variant Option3 or <code>null</code> if not specified. Must be given if the Product has 3 Options.</td></tr>
-                  <tr><td>&rsaquo;&rsaquo; sku</td><td>String</td><td>---</td><td><code>12345</code></td><td>The SKU (Stock Keep Unit) of the Product, if it has one, or <code>null</code> if not specified.</td></tr>
-                  <tr><td>&rsaquo;&rsaquo; price</td><td>String</td><td>x</td><td><code>19.99</code></td><td>The price of the Variant.</td></tr>
-                  <tr><td>&rsaquo;&rsaquo; compare_at_price</td><td>String</td><td>---</td><td><code>9.99</code></td><td>Used for Variant prices comparision or <code>null</code> if not specified.</td></tr>
-                  <tr><td>&rsaquo;&rsaquo; stock</td><td>Number</td><td>---</td><td><code>50</code></td><td>The stock quantity of the Variant or <code>null</code> if not specified.</td></tr>
-                  <tr><td>&rsaquo;&rsaquo; weight</td><td>Number</td><td>---</td><td><code>10.5</code></td><td>The weight of the Variant item or <code>null</code> if not specified.</td></tr>
-                  <tr><td>&rsaquo;&rsaquo; image_id</td><td>Number</td><td>---</td><td><code>11</code></td><td>The Id of one of the Images of the Product or <code>null</code> if not specified.</td></tr>
-                  <tr><td>&rsaquo;&rsaquo; requires_shipping</td><td>Boolean</td><td>---</td><td><code>true</code></td><td>true if the Variant can be shipped, false otherwise or null if not specified.</td></tr>
-                  <tr><td>&rsaquo;&rsaquo; is_taxable</td><td>Boolean</td><td>---</td><td><code>true</code></td><td>true if the Variant is taxable, false otherwise or null if not specified.</td></tr>
-                  <tr><td>googleProductCategory</td><td>String</td><td>x</td><td><code>Apparel &amp; Accessories &gt; Clothing</code></td><td>Google Product category or <code>null</code> if not specified</td></tr>
-                  <tr><td>gender</td><td>String</td><td>o</td><td><code>Unisex</code></td><td>Gender (Unisex, Male, Female) or <code>null</code> if not specified. It's required for some Google Product Categories.</td></tr>
-                  <tr><td>age_group</td><td>String</td><td>o</td><td><code>Adult</code></td><td>Age group (Adult, Kids) or <code>null</code> if not specified. It's required for some Google Product Categories.</td></tr>
-                  <tr><td>mpn</td><td>String</td><td>o</td><td><code>my-product-id-1</code></td><td>Product MPN or <code>null</code> if not specified. Either the MPN or GTIN are usually required.</td></tr>
-                  <tr><td>gtin</td><td>String</td><td>o</td><td><code>1234567890</code></td><td>Product GTIN or <code>null</code> if not specified. Either the MPN or GTIN are usually required. It's required for some Google Product Categories. It must be a valid number.</td></tr>
-                  <tr><td>condition</td><td>String</td><td>x</td><td><code>New</code></td><td>Condition (Used, New) or <code>null</code> if not specified</td></tr>
-                </tbody>
-              </table>
-              <h3>Examples:</h3>
-              <p><code>GET /&lt;shop-handle&gt;/rest/product/51001</code></p>
-                  <pre class="prettyprint lang-js">
+}
+          </pre>          
+          <h2 id="Products">Products</h2>
+          <p>Summary: Read/Write access to products within a shop</p>
+          <p>Supported methods: <code>GET</code>, <code>POST</code>, <code>PUT</code>, <code>DELETE</code></p>
+          <div id="Products-patterns">
+            <h3>Request patterns:</h3>
+            <pre>
+GET    /&lt;shop-handle&gt;/rest/products          to get list of all products in the shop
+GET    /&lt;shop-handle&gt;/rest/products/count    to get the count of all products in the shop
+POST   /&lt;shop-handle&gt;/rest/products          to create a new product
+GET    /&lt;shop-handle&gt;/rest/products/{id}     to get a specific product
+PUT    /&lt;shop-handle&gt;/rest/products/{id}     to modify an existing product
+DELETE /&lt;shop-handle&gt;/rest/products/{id}     to delete an existing product</pre>
+          </div>
+          <p>Common URL query parameters:
+            <ul>
+              <li>fields - comma-separated list of fields to include in the response</li>
+              <li>query - semi-column-separated list of filters (using operators ><=)</li>
+            </ul>
+          </p>
+          <h3>Product Resource properties:</h3>
+          <table class="table table-striped table-bordered table-condensed">
+            <thead><tr><th>Attribute</th><th>Type</th><th class="width1">Required</th><th>Example value</th><th class="width35">Description</th></tr></thead>
+            <tbody>
+              <tr><td>id</td><td>Number</td><td>o</td><td><code>1</code></td><td>Resource Id. Must be given when updating the Product.</td></tr>
+              <tr><td>created_at</td><td>String</td><td>---</td><td><code>Sat, 28 Apr 2012 19:24:05 UTC</code></td><td>Resource create date</td></tr>
+              <tr><td>updated_at</td><td>String</td><td>---</td><td><code>Mon, 14 May 2012 10:49:52 UTC</code></td><td>Resource last update date or <code>null</code> if it has not been updated yet</td></tr>
+              <tr><td>published_at</td><td>String</td><td>---</td><td><code>Mon, 14 May 2012 10:49:52 UTC</code></td><td>Product last publish date (<code>GET</code> only)</td></tr>
+              <tr><td>published</td><td>Boolean</td><td>x</td><td><code>true</code></td><td>true if the product is published, false otherwise or <code>null</code> if not specified</td></tr>
+              <tr><td>title</td><td>String</td><td>x</td><td><code>Adidas T-Shirt</code></td><td>Product title or <code>null</code> if not specified</td></tr>
+              <tr><td>description</td><td>String</td><td>---</td><td><code>A Cool Adidas T-Shirt</code></td><td>Product description (HTML) or <code>null</code> if not specified</td></tr>
+              <tr><td>vendor</td><td>String</td><td>x</td><td><code>Adidas</code></td><td>Product vendor or <code>null</code> if not specified</td></tr>
+              <tr><td>handle</td><td>String</td><td>o</td><td><code>adidas-1</code></td><td>Product unique handle (appears in URL) or <code>null</code> if not specified. It's automatically generated from the Product.title when a new Product is created.</td></tr>
+              <tr><td>collection_ids</td><td>Array of Numbers</td><td>---</td><td><code>[4, 5]</code></td><td>A list of collections (their IDs) that contain the product or <code>null</code> if not specified</td></tr>
+              <tr><td>tags</td><td>Array of Strings</td><td>---</td><td><code>["t-shirts", "blue-shirts"]</code></td><td>A list of tag names or <code>null</code> if not specified</td></tr>
+              <tr><td>stock</td><td>Number</td><td>---</td><td><code>10</code></td><td>The number of items in stock, based on the Variant values (<code>GET</code> only)</td></tr>
+              <tr><td>url</td><td>String</td><td>---</td><td><code>en</code></td><td>The public product URL (if published) or <code>null</code> (<code>GET</code> only)</td></tr>
+              <tr><td>image_ids</td><td>Array of Numbers</td><td>---</td><td><code>[11,12,13]</code></td><td>A list of Ids of the Images associated to the Product or <code>null</code> if not specified. An empty array will delete the old values.</td></tr>
+              <tr><td>featured_image</td><td>Object</td><td>---</td><td></td><td>The main image or <code>null</code> if none (<code>GET</code> only)</td></tr>
+              <tr><td>&rsaquo;&rsaquo; id</td><td>Number</td><td>---</td><td><code>11</code></td><td>Resource id</td></tr>
+              <tr><td>&rsaquo;&rsaquo; created_at</td><td>String</td><td>---</td><td><code>Sat, 28 Apr 2012 19:24:06 UTC</code></td><td>Resource create date</td></tr>
+              <tr><td>&rsaquo;&rsaquo; updated_at</td><td>String</td><td>---</td><td><code>Mon, 14 May 2012 10:49:52 UTC</code></td><td>Resource last update date or <code>null</code> if it has not been updated yet</td></tr>
+              <tr><td>&rsaquo;&rsaquo; name</td><td>String</td><td>---</td><td><code>jersey.png</code></td><td>The name of the image</td></tr>
+              <tr><td>&rsaquo;&rsaquo; url</td><td>String</td><td>---</td><td><code>http://lh5.ggpht.com/JeuOabgSa7SOpPug...</code></td><td>Image url</td></tr>
+              <tr><td>&rsaquo;&rsaquo; type</td><td>String</td><td>---</td><td><code>image/png</code></td><td>The content-type string with the image type</td></tr>
+              <tr><td>options</td><td>Array of Strings</td><td>o</td><td><code>["size", "color"]</code></td><td>The product options or <code>null</code> if not specified. An empty array will delete the old values.</td></tr>
+              <tr><td>variants</td><td>Array of Objects</td><td>x</td><td></td><td>The product variants or <code>null</code> if not specified. There has to be at least one variant. An empty array will delete the old values.</td></tr>
+              <tr><td>&rsaquo;&rsaquo; id</td><td>Number</td><td>---</td><td><code>20</code></td><td>Resource id</td></tr>
+              <tr><td>&rsaquo;&rsaquo; created_at</td><td>String</td><td>---</td><td><code>Sat, 28 Apr 2012 19:24:06 UTC</code></td><td>Resource create date</td></tr>
+              <tr><td>&rsaquo;&rsaquo; updated_at</td><td>String</td><td>---</td><td><code>Mon, 14 May 2012 10:49:52 UTC</code></td><td>Resource last update date or <code>null</code> if it has not been updated yet</td></tr>
+              <tr><td>&rsaquo;&rsaquo; product_id</td><td>Number</td><td>o</td><td><code>1</code></td><td>The Resource Id of the related Product. Must be given when updating the Variant.</td></tr>
+              <tr><td>&rsaquo;&rsaquo; option1</td><td>String</td><td>o</td><td><code>XL</code></td><td>The value of the Variant Option1 or <code>null</code> if not specified. Must be given if the Product has at least 1 Option.</td></tr>
+              <tr><td>&rsaquo;&rsaquo; option2</td><td>String</td><td>o</td><td><code>Blue</code></td><td>The value of the Variant Option2 or <code>null</code> if not specified. Must be given if the Product has at least 2 Options.</td></tr>
+              <tr><td>&rsaquo;&rsaquo; option3</td><td>String</td><td>o</td><td><code></code></td><td>The value of the Variant Option3 or <code>null</code> if not specified. Must be given if the Product has 3 Options.</td></tr>
+              <tr><td>&rsaquo;&rsaquo; sku</td><td>String</td><td>---</td><td><code>12345</code></td><td>The SKU (Stock Keep Unit) of the Product, if it has one, or <code>null</code> if not specified.</td></tr>
+              <tr><td>&rsaquo;&rsaquo; price</td><td>String</td><td>x</td><td><code>19.99</code></td><td>The price of the Variant.</td></tr>
+              <tr><td>&rsaquo;&rsaquo; compare_at_price</td><td>String</td><td>---</td><td><code>9.99</code></td><td>Used for Variant prices comparision or <code>null</code> if not specified.</td></tr>
+              <tr><td>&rsaquo;&rsaquo; stock</td><td>Number</td><td>---</td><td><code>50</code></td><td>The stock quantity of the Variant or <code>null</code> if not specified.</td></tr>
+              <tr><td>&rsaquo;&rsaquo; weight</td><td>Number</td><td>---</td><td><code>10.5</code></td><td>The weight of the Variant item or <code>null</code> if not specified.</td></tr>
+              <tr><td>&rsaquo;&rsaquo; image_id</td><td>Number</td><td>---</td><td><code>11</code></td><td>The Id of one of the Images of the Product or <code>null</code> if not specified.</td></tr>
+              <tr><td>&rsaquo;&rsaquo; requires_shipping</td><td>Boolean</td><td>---</td><td><code>true</code></td><td>true if the Variant can be shipped, false otherwise or null if not specified.</td></tr>
+              <tr><td>&rsaquo;&rsaquo; is_taxable</td><td>Boolean</td><td>---</td><td><code>true</code></td><td>true if the Variant is taxable, false otherwise or null if not specified.</td></tr>
+              <tr><td>googleProductCategory</td><td>String</td><td>x</td><td><code>Apparel &amp; Accessories &gt; Clothing</code></td><td>Google Product category or <code>null</code> if not specified</td></tr>
+              <tr><td>gender</td><td>String</td><td>o</td><td><code>Unisex</code></td><td>Gender (Unisex, Male, Female) or <code>null</code> if not specified. It's required for some Google Product Categories.</td></tr>
+              <tr><td>age_group</td><td>String</td><td>o</td><td><code>Adult</code></td><td>Age group (Adult, Kids) or <code>null</code> if not specified. It's required for some Google Product Categories.</td></tr>
+              <tr><td>mpn</td><td>String</td><td>o</td><td><code>my-product-id-1</code></td><td>Product MPN or <code>null</code> if not specified. Either the MPN or GTIN are usually required.</td></tr>
+              <tr><td>gtin</td><td>String</td><td>o</td><td><code>1234567890</code></td><td>Product GTIN or <code>null</code> if not specified. Either the MPN or GTIN are usually required. It's required for some Google Product Categories. It must be a valid number.</td></tr>
+              <tr><td>condition</td><td>String</td><td>x</td><td><code>New</code></td><td>Condition (Used, New) or <code>null</code> if not specified</td></tr>
+            </tbody>
+          </table>
+          <h3>Examples:</h3>
+          <p><code>GET /&lt;shop-handle&gt;/rest/product/51001</code></p>
+              <pre class="prettyprint lang-js">
 {
     "id": 51001,
     "created_at": "Sat, 26 May 2012 08:37:12 UTC",
@@ -582,54 +623,54 @@ public class SellMateClient {
     "mpn": "adidas-1",
     "gtin": null,
     "condition": "New"
-}</pre>
-
-              <h2 id="Collections">Collections</h2>
-              <p>Summary: Read/Write access to collections within a shop</p>
-              <p>Supported methods: <code>GET</code>, <code>POST</code>, <code>PUT</code>, <code>DELETE</code></p>
-              <div style="margin-top:10px;" id="Collections-patterns">
-                <h3>Request patterns:</h3>
-                <pre>
-  GET    /&lt;shop-handle&gt;/rest/collections          to get all collections in the shop
-  GET    /&lt;shop-handle&gt;/rest/collections/count    to get the count of all collections in the shop
-  POST   /&lt;shop-handle&gt;/rest/collections          to create a new collection
-  GET    /&lt;shop-handle&gt;/rest/collections/{id}     to get a specific collection
-  PUT    /&lt;shop-handle&gt;/rest/collections/{id}     to modify an existing collection
-  DELETE /&lt;shop-handle&gt;/rest/collections/{id}     to delete an existing collection</pre>
-              </div>
-              <p>Common URL query parameters:
-                <ul>
-                  <li>limit - maximun number of items to include in the result (default: 25, maximum: 100)</li>
-                  <li>page - page to return (default: 1)</li>
-                  <li>fields - comma-separated list of fields to include in the response</li>
-                  <li>query - semi-column-separated list of filters (using operators ><=)</li>
-                </ul>
-              </p>
-              <p>Collection Resource properties:</p>
-              <table class="table table-striped table-bordered table-condensed">
-                <thead><tr><th>Attribute</th><th>Type</th><th class="width1">Required</th><th>Example value</th><th class="width35">Description</th></tr></thead>
-                <tbody>
-                  <tr><td>id</td><td>Number</td><td>o</td><td><code>1</code></td><td>Resource ID. Must be given when updating the Collection.</td></tr>
-                  <tr><td>created_at</td><td>String</td><td>---</td><td><code>Sat, 28 Apr 2012 19:24:05 UTC</code></td><td>Resource create date or <code>null</code> if not specified</td></tr>
-                  <tr><td>updated_at</td><td>String</td><td>---</td><td><code>Mon, 14 May 2012 10:49:52 UTC</code></td><td>Resource last update date or <code>null</code> if it has not been updated yet</td></tr>
-                  <tr><td>title</td><td>String</td><td>x</td><td><code>Adidas T-Shirts</code></td><td>Collection title</td></tr>
-                  <tr><td>handle</td><td>String</td><td>o</td><td><code>adidas-1</code></td><td>Collection unique handle (appears in URL) or <code>null</code> if not specified. It's automatically generated from the Collection.title when a new Collection is created.</td></tr>
-                  <tr><td>description</td><td>String</td><td>---</td><td><code>The Best selection of Adidas T-Shirts</code></td><td>Collection description (HTML) or <code>null</code> if not specified</td></tr>
-                  <tr><td>tags</td><td>Array of Strings</td><td>---</td><td><code>["t-shirts", "adidas"]</code></td><td>A list of tag names or <code>null</code> if not specified</td></tr>
-                  <tr><td>image_ids</td><td>Array of Numbers</td><td>---</td><td><code>[11,12,13]</code></td><td>A list of Ids of the Images associated to the Collection or <code>null</code> if not specified. An empty array will delete the old values.</td></tr>
-                  <tr><td>featured_image</td><td>Object</td><td>---</td><td></td><td>The main image or <code>null</code> if none (<code>GET</code> only)</td></tr>
-                  <tr><td>&rsaquo;&rsaquo; id</td><td>Number</td><td>---</td><td><code>11</code></td><td>Resource id</td></tr>
-                  <tr><td>&rsaquo;&rsaquo; created_at</td><td>String</td><td>---</td><td><code>Sat, 28 Apr 2012 19:24:06 UTC</code></td><td>Resource create date</td></tr>
-                  <tr><td>&rsaquo;&rsaquo; updated_at</td><td>String</td><td>---</td><td><code>Mon, 14 May 2012 10:49:52 UTC</code></td><td>Resource last update date or <code>null</code> if it has not been updated yet</td></tr>
-                  <tr><td>&rsaquo;&rsaquo; name</td><td>String</td><td>---</td><td><code>jersey.png</code></td><td>The name of the image</td></tr>
-                  <tr><td>&rsaquo;&rsaquo; url</td><td>String</td><td>---</td><td><code>http://lh5.ggpht.com/JeuOabgSa7SOpPug...</code></td><td>Image url</td></tr>
-                  <tr><td>&rsaquo;&rsaquo; type</td><td>String</td><td>---</td><td><code>image/png</code></td><td>The content-type string with the image type</td></tr>
-                  <tr><td>num_of_products</td><td>Number</td><td>---</td><td><code>1</code></td><td>Number of products in the collection (<code>GET</code> only)</td></tr>
-                </tbody>
-              </table>
-              <h3>Examples:</h3>
-              <p><code>GET /&lt;shop-handle&gt;/rest/collections/1</code></p>
-                  <pre class="prettyprint lang-js">
+}
+          </pre>
+          <h2 id="Collections">Collections</h2>
+          <p>Summary: Read/Write access to collections within a shop</p>
+          <p>Supported methods: <code>GET</code>, <code>POST</code>, <code>PUT</code>, <code>DELETE</code></p>
+          <div style="margin-top:10px;" id="Collections-patterns">
+            <h3>Request patterns:</h3>
+            <pre>
+GET    /&lt;shop-handle&gt;/rest/collections          to get all collections in the shop
+GET    /&lt;shop-handle&gt;/rest/collections/count    to get the count of all collections in the shop
+POST   /&lt;shop-handle&gt;/rest/collections          to create a new collection
+GET    /&lt;shop-handle&gt;/rest/collections/{id}     to get a specific collection
+PUT    /&lt;shop-handle&gt;/rest/collections/{id}     to modify an existing collection
+DELETE /&lt;shop-handle&gt;/rest/collections/{id}     to delete an existing collection</pre>
+          </div>
+          <p>Common URL query parameters:
+            <ul>
+              <li>limit - maximun number of items to include in the result (default: 25, maximum: 100)</li>
+              <li>page - page to return (default: 1)</li>
+              <li>fields - comma-separated list of fields to include in the response</li>
+              <li>query - semi-column-separated list of filters (using operators ><=)</li>
+            </ul>
+          </p>
+          <p>Collection Resource properties:</p>
+          <table class="table table-striped table-bordered table-condensed">
+            <thead><tr><th>Attribute</th><th>Type</th><th class="width1">Required</th><th>Example value</th><th class="width35">Description</th></tr></thead>
+            <tbody>
+              <tr><td>id</td><td>Number</td><td>o</td><td><code>1</code></td><td>Resource ID. Must be given when updating the Collection.</td></tr>
+              <tr><td>created_at</td><td>String</td><td>---</td><td><code>Sat, 28 Apr 2012 19:24:05 UTC</code></td><td>Resource create date or <code>null</code> if not specified</td></tr>
+              <tr><td>updated_at</td><td>String</td><td>---</td><td><code>Mon, 14 May 2012 10:49:52 UTC</code></td><td>Resource last update date or <code>null</code> if it has not been updated yet</td></tr>
+              <tr><td>title</td><td>String</td><td>x</td><td><code>Adidas T-Shirts</code></td><td>Collection title</td></tr>
+              <tr><td>handle</td><td>String</td><td>o</td><td><code>adidas-1</code></td><td>Collection unique handle (appears in URL) or <code>null</code> if not specified. It's automatically generated from the Collection.title when a new Collection is created.</td></tr>
+              <tr><td>description</td><td>String</td><td>---</td><td><code>The Best selection of Adidas T-Shirts</code></td><td>Collection description (HTML) or <code>null</code> if not specified</td></tr>
+              <tr><td>tags</td><td>Array of Strings</td><td>---</td><td><code>["t-shirts", "adidas"]</code></td><td>A list of tag names or <code>null</code> if not specified</td></tr>
+              <tr><td>image_ids</td><td>Array of Numbers</td><td>---</td><td><code>[11,12,13]</code></td><td>A list of Ids of the Images associated to the Collection or <code>null</code> if not specified. An empty array will delete the old values.</td></tr>
+              <tr><td>featured_image</td><td>Object</td><td>---</td><td></td><td>The main image or <code>null</code> if none (<code>GET</code> only)</td></tr>
+              <tr><td>&rsaquo;&rsaquo; id</td><td>Number</td><td>---</td><td><code>11</code></td><td>Resource id</td></tr>
+              <tr><td>&rsaquo;&rsaquo; created_at</td><td>String</td><td>---</td><td><code>Sat, 28 Apr 2012 19:24:06 UTC</code></td><td>Resource create date</td></tr>
+              <tr><td>&rsaquo;&rsaquo; updated_at</td><td>String</td><td>---</td><td><code>Mon, 14 May 2012 10:49:52 UTC</code></td><td>Resource last update date or <code>null</code> if it has not been updated yet</td></tr>
+              <tr><td>&rsaquo;&rsaquo; name</td><td>String</td><td>---</td><td><code>jersey.png</code></td><td>The name of the image</td></tr>
+              <tr><td>&rsaquo;&rsaquo; url</td><td>String</td><td>---</td><td><code>http://lh5.ggpht.com/JeuOabgSa7SOpPug...</code></td><td>Image url</td></tr>
+              <tr><td>&rsaquo;&rsaquo; type</td><td>String</td><td>---</td><td><code>image/png</code></td><td>The content-type string with the image type</td></tr>
+              <tr><td>num_of_products</td><td>Number</td><td>---</td><td><code>1</code></td><td>Number of products in the collection (<code>GET</code> only)</td></tr>
+            </tbody>
+          </table>
+          <h3>Examples:</h3>
+          <p><code>GET /&lt;shop-handle&gt;/rest/collections/1</code></p>
+              <pre class="prettyprint lang-js">
 {
     "id": 1,
     "created_at": "Sat, 28 Apr 2012 19:24:05 UTC",
@@ -643,12 +684,13 @@ public class SellMateClient {
     "image_ids": [],
     "featured_image": null,
     "num_of_products": 1
-}</pre>
+}
+            </pre>
+          <h2 id="Orders">Orders</h2>
+          <p><code>TBD</code></p>
               
-              <h2 id="Orders">Orders</h2>
-              <p><code>TBD</code></p>
-              
-        </div><!--/span-->
+        </div>
+        <!-- /span9 -->
       </div><!--/row-->
 
       <hr>
