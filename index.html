@@ -490,22 +490,11 @@ public class SellMateClient {
                   <td><span class="badge badge-info">1</span></td>
                   <td>
                     <p>
-                      When requesting the Authorization Grant Code, an error response will be sent to the Application redirect URI with query string error parameters appended to it:
+                      When requesting the Authorization Grant Code, an error response (with HTTP status <code>400</code>) is sent to the Application redirect URI with query string error parameters appended to it:
                     </p>
                     <p>
                       <code>http://example.com/callback?error=invalid_request&error_description=Wrong%20redirect_uri</code>
-                    </p>
-                    <p>
-                      When requesting the Access Token, an error response (with HTTP status <code>400</code>) will be sent as a JSON String containing the error type and description. If the Client Id sent was invalid, the response HTTP status will be <code>401</code> with the following header
-                    </p>
-                    <pre>WWW-Authenticate: Basic realm="/oauth/token"</pre>
-                    <p>
-                      <pre class="prettyprint lang-js">
-{
-    "error": invalid_grant,
-    "error_description": "grant code is expired, you need to request a new one"
-}                     
-                      </pre>
+                      <pre>Content-Type: application/x-www-form-urlencoded</pre>
                     </p>
                   </td>
                 </tr>
@@ -513,13 +502,40 @@ public class SellMateClient {
                   <td><span class="badge badge-info">2</span></td>
                   <td>
                     <p>
-                      When making a REST call a JSON string is sent with the response containing the HTTP status code and a status description.
+                      When requesting the Access Token, an error response (with HTTP status <code>400</code>) is sent as a JSON String containing the error type and description:
+                    </p>
+                    <p>
+                      <pre>Content-Type: application/json</pre>
+                    </p>
+                    <p>
+                      <pre class="prettyprint lang-js">
+{
+    "error": "invalid_grant",
+    "error_description": "grant code is expired, you need to request a new one"
+}                     
+                      </pre>
+                    </p>
+                    <p>If the Client Id sent is invalid, the response HTTP status will be <code>401</code> with the following header</p>
+                    <pre>WWW-Authenticate: Basic realm="/oauth/token"</pre>
+                  </td>
+                </tr>
+                <tr>
+                  <td><span class="badge badge-info">3</span></td>
+                  <td>
+                    <p>
+                      When making a REST call a JSON string is sent with the response containing the HTTP status code and a status description. Examples:
                     </p>
                     <p>
                       <pre class="prettyprint lang-js">
 {
     "statusCode": 400,
     "statusMessage": "The request could not be understood by the server due to malformed syntax."
+}
+                      </pre>
+                      <pre class="prettyprint lang-js">
+{
+    "statusCode": 404,
+    "statusMessage": "No Product found"
 }
                       </pre>
                     </p>
