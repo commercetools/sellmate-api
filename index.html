@@ -182,11 +182,13 @@ String auth_header = "Basic " + new String(Base64.encodeBase64((client_id+":"+cl
 }</pre>                          
                     </td>
                   </tr>
-                  <tr><td><span class="badge badge-info">3</span></td><td><p>Make a REST Call</p></td></tr>
-                </tbody>
-              </table>
-              <p>Here is a sample Java code to calculate the Mac token from the credentials:
-              <pre class="prettyprint lang-java">
+                  <tr>
+                    <td><span class="badge badge-info">3</span></td><td><p>Make a REST Call</p>
+                      <p>Each HTTP request to the REST endpoints over http needs to include a HTTP Authorization header like this:</p>
+                      <p><code>Authorization: Mac id=ksynNsJ67xNs3BB8vgIlXl65qnhMwu,ts=1343842942,nonce=LgLZugNat3Qt,mac=B+BsVY7wU0rh4Lk3p/mWaygAoK5GmZWW+jC7UGgAed8="</code></p>
+                      <p>The value is calculated from the credentials obtained in the previous step</p>
+                      <p>Here is a sample Java code to calculate the Mac token from the credentials:
+                        <pre class="prettyprint lang-java">
 import java.net.URL;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -257,6 +259,11 @@ public class SellMateClient {
 	}
 }
 </pre>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
 
               <h2 id="AppApproval">Application Approval Process</h2>
               <p>For any application that requests to access SellMate data for regular merchant accounts (which will be the case for vast majority of applications), it needs to be approved by the SellMate team as a last step. If you create a new Application in the Developer Center, it only has an access to the Sandbox store and any stores owned by you (as the developer user). This will allow you to develop the application against the sandbox or real shop with a fully functioning REST API.</p>
