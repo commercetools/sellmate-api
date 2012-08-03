@@ -355,7 +355,23 @@ public class SellMateClient {
               <h2 id="Products">Products</h2>
               <p>Summary: Read/Write access to products within a shop</p>
               <p>Supported methods: <code>GET</code>, <code>POST</code>, <code>PUT</code>, <code>DELETE</code></p>
-              <p>Product Resource properties:</p>
+              <div id="Products-patterns">
+                <h3>Request patterns:</h3>
+                <pre>
+  GET    /&lt;shop-handle&gt;/rest/products          to get list of all products in the shop
+  GET    /&lt;shop-handle&gt;/rest/products/count    to get the count of all products in the shop
+  POST   /&lt;shop-handle&gt;/rest/products          to create a new product
+  GET    /&lt;shop-handle&gt;/rest/products/{id}     to get a specific product
+  PUT    /&lt;shop-handle&gt;/rest/products/{id}     to modify an existing product
+  DELETE /&lt;shop-handle&gt;/rest/products/{id}     to delete an existing product</pre>
+              </div>
+              <p>Common URL query parameters:
+                <ul>
+                  <li>fields - comma-separated list of fields to include in the response</li>
+                  <li>query - semi-column-separated list of filters (using operators ><=)</li>
+                </ul>
+              </p>
+              <h3>Product Resource properties:</h3>
               <table class="table table-striped table-bordered table-condensed">
                 <thead><tr><th>Attribute</th><th>Type</th><th class="required">Required</th><th>Example value</th><th>Description</th></tr></thead>
                 <tbody>
@@ -405,23 +421,6 @@ public class SellMateClient {
                   <tr><td>condition</td><td>String</td><td>x</td><td><code>New</code></td><td>Condition (Used, New) or <code>null</code> if not specified</td></tr>
                 </tbody>
               </table>
-              <div id="Products-patterns">
-                <h3>Request patterns:</h3>
-                <pre>
-  GET    /&lt;shop-handle&gt;/rest/products          to get list of all products in the shop
-  GET    /&lt;shop-handle&gt;/rest/products/count    to get the count of all products in the shop
-  POST   /&lt;shop-handle&gt;/rest/products          to create a new product
-  GET    /&lt;shop-handle&gt;/rest/products/{id}     to get a specific product
-  PUT    /&lt;shop-handle&gt;/rest/products/{id}     to modify an existing product
-  DELETE /&lt;shop-handle&gt;/rest/products/{id}     to delete an existing product
-                </pre>
-              </div>
-              <p>Common URL query parameters:
-                <ul>
-                  <li>fields - comma-separated list of fields to include in the response</li>
-                  <li>query - semi-column-separated list of filters (using operators ><=)</li>
-                </ul>
-              </p>
               <p>Request: <code>GET /&lt;shop-handle&gt;/rest/product/51001</code> -- Get the product details</p>
               <h3>Response example:</h3>
                   <pre class="prettyprint lang-js">
@@ -491,7 +490,25 @@ public class SellMateClient {
               <h2 id="Collections">Collections</h2>
               <p>Summary: Read/Write access to collections within a shop</p>
               <p>Supported methods: <code>GET</code>, <code>POST</code>, <code>PUT</code>, <code>DELETE</code></p>
-              <p>Collection Resource properties:</p>
+              <div style="margin-top:10px;" id="Collections-patterns">
+                <h3>Request patterns:</h3>
+                <pre>
+  GET    /&lt;shop-handle&gt;/rest/collections          to get all collections in the shop
+  GET    /&lt;shop-handle&gt;/rest/collections/count    to get the count of all collections in the shop
+  POST   /&lt;shop-handle&gt;/rest/collections          to create a new collection
+  GET    /&lt;shop-handle&gt;/rest/collections/{id}     to get a specific collection
+  PUT    /&lt;shop-handle&gt;/rest/collections/{id}     to modify an existing collection
+  DELETE /&lt;shop-handle&gt;/rest/collections/{id}     to delete an existing collection</pre>
+              </div>
+              <p>Common URL query parameters:
+                <ul>
+                  <li>limit - maximun number of items to include in the result (default: 25, maximum: 100)</li>
+                  <li>page - page to return (default: 1)</li>
+                  <li>fields - comma-separated list of fields to include in the response</li>
+                  <li>query - semi-column-separated list of filters (using operators ><=)</li>
+                </ul>
+              </p>
+              <h3>Collection Resource properties:</h3>
               <table class="table table-striped table-bordered table-condensed">
                 <thead><tr><th>Attribute</th><th>Type</th><th class="required">Required</th><th>Example value</th><th>Description</th></tr></thead>
                 <tbody>
@@ -507,25 +524,6 @@ public class SellMateClient {
                   <tr><td>num_of_products</td><td>Number</td><td>---</td><td><code>1</code></td><td>Number of products in the collection (<code>GET</code> only)</td></tr>
                 </tbody>
               </table>
-              <div style="margin-top:10px;" id="Collections-patterns">
-                <h3>Request patterns:</h3>
-                <pre>
-  GET    /&lt;shop-handle&gt;/rest/collections          to get all collections in the shop
-  GET    /&lt;shop-handle&gt;/rest/collections/count    to get the count of all collections in the shop
-  POST   /&lt;shop-handle&gt;/rest/collections          to create a new collection
-  GET    /&lt;shop-handle&gt;/rest/collections/{id}     to get a specific collection
-  PUT    /&lt;shop-handle&gt;/rest/collections/{id}     to modify an existing collection
-  DELETE /&lt;shop-handle&gt;/rest/collections/{id}     to delete an existing collection
-                </pre>
-              </div>
-              <p>Common URL query parameters:
-                <ul>
-                  <li>limit - maximun number of items to include in the result (default: 25, maximum: 100)</li>
-                  <li>page - page to return (default: 1)</li>
-                  <li>fields - comma-separated list of fields to include in the response</li>
-                  <li>query - semi-column-separated list of filters (using operators ><=)</li>
-                </ul>
-              </p>
               <p>Request: <code>GET /&lt;shop-handle&gt;/rest/collections/1</code> -- Get the collection details
               </p>
               <h3>Response example:</h3>
