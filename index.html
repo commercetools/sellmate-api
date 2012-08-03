@@ -89,6 +89,7 @@
               <li><a class="scrollto" data-target="#User">User</a></li>
               <li><a class="scrollto" data-target="#Products">Products</a></li>
               <li><a class="scrollto" data-target="#Collections">Collections</a></li>
+              <li><a class="scrollto" data-target="#Images">Images</a></li>
               <li><a class="scrollto" data-target="#Orders">Orders</a></li>
             </ul>
           </div><!--/.well -->
@@ -914,7 +915,7 @@ public class SellMateClient {
               </tbody>
             </table>
             <h3>Examples:</h3>
-            <p><code>GET /&lt;shop-handle&gt;/rest/shop</code></p>
+            <p><code>200 GET /&lt;shop-handle&gt;/rest/shop</code></p>
             <pre class="prettyprint lang-js">
 {
     "handle": "sample-store",
@@ -1066,7 +1067,7 @@ GET    /&lt;shop-handle&gt;/rest/user          to get (currently authenticated) 
               </tbody>
             </table>
             <h3>Examples:</h3>
-            <p><code>GET /&lt;shop-handle&gt;/rest/user</code></p>
+            <p><code>200 GET /&lt;shop-handle&gt;/rest/user</code></p>
             <pre class="prettyprint lang-js">
 {
     "id": 1,
@@ -1684,7 +1685,7 @@ DELETE /&lt;shop-handle&gt;/rest/products/{id}     to delete an existing product
               </tbody>
             </table>
             <h3>Examples:</h3>
-            <p><code>GET /&lt;shop-handle&gt;/rest/product/51001</code></p>
+            <p><code>200 GET /&lt;shop-handle&gt;/rest/product/51001</code></p>
             <pre class="prettyprint lang-js">
 {
     "id": 51001,
@@ -1799,7 +1800,7 @@ DELETE /&lt;shop-handle&gt;/rest/collections/{id}     to delete an existing coll
                 </tr>
               </tbody>
             </table>
-            <p>Collection Resource properties:</p>
+            <h3>Collection Resource properties:</h3>
             <table class="table table-striped table-bordered table-condensed">
               <thead>
                 <tr>
@@ -1994,7 +1995,7 @@ DELETE /&lt;shop-handle&gt;/rest/collections/{id}     to delete an existing coll
               </tbody>
             </table>
             <h3>Examples:</h3>
-            <p><code>GET /&lt;shop-handle&gt;/rest/collections/1</code></p>
+            <p><code>200 GET /&lt;shop-handle&gt;/rest/collections/1</code></p>
             <pre class="prettyprint lang-js">
 {
     "id": 1,
@@ -2006,13 +2007,158 @@ DELETE /&lt;shop-handle&gt;/rest/collections/{id}     to delete an existing coll
     "tags": [
         "T-shirt"
     ],
-    "image_ids": [],
-    "featured_image": null,
+    "image_ids": [10,11],
+    "featured_image": {
+        "id": 1133,
+        "created_at": "mar, 06 mar 2012 10:49:13 UTC",
+        "updated_at": null,
+        "name": "KobeJersey.jpg",
+        "url": "http://lh5.ggpht.com/JeuOabgSa7SOpPug_BK64iHoI2AFU-0mo3EccFTaRNKZL_vECv3WpY9TNI_W9MBDeTOcZeBKpiNDi8dH2zaZFCA",
+        "type": "image/jpeg"
+    },
     "num_of_products": 1
 }
             </pre>
           </div>
           <!-- /collections -->
+          <!-- images -->
+          <div id="Images">
+            <h2>Images (Products + Collections)</h2>
+            <p>Summary: Read/Write access to images within a resource (Product or Collection)</p>
+            <p>Supported methods: <code>GET</code>, <code>POST</code>, <code>PUT</code>, <code>DELETE</code></p>
+            <div style="margin-top:10px;" id="Collections-patterns">
+              <h3>Request patterns:</h3>
+              <pre>
+GET    /&lt;shop-handle&gt;/rest/&lt;products|collections&gt;/{id}/images          to get all images in the resource
+GET    /&lt;shop-handle&gt;/rest/&lt;products|collections&gt;/{id}/images/count    to get the count of all images in the resource
+POST   /&lt;shop-handle&gt;/rest/&lt;products|collections&gt;/{id}/images          to create a new image for a resource
+GET    /&lt;shop-handle&gt;/rest/&lt;products|collections&gt;/{id}/images/{id}     to get a specific image in the resource
+PUT    /&lt;shop-handle&gt;/rest/&lt;products|collections&gt;/{id}/images/{id}     to modify an existing image in the resource
+DELETE /&lt;shop-handle&gt;/rest/&lt;products|collections&gt;/{id}/images/{id}     to delete an existing image in the resource</pre>
+            </div>
+            <h3>Common URL query parameters</h3>
+            <p>Query parameters can be used to fetch specific Images (they can be combined together). <code>GET /images</code> only.</p>
+            <table class="table table-striped table-bordered table-condensed">
+              <thead>
+                <tr>
+                  <th>Parameter</th>
+                  <th>Example</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>fields</td>
+                  <td><code>.../images?fields=id,name,url</code></td>
+                  <td>comma-separated list of fields to include in the response</td>
+                </tr>
+                <tr>
+                  <td>query</td>
+                  <td><code>.../images?query=type&gt;image/png</code></td>
+                  <td>semi-column-separated list of filters (using operators ><=)</td>
+                </tr>
+              </tbody>
+            </table>
+            <h3>Image Resource properties:</h3>
+            <table class="table table-striped table-bordered table-condensed">
+              <thead>
+                <tr>
+                  <th>Attribute</th>
+                  <th>Type</th>
+                  <th class="width1">Required</th>
+                  <th>Example value</th>
+                  <th class="width35">Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>id</td>
+                  <td>Number</td>
+                  <td>---</td>
+                  <td>
+                    <code>11</code>
+                  </td>
+                  <td>Resource id</td>
+                </tr>
+                <tr>
+                  <td>created_at</td>
+                  <td>String</td>
+                  <td>---</td>
+                  <td>
+                    <code>Sat, 28 Apr 2012 19:24:06 UTC</code>
+                  </td>
+                  <td>Resource create date</td>
+                </tr>
+                <tr>
+                  <td>updated_at</td>
+                  <td>String</td>
+                  <td>---</td>
+                  <td>
+                    <code>Mon, 14 May 2012 10:49:52 UTC</code>
+                  </td>
+                  <td>
+                    Resource last update date or
+                    <code>null</code>
+                    if it has not been updated yet
+                  </td>
+                </tr>
+                <tr>
+                  <td>name</td>
+                  <td>String</td>
+                  <td>---</td>
+                  <td>
+                    <code>jersey.png</code>
+                  </td>
+                  <td>The name of the image</td>
+                </tr>
+                <tr>
+                  <td>url</td>
+                  <td>String</td>
+                  <td>---</td>
+                  <td>
+                    <code>http://lh5.ggpht.com/JeuOabgSa7SOpPug...</code>
+                  </td>
+                  <td>Image url</td>
+                </tr>
+                <tr>
+                  <td>type</td>
+                  <td>String</td>
+                  <td>---</td>
+                  <td>
+                    <code>image/png</code>
+                  </td>
+                  <td>The content-type string with the image type</td>
+                </tr>
+              </tbody>
+            </table>
+            <h3>Examples:</h3>
+            <p><code>200 GET /&lt;shop-handle&gt;/rest/products/78/images/1133</code></p>
+            <pre class="prettyprint lang-js">
+{
+    "id": 1133,
+    "created_at": "mar, 06 mar 2012 10:49:13 UTC",
+    "updated_at": null,
+    "name": "KobeJersey.jpg",
+    "url": "http://lh5.ggpht.com/JeuOabgSa7SOpPug_BK64iHoI2AFU-0mo3EccFTaRNKZL_vECv3WpY9TNI_W9MBDeTOcZeBKpiNDi8dH2zaZFCA",
+    "type": "image/jpeg"
+}
+            </pre>
+            <p><code>201 POST /&lt;shop-handle&gt;/rest/products/78/images</code></p>
+            <p>To create a new image you have 2 possibilities: provide a url or a base-64 encoded string:</p>
+            <pre class="prettyprint lang-js">
+{
+    "src": "http://www.nysportsjournalism.com/storage/KobeJersey.jpg"
+}
+            </pre>
+            <pre class="prettyprint lang-js">
+{
+    "name": "image-name",
+    "type":"image/png",
+    "attachment": "put your base64-encoded image data here"
+}
+            </pre>
+          </div>
+          <!-- /images -->
           <!-- orders -->
           <div id="Orders">
             <h2 id="Orders">Orders</h2>
