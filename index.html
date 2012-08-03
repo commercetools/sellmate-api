@@ -137,7 +137,7 @@
                 <tbody>
                   <tr><td><span class="badge badge-info">1</span></td>
                     <td>
-                      <p>Request an Authorization Grant Code by directing the user to the following URL (link in a browser app or embedded WebView for mobile devices):</p>
+                      <p>Request an <strong>Authorization Grant code</strong> by directing the user to the following URL (link in a browser app or embedded WebView for mobile devices):</p>
                       <p><code>https://auth.sellmate.com/oauth2/auth?response_type=code&client_id=1234</code></p>
                       <table class="table table-striped table-bordered table-condensed">
                         <thead><tr><th>Attribute</th><th class="width1">Required</th><th class="width30">Example value</th><th>Description</th></tr></thead>
@@ -151,12 +151,35 @@
                       </table>
                       <p>The user is asked to authenticate and select a store to access and the result is a call to the registered redirect URI like this:</p>
                       <p><code>http://example.com/callback?code=QF1r5biAVz&state=xyz&shop=sample-shop</code> where the code parameter is the Authorization grant code and the shop parameter the handle of the selected shop.</p>
-                      <div class="alert alert-info">Note: The Authorization Grant expires after <b>5min</b> and is not valid anymore once you request an Access Token with it.</div>
+                      <div class="alert alert-info">Note: The Authorization Grant expires after <b>5min</b> and becomes invalid once used (requested an Access Token with it).</div>
                     </td>
                   </tr>
                   <tr><td><span class="badge badge-info">2</span></td>
                     <td>
-                      <p>Request an Access Token </p>
+                      <p>Request an <strong>Access and Refresh tokens</strong> by issuing a POST request to the token endpoint</p>
+                      <p><code>https://auth.sellmate.com/oauth2/token</code></p>
+                      <p>Header must contain an authorization calculated from your client Id and client Secret, such as: <code>Authorization: Basic MTgwMDM6MmRGaks1TExtbEtmQ1Vi</code>
+                      </p>
+                      <p>Example Java code to calculate the authorization key value:
+                        <pre class="prettyprint lang-java">
+String auth_header = "Basic " + new String(Base64.encodeBase64((client_id+":"+client_secret).getBytes()));</pre>
+                      </p>
+                      <p>Body payload comes in 2 variants:
+                        <ol>
+                        <li>When requesting a new access + refresh tokens:<br> <code>grant_type=authorization_code&code={authorization-grant-code}&shop={shop-handle}&redirect_uri={redirect-uri}</code></li>
+                        <li>When requesting a new access token, using the refresh token:<br> <code>grant_type=refresh_token&refresh_token={refresh-token}&shop={shop-handle}&redirect_uri={redirect-uri}</code></li>
+                        </ol>
+                      </p>
+                      <p>Response is a JSON which contains all the necessary data to calculate the Mac tokens to use in the next step to access the REST endpoints:
+                        <pre class="prettyprint lang-js">
+{
+    "mac_algorithm": "hmac-sha-256",
+    "mac_key": "CycJK1kCOR4qPCThWY1p",
+    "expires_in": 3600,
+    "token_type": "mac",
+    "refresh_token": "P4xv2UOgfJTxQcTBeZyF05moNPt2VN",
+    "access_token": "H2kgGYmN6Hylj3F0XKvjUYdB5m4SQA"
+}</pre>                          
                     </td>
                   </tr>
                   <tr><td><span class="badge badge-info">3</span></td><td><p>Make a REST Call</p></td></tr>
