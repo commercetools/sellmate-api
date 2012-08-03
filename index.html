@@ -19,6 +19,7 @@
       $(document).ready(function() {
         prettyPrint();
 
+        // Scroll to an element on the page
         $('.scrollto').click(function(e){
           var target = $(this).attr('data-target');
           $.scrollTo($(target), {
@@ -29,16 +30,19 @@
           e.preventDefault();
         });
 
+        // Trigger an event when the footer is visible in the viewport
         $('.footer').bind('inview', function(event, visible){
           if (visible == true) {
-            // element is now visible in the viewport
+            // Move sidebar up a little
             $('.sidebar-nav .well').css('top',50);
+            $('.scrolltofooter').hide();
           } else {
-            // element has gone out of viewport
             $('.sidebar-nav .well').removeAttr('style');
+            $('.scrolltofooter').show();
           }
         });
 
+        // Intercept all anchor clicks and append the query parameters to the new target
         $('a').click(function(e){
           if (!$(this).hasClass('scrollto')) {
             e.preventDefault();
@@ -47,18 +51,18 @@
           }
         });
 
+        // Initialize the language switcher in the footer
         var locale_param = document.location.search.split('locale=').length > 1 ? document.location.search.split('locale=')[1] : '';
         $('select[name="lang_switcher"] option').each(function(){
           if ($(this).val() == locale_param) {
             $(this).attr('selected','selected');
           }
         });
-
+        // Change the locale when the selection changes
         $('select[name="lang_switcher"]').change(function() {
           var locale = $(this).val();
           var url = location.protocol + '//' + location.host + location.pathname;
           url = url + "?locale=" + locale;
-             
           window.location = url;
         });
       });
@@ -87,9 +91,16 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand context" href="#">SellMate Developer Portal</a>
+          <a class="brand context" href="http://www.sellmate.com">
+            <img src="assets/img/logo_sellmate.png" alt="sellmate logo" title="sellmate logo" />
+          </a>
           <div class="nav-collapse">
             <ul class="nav">
+              <li class="divider-vertical"></li>
+              <li>
+              <a href="http://commercetools.github.com/sellmate-api/" class="context">Developer Portal</a>
+              </li>
+              <li class="divider-vertical"></li>      
               <li class="active"><a href="#">API Documentation</a></li>
               <li><a href="http://www.sellmate.com/developer/tools/restconsole">REST Console</a></li>
             </ul>
@@ -127,6 +138,11 @@
               <li><a class="scrollto" data-target="#Orders">Orders</a></li>
             </ul>
           </div><!--/.well -->
+          <div class="scrolltofooter">
+            <ul class="nav nav-pills">
+              <li class="active"><a class="scrollto" data-target="#Footer"><i class="icon-chevron-down icon-white"></i> Footer</a></li>
+            </ul>
+          </div>
         </div>
         <!-- /span3 -->
         <!-- span9 -->
@@ -2206,7 +2222,7 @@ DELETE /&lt;shop-handle&gt;/rest/&lt;products|collections&gt;/{id}/images/{id}  
       <hr>
     </div><!--/.fluid-container-->
     <!-- footer -->
-    <footer class="footer">
+    <footer id="Footer" class="footer">
       <div class="container">
         <div class="row">
           <div class="span2">

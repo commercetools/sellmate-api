@@ -10,6 +10,9 @@ tr th.width1 { width:1%; }
 tr th.width30 { width:30%; }
 tr th.width35 { width:35%; }
 
+/* Overrides bootstrap css */
+.navbar .brand { padding: 5px 10px; margin:0; }
+.navbar .brand img { margin-bottom: -3px; padding: 0; }
 .navbar-inner {
   padding-left: 20px;
   padding-right: 20px;
@@ -30,8 +33,8 @@ tr th.width35 { width:35%; }
 .navbar .nav > li > a.active { border-top: 3px solid #fff; padding-top: 6px; }
 .navbar .nav > .active > a, .navbar .nav > li > a:hover { border-top: 3px solid #fff; padding-top: 6px; background-color:transparent !important; }
 .navbar .nav > li > a { line-height: 24px; color:#fff; font-size: 16px; color: rgba(255, 255, 255, .7); }
-.brand.context, .navbar .nav > li > .context { line-height: 24px; color: white; font-size: 24px; font-style: italic; text-decoration: none; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25); }
-.brand.context:hover, .navbar .nav > li > a.context:hover { border-top: none !important; }
+.navbar .nav > li > .context { line-height: 24px; color: white; font-size: 24px; font-style: italic; float: none; text-decoration: none; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25); }
+.navbar .nav > li > a.context:hover { border-top: none !important; padding-top: 9px !important; }
 .dropdown .caret { margin-top: 10px; }
 .navbar .nav.pull-right .dropdown-menu li > a:hover,
 .navbar .nav.pull-right .dropdown-menu .active > a,
@@ -113,7 +116,8 @@ tr th.width35 { width:35%; }
 }
 @media (min-width: 768px) {
   .sidebar-nav .well { padding: 9px 0; position: fixed; width: 23.076923077%; }
-  .sidebar-nav .well:last-child { top:185px; }
+  .sidebar-nav .well:nth-child(2) { top:185px; }
+  .scrolltofooter { position: fixed; bottom:0; }
 }
 @media (max-width: 767px) {
   body { padding:0 20px; }
