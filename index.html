@@ -186,6 +186,20 @@ String auth_header = "Basic " + new String(Base64.encodeBase64((client_id+":"+cl
                     <td><span class="badge badge-info">3</span></td><td><p>Make a REST Call</p>
                       <p>Each HTTP request to the REST endpoints over http needs to include a HTTP Authorization header like this:</p>
                       <p><code>Authorization: Mac id=ksynNsJ67xNs3BB8vgIlXl65qnhMwu,ts=1343842942,nonce=LgLZugNat3Qt,mac=B+BsVY7wU0rh4Lk3p/mWaygAoK5GmZWW+jC7UGgAed8="</code></p>
+                      <p>The Mac token has the following format:<pre>
+Mac id={access_token},
+    ts={timestamp in sec (unix epoch time)},
+    nonce={a random alphanumeric string},
+    mac={Base64 encoded result of Mac algorithm applied on a normalized encoded string}</pre>
+                      <p>The normalized encoded string is built this way:<pre>
+timestamp\n
+nonce\n
+method\n
+target_url\n
+host\n
+port\n
+\n</pre>
+                      </p>
                       <p>The value is calculated from the credentials obtained in the previous step</p>
                       <p>Here is a sample Java code to calculate the Mac token from the credentials:
                         <pre class="prettyprint lang-java">
