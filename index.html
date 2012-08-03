@@ -144,13 +144,13 @@
                         <tbody>
                           <tr><td>response_type</td><td>x</td><td><code>code</code></td><td>Response type must be <code>code</code> or <code>token</code> for <i>Implicit Grant</i> (see below).</td></tr>
                           <tr><td>client_id</td><td>x</td><td><code>1234</code></td><td>The Id of the Application.</td></tr>
-                          <tr><td>redirect_uri</td><td>o</td><td><code>http://my-app-site.com/callback</code></td><td>The redirect uri registered with your Application. If provided, it must match the one registered.</td></tr>
+                          <tr><td>redirect_uri</td><td>o</td><td><code>http://example.com/callback</code></td><td>The redirect uri registered with your Application. If provided, it must match the one registered.</td></tr>
                           <tr><td>shop</td><td>o</td><td><code>sample-shop</code></td><td>The id of the shop that you're trying to access. If not provided, a prompt will ask the user to select one of his shops during the OAuth process (if he has more then one).</td></tr>
                           <tr><td>state</td><td>---</td><td><code>xyz</code></td><td>An opaque value used by the client to maintain state between the request and the callback. The authorization server includes this value when redirecting the user-agent back to the client.</td></tr>
                         </tbody>
                       </table>
                       <p>The user is asked to authenticate and select a store to access and the result is a call to the registered redirect URI like this:</p>
-                      <p><code>http://example.com/?code=QF1r5biAVz&state=xyz&shop=sample-shop</code> where the code parameter is the Authorization grant code and the shop parameter the handle of the selected shop.</p>
+                      <p><code>http://example.com/callback?code=QF1r5biAVz&state=xyz&shop=sample-shop</code> where the code parameter is the Authorization grant code and the shop parameter the handle of the selected shop.</p>
                       <div class="alert alert-warning">Note: The Authorization Grant expires after 5min and is not valid anymore once you request an Access Token with it.</div>
                     </td>
                   </tr>
