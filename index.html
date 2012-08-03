@@ -158,8 +158,10 @@
                     <td>
                       <p>Request an <strong>Access and Refresh tokens</strong> by issuing a POST request to the token endpoint</p>
                       <p><code>https://auth.sellmate.com/oauth2/token</code></p>
-                      <p>Header must contain an authorization calculated from your client Id and client Secret, such as:
-                      <p><code>Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW</code></p>
+                      <p>Header must contain an Authorization, calculated from your Client Id and Client Secret, and Content-Type such as:
+                      <p>
+                        <pre>Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW
+                        <br>Content-Type: application/x-www-form-urlencoded</pre>
                       </p>
                       <p>Example Java code to calculate the authorization key value:
                         <pre class="prettyprint lang-java">
@@ -209,9 +211,14 @@ String auth_header = "Basic " + new String(Base64.encodeBase64((client_id+":"+cl
                     </td>
                   </tr>
                   <tr>
-                    <td><span class="badge badge-info">3</span></td><td><p>Make a REST Call</p>
-                      <p>Each HTTP request to the REST endpoints over http needs to include a HTTP Authorization header like this:</p>
-                      <p><code>Authorization: Mac id=ksynNsJ67xNs3BB8vgIlXl65qnhMwu,ts=1343842942,nonce=LgLZugNat3Qt,mac=B+BsVY7wU0rh4Lk3p/mWaygAoK5GmZWW+jC7UGgAed8="</code></p>
+                    <td><span class="badge badge-info">3</span></td>
+                    <td><p>Make a <b>REST Call</b> by issuing a GET/POST/PUT/DELETE request to</p>
+                      <p><code>http://api.sellmate.com/&lt;shop-handle&gt;/rest/&lt;resource&gt;</code></p>
+                      <p>Each HTTP request to the REST endpoints needs to include a HTTP Authorization Header and a Content-Type such as:</p>
+                      <p>
+                        <pre>Authorization: Mac id=ksynNsJ67xNs3BB8vgIlXl65qnhMwu,ts=1343842942,nonce=LgLZugNat3Qt,mac=B+BsVY7wU0rh4Lk3p/mWaygAoK5GmZWW+jC7UGgAed8="
+                        <br>Content-Type: application/json</pre>
+                      </p>
                       <p>The Mac token has the following format:<pre>
 Mac id={access_token},
     ts={timestamp in sec (unix epoch time)},
