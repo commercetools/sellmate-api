@@ -452,7 +452,7 @@ public class SellMateClient {
                   <tr><td>tags</td><td>Array of Strings</td><td>---</td><td><code>["t-shirts", "blue-shirts"]</code></td><td>A list of tag names or <code>null</code> if not specified</td></tr>
                   <tr><td>stock</td><td>Number</td><td>---</td><td><code>10</code></td><td>The number of items in stock, based on the Variant values (<code>GET</code> only)</td></tr>
                   <tr><td>url</td><td>String</td><td>---</td><td><code>en</code></td><td>The public product URL (if published) or <code>null</code> (<code>GET</code> only)</td></tr>
-                  <tr><td>image_ids</td><td>Array of Numbers</td><td>---</td><td><code>[11,12,13]</code></td><td>TBD</td></tr>
+                  <tr><td>image_ids</td><td>Array of Numbers</td><td>---</td><td><code>[11,12,13]</code></td><td>A list of Ids of the Images associated to the Product or <code>null</code> if not specified. An empty array will delete the old values.</td></tr>
                   <tr><td>featured_image</td><td>Object</td><td>---</td><td></td><td>The main image or <code>null</code> if none (<code>GET</code> only)</td></tr>
                   <tr><td>&rsaquo;&rsaquo; id</td><td>Number</td><td>---</td><td><code>11</code></td><td>Resource id</td></tr>
                   <tr><td>&rsaquo;&rsaquo; created_at</td><td>String</td><td>---</td><td><code>Sat, 28 Apr 2012 19:24:06 UTC</code></td><td>Resource create date</td></tr>
@@ -583,8 +583,14 @@ public class SellMateClient {
                   <tr><td>handle</td><td>String</td><td>o</td><td><code>adidas-1</code></td><td>Collection unique handle (appears in URL) or <code>null</code> if not specified. It's automatically generated from the Collection.title when a new Collection is created.</td></tr>
                   <tr><td>description</td><td>String</td><td>---</td><td><code>The Best selection of Adidas T-Shirts</code></td><td>Collection description (HTML) or <code>null</code> if not specified</td></tr>
                   <tr><td>tags</td><td>Array of Strings</td><td>---</td><td><code>["t-shirts", "adidas"]</code></td><td>A list of tag names or <code>null</code> if not specified</td></tr>
-                  <tr><td>image_ids</td><td>Array of Numbers</td><td>---</td><td><code>TBD</code></td><td>TBD</td></tr>
-                  <tr><td>featured_image</td><td>String</td><td>---</td><td><code>TBD</code></td><td>The main image or <code>null</code> if none (<code>GET</code> only)</td></tr>
+                  <tr><td>image_ids</td><td>Array of Numbers</td><td>---</td><td><code>[11,12,13]</code></td><td>A list of Ids of the Images associated to the Collection or <code>null</code> if not specified. An empty array will delete the old values.</td></tr>
+                  <tr><td>featured_image</td><td>Object</td><td>---</td><td></td><td>The main image or <code>null</code> if none (<code>GET</code> only)</td></tr>
+                  <tr><td>&rsaquo;&rsaquo; id</td><td>Number</td><td>---</td><td><code>11</code></td><td>Resource id</td></tr>
+                  <tr><td>&rsaquo;&rsaquo; created_at</td><td>String</td><td>---</td><td><code>Sat, 28 Apr 2012 19:24:06 UTC</code></td><td>Resource create date</td></tr>
+                  <tr><td>&rsaquo;&rsaquo; updated_at</td><td>String</td><td>---</td><td><code>Mon, 14 May 2012 10:49:52 UTC</code></td><td>Resource last update date or <code>null</code> if it has not been updated yet</td></tr>
+                  <tr><td>&rsaquo;&rsaquo; name</td><td>String</td><td>---</td><td><code>jersey.png</code></td><td>The name of the image</td></tr>
+                  <tr><td>&rsaquo;&rsaquo; url</td><td>String</td><td>---</td><td><code>http://lh5.ggpht.com/JeuOabgSa7SOpPug...</code></td><td>Image url</td></tr>
+                  <tr><td>&rsaquo;&rsaquo; type</td><td>String</td><td>---</td><td><code>image/png</code></td><td>The content-type string with the image type</td></tr>
                   <tr><td>num_of_products</td><td>Number</td><td>---</td><td><code>1</code></td><td>Number of products in the collection (<code>GET</code> only)</td></tr>
                 </tbody>
               </table>
