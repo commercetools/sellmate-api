@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>SellMate REST API Documentation</title>
+    <title>Sellmate REST API Documentation</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -147,7 +147,7 @@
         <!-- /span3 -->
         <!-- span9 -->
         <div class="span9">
-          <div class="alert alert-warning"><strong>Warning:</strong> This documentation describes the API of a Beta version of sellmate.com, the API may change in an incompatible way before the final release of SellMate.</div>
+          <div class="alert alert-warning"><strong>Warning:</strong> This documentation describes the API of a Beta version of sellmate.com, the API may change in an incompatible way before the final release of Sellmate.</div>
         
           <div class="page-header">
             <h1>General <small>General concepts & getting started</small></h1>
@@ -155,8 +155,8 @@
           <!-- overview -->
           <div id="Overview">
             <h2>Overview</h2>
-            <p>The SellMate HTTP API follows the common REST API principles, supports JSON data format (<code>application/json</code> content-type) and all 4 HTTP verbs (GET/POST/PUT/DELETE) in a way consistent with the HTTP protocol and REST API best practices. Each resource (e.g. Products, Collections, Orders) has its own URL scheme and is manipulated in isolation.</p>
-            <p>The SellMate REST API is implemented in JSON format for all 4 verbs (<code>GET</code>/<code>POST</code>/<code>PUT</code>/<code>DELETE</code>). Each resource (e.g. Products, Collections, Orders) has its own URL scheme and is manipulated in isolation.</p>
+            <p>The Sellmate HTTP API follows the common REST API principles, supports JSON data format (<code>application/json</code> content-type) and all 4 HTTP verbs (GET/POST/PUT/DELETE) in a way consistent with the HTTP protocol and REST API best practices. Each resource (e.g. Products, Collections, Orders) has its own URL scheme and is manipulated in isolation.</p>
+            <p>The Sellmate REST API is implemented in JSON format for all 4 verbs (<code>GET</code>/<code>POST</code>/<code>PUT</code>/<code>DELETE</code>). Each resource (e.g. Products, Collections, Orders) has its own URL scheme and is manipulated in isolation.</p>
             <p>We provide a convenient testing tool to work with both Auth and API endpoints to simplify the debugging of API usage:<br/>
             <a class="btn" href="http://www.sellmate.com/developer/tools/restconsole">REST Console</a></p>
           </div>
@@ -164,7 +164,7 @@
           <!-- http verbs -->
           <div id="HTTPVerbs">
             <h2>HTTP Verbs</h2>
-            <p>The general meaning of HTTP verbs for SellMate API is:
+            <p>The general meaning of HTTP verbs for Sellmate API is:
               <ul class="unstyled">
                 <li><code>GET</code> - Get a resource or a list of resources</li>
                 <li><code>DELETE</code> - Delete existing resource</li>
@@ -177,7 +177,7 @@
           <!-- authentication -->
           <div id="Authentication">
             <h2>Authentication &amp; Authorization</h2>
-            <p>SellMate REST API uses OAuth2 flow to provide authentication and authorization. The initial OAuth2 exchange is done over SSL via the auth URL (<code>https://auth.sellmate.com</code>), subsequent REST API calls are done over plain http (<code>http://api.sellmate.com</code>) and need to contain an <pre>"Authorization": "Mac XXXXXXXXXXX"</pre> HTTP header. SellMate API uses combination of http protocol + one time calculated Mac tokens to protect against abuse.
+            <p>Sellmate REST API uses OAuth2 flow to provide authentication and authorization. The initial OAuth2 exchange is done over SSL via the auth URL (<code>https://auth.sellmate.com</code>), subsequent REST API calls are done over plain http (<code>http://api.sellmate.com</code>) and need to contain an <pre>"Authorization": "Mac XXXXXXXXXXX"</pre> HTTP header. Sellmate API uses combination of http protocol + one time calculated Mac tokens to protect against abuse.
             </p>
             <p>Before you can start using the REST API, you will need to finish couple registration steps:
                 <ul>
@@ -465,7 +465,7 @@ import javax.crypto.spec.SecretKeySpec;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.RandomStringUtils;
 
-public class SellMateClient {
+public class SellmateClient {
   private final static String MAC_ALGORITHM = "HmacSHA256";
 
   public static void main (String[] args) {
@@ -668,9 +668,9 @@ public class SellMateClient {
           <!-- approval -->
           <div id="AppApproval">
             <h2>Application Approval Process</h2>
-            <p>For any application that requests to access SellMate data for regular merchant accounts (which will be the case for vast majority of applications), it needs to be approved by the SellMate team as a last step. If you create a new Application in the Developer Center, it only has an access to the Sandbox store and any stores owned by you (as the developer user). This will allow you to develop the application against the sandbox or real shop with a fully functioning REST API.</p>
-            <p>Once the application is finished, you can request the approval on the Application page in the Developer Center - this will notify the SellMate team, which will review the application and enable it to be installed for any shop. The approval process is in place to prevent abuse and/or malicious applications to be able to access the real stores.</p>
-            <p>A separate step will allow to request the Application to be listed in the SellMate App Store. Details for this will be published later.</p>
+            <p>For any application that requests to access Sellmate data for regular merchant accounts (which will be the case for vast majority of applications), it needs to be approved by the Sellmate team as a last step. If you create a new Application in the Developer Center, it only has an access to the Sandbox store and any stores owned by you (as the developer user). This will allow you to develop the application against the sandbox or real shop with a fully functioning REST API.</p>
+            <p>Once the application is finished, you can request the approval on the Application page in the Developer Center - this will notify the Sellmate team, which will review the application and enable it to be installed for any shop. The approval process is in place to prevent abuse and/or malicious applications to be able to access the real stores.</p>
+            <p>A separate step will allow to request the Application to be listed in the Sellmate App Store. Details for this will be published later.</p>
           </div>
           <!-- /approval -->
           <!-- RESOURCE ENDPOINTS -->
