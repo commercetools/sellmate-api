@@ -1678,10 +1678,10 @@ DELETE /&lt;shop-handle&gt;/rest/products/{id}     to delete an existing product
                   <td>String</td>
                   <td>o</td>
                   <td>
-                    <code>Unisex</code>
+                    <code>unisex</code>
                   </td>
                   <td>
-                    Gender (Unisex, Male, Female) or
+                    Gender (unisex, male, female) or
                     <code>null</code>
                     if not specified. It's required for some Google Product Categories.
                   </td>
@@ -1691,10 +1691,10 @@ DELETE /&lt;shop-handle&gt;/rest/products/{id}     to delete an existing product
                   <td>String</td>
                   <td>o</td>
                   <td>
-                    <code>Adult</code>
+                    <code>adult</code>
                   </td>
                   <td>
-                    Age group (Adult, Kids) or
+                    Age group (adult, kids) or
                     <code>null</code>
                     if not specified. It's required for some Google Product Categories.
                   </td>
@@ -1730,10 +1730,10 @@ DELETE /&lt;shop-handle&gt;/rest/products/{id}     to delete an existing product
                   <td>String</td>
                   <td>x</td>
                   <td>
-                    <code>New</code>
+                    <code>new</code>
                   </td>
                   <td>
-                    Condition (Used, New) or
+                    Condition (new, used, refurbished) or
                     <code>null</code>
                     if not specified
                   </td>
@@ -1798,12 +1798,30 @@ DELETE /&lt;shop-handle&gt;/rest/products/{id}     to delete an existing product
             "taxable": true
         }
     ],
-    "googleProductCategory": "Apparel &amp; Accessories > Clothing > Tops > T-Shirts",
-    "gender": "Unisex",
-    "age_group": "Adult",
+    "googleProductCategory": "Apparel &amp; Accessories > Clothing > Shirts &amp; Tops > T-Shirts",
+    "gender": "unisex",
+    "age_group": "adult",
     "mpn": "adidas-1",
     "gtin": null,
-    "condition": "New"
+    "condition": "new"
+}
+            </pre>
+            <p><code>201 POST /&lt;shop-handle&gt;/rest/products</code></p>
+            <p>To create a new Product you just need to provide the required fields (and no Id):</p>
+            <pre class="prettyprint lang-js">
+{
+    "title": "Adidas T-Shirt",
+    "vendor": "Adidas",
+    "variants": [
+        {
+            "price": 19.99
+        }
+    ],
+    "googleProductCategory": "Apparel &amp; Accessories > Clothing > Shirts &amp; Tops > T-Shirts",
+    "gender": "unisex",
+    "age_group": "adult",
+    "mpn": "adidas-1",
+    "condition": "new"
 }
             </pre>
           </div>
