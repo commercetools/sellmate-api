@@ -586,6 +586,11 @@ public class SellmateClient {
     "statusCode": 404,
     "statusMessage": "No Product found"
 }</pre>
+                      <pre class="prettyprint lang-js">
+{
+    "statusCode": 405,
+    "statusMessage": "Method Not Allowed. The method specified in the request is not allowed for the resource identified by the request URI"
+}</pre>
                     </p>
                   </td>
                 </tr>
@@ -1601,7 +1606,7 @@ DELETE /&lt;shop-handle&gt;/rest/products/&lt;id&gt;     to delete an existing p
                 </tr>
                 <tr class="subelement">
                   <td>weight</td>
-                  <td>Number</td>
+                  <td>String</td>
                   <td>---</td>
                   <td>
                     <code>10.5</code>
@@ -2223,7 +2228,597 @@ DELETE /&lt;shop-handle&gt;/rest/&lt;products|collections&gt;/&lt;id&gt;/images/
           <!-- orders -->
           <div id="Orders" class="section">
             <h2 id="Orders">Orders</h2>
-            <p><code>TBD</code></p>
+            <p>Summary: Read/Write access to orders within a shop</p>
+            <p>Supported methods: <code>GET</code>, <code>POST</code>, <code>PUT</code></p>
+            <div style="margin-top:10px;" id="Orders-patterns">
+              <h3>Request patterns:</h3>
+              <pre>
+GET    /&lt;shop-handle&gt;/rest/orders          to get list of all orders in the shop
+GET    /&lt;shop-handle&gt;/rest/orders/count    to get the count of all orders in the shop
+POST   /&lt;shop-handle&gt;/rest/orders          to create a new order
+GET    /&lt;shop-handle&gt;/rest/orders/&lt;id&gt;     to get a specific order
+PUT    /&lt;shop-handle&gt;/rest/orders/&lt;id&gt;     to modify an existing order</pre>
+            </div>
+            <h3>Common URL query parameters</h3>
+            <p>Query parameters can be used to fetch specific Orders (they can be combined together). <code>GET /orders</code> only.</p>
+            <table class="table table-striped table-bordered table-condensed">
+              <thead>
+                <tr>
+                  <th>Parameter</th>
+                  <th>Example</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>limit</td>
+                  <td><code>.../orders?limit=50</code></td>
+                  <td>amout of results (default: 25, maximum: 100)</td>
+                </tr>
+                <tr>
+                  <td>page</td>
+                  <td><code>.../orders?page=3</code></td>
+                  <td>page to show (default: 1)</td>
+                </tr>
+                <tr>
+                  <td>fields</td>
+                  <td><code>.../orders?fields=id,subtotal_price,gateway</code></td>
+                  <td>comma-separated list of fields to include in the response</td>
+                </tr>
+                <tr>
+                  <td>query</td>
+                  <td><code>.../orders?query=subtotal_price&lt;50</code></td>
+                  <td>semi-column-separated list of filters (using operators ><=)</td>
+                </tr>
+              </tbody>
+            </table>
+            <h3>Order Resource properties:</h3>
+            <table class="table table-striped table-bordered table-condensed">
+              <thead>
+                <tr>
+                  <th>Attribute</th>
+                  <th>Type</th>
+                  <th class="width1">Required</th>
+                  <th>Example value</th>
+                  <th class="width35">Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>id</td>
+                  <td>Number</td>
+                  <td>o</td>
+                  <td>
+                    <code>1</code>
+                  </td>
+                  <td>Resource ID. Must be given when updating the Order.</td>
+                </tr>
+                <tr>
+                  <td>created_at</td>
+                  <td>String</td>
+                  <td>---</td>
+                  <td>
+                    <code>Sat, 28 Apr 2012 19:24:05 UTC</code>
+                  </td>
+                  <td>
+                    Resource create date or
+                    <code>null</code>
+                    if not specified
+                  </td>
+                </tr>
+                <tr>
+                  <td>updated_at</td>
+                  <td>String</td>
+                  <td>---</td>
+                  <td>
+                    <code>Mon, 14 May 2012 10:49:52 UTC</code>
+                  </td>
+                  <td>
+                    Resource last update date or
+                    <code>null</code>
+                    if it has not been updated yet
+                  </td>
+                </tr>
+                <tr>
+                  <td>subtotal_price</td>
+                  <td>String</td>
+                  <td>x</td>
+                  <td>
+                    <code>120</code>
+                  </td>
+                  <td>Order subtotal price. It must be not <code>null</code> and <code>&gt;0</code>.</td>
+                </tr>
+                <tr>
+                  <td>shipping_price</td>
+                  <td>String</td>
+                  <td>x</td>
+                  <td>
+                    <code>10</code>
+                  </td>
+                  <td>Order shipping price. It must be not <code>null</code> and <code>&gt;0</code>.</td>
+                </tr>
+                <tr>
+                  <td>tax_price</td>
+                  <td>String</td>
+                  <td>x</td>
+                  <td>
+                    <code>0</code>
+                  </td>
+                  <td>Order tax price. It must be not <code>null</code> and <code>&gt;0</code>.</td>
+                </tr>
+                <tr>
+                  <td>total_price</td>
+                  <td>String</td>
+                  <td>x</td>
+                  <td>
+                    <code>130</code>
+                  </td>
+                  <td>Order total price, the sum of <code>subtotal_price</code>, <code>shipping_price</code>, <code>tax_price</code>. It must be not <code>null</code> and <code>&gt;0</code>.</td>
+                </tr>
+                <tr class="substructure">
+                  <td>list_items</td>
+                  <td>Array of Objects</td>
+                  <td>---</td>
+                  <td></td>
+                  <td>
+                    The list of items in the order
+                  </td>
+                </tr>
+                <tr class="subelement">
+                  <td>variant_id</td>
+                  <td>Number</td>
+                  <td>x</td>
+                  <td>
+                    <code>14</code>
+                  </td>
+                  <td>Variant resource Id</td>
+                </tr>
+                <tr class="subelement">
+                  <td>product_id</td>
+                  <td>Number</td>
+                  <td>x</td>
+                  <td>
+                    <code>10</code>
+                  </td>
+                  <td>Product resource Id</td>
+                </tr>
+                <tr class="subelement">
+                  <td>title</td>
+                  <td>String</td>
+                  <td>x</td>
+                  <td>
+                    <code>T-Shirt - Blue XL</code>
+                  </td>
+                  <td>The title of the Item, usually the combination of product title and variant options.</td>
+                </tr>
+                <tr class="subelement">
+                  <td>product_title</td>
+                  <td>String</td>
+                  <td>x</td>
+                  <td>
+                    <code>T-Shirt</code>
+                  </td>
+                  <td>Product title.</td>
+                </tr>
+                <tr class="subelement">
+                  <td>product_description</td>
+                  <td>String</td>
+                  <td>---</td>
+                  <td>
+                    <code>A Cool Adidas T-Shirt</code>
+                  </td>
+                  <td>Product description (HTML) or <code>null</code> if not specified</td>
+                </tr>
+                <tr class="subelement">
+                  <td>product_vendor</td>
+                  <td>String</td>
+                  <td>---</td>
+                  <td>
+                    <code>Adidas</code>
+                  </td>
+                  <td>Product vendor or <code>null</code> if not specified</td>
+                </tr>
+                <tr class="subelement">
+                  <td>variant_option1</td>
+                  <td>String</td>
+                  <td>---</td>
+                  <td>
+                    <code>Blue</code>
+                  </td>
+                  <td>The value of the Variant Option1 or <code>null</code> if not specified.</td>
+                </tr>
+                <tr class="subelement">
+                  <td>variant_option2</td>
+                  <td>String</td>
+                  <td>---</td>
+                  <td>
+                    <code>XL</code>
+                  </td>
+                  <td>The value of the Variant Option2 or <code>null</code> if not specified.</td>
+                </tr>
+                <tr class="subelement">
+                  <td>variant_option3</td>
+                  <td>String</td>
+                  <td>---</td>
+                  <td>
+                    <code>null</code>
+                  </td>
+                  <td>The value of the Variant Option3 or <code>null</code> if not specified.</td>
+                </tr>
+                <tr class="subelement">
+                  <td>variant_sku</td>
+                  <td>String</td>
+                  <td>---</td>
+                  <td>
+                    <code>12345</code>
+                  </td>
+                  <td>The SKU (Stock Keep Unit) of the Product, if it has one, or <code>null</code> if not specified.</td>
+                </tr>
+                <tr class="subelement">
+                  <td>variant_price</td>
+                  <td>String</td>
+                  <td>x</td>
+                  <td>
+                    <code>120</code>
+                  </td>
+                  <td>The price of the Variant.</td>
+                </tr>
+                <tr class="subelement">
+                  <td>variant_weight</td>
+                  <td>String</td>
+                  <td>---</td>
+                  <td>
+                    <code>10.5</code>
+                  </td>
+                  <td>The weight of the Variant item or <code>null</code> if not specified.</td>
+                </tr>
+                <tr class="subelement">
+                  <td>variant_weight_unit</td>
+                  <td>String</td>
+                  <td>---</td>
+                  <td>
+                    <code>null</code>
+                  </td>
+                  <td>The weight unit of the Variant item or <code>null</code> if not specified.</td>
+                </tr>
+                <tr class="subelement">
+                  <td>variant_requires_shipping</td>
+                  <td>Boolean</td>
+                  <td>---</td>
+                  <td>
+                    <code>true</code>
+                  </td>
+                  <td>true if the Variant can be shipped, false otherwise or <code>null</code> if not specified.</td>
+                </tr>
+                <tr class="subelement">
+                  <td>variant_taxable</td>
+                  <td>Boolean</td>
+                  <td>---</td>
+                  <td>
+                    <code>true</code>
+                  </td>
+                  <td>true if the Variant is taxable, false otherwise or <code>null</code> if not specified.</td>
+                </tr>
+                <tr class="subelement">
+                  <td>quantity</td>
+                  <td>Number</td>
+                  <td>x</td>
+                  <td>
+                    <code>1</code>
+                  </td>
+                  <td>The quantity of the item in the order, must be at least 1.</td>
+                </tr>
+                <tr class="subelement">
+                  <td>line_price</td>
+                  <td>Number</td>
+                  <td>---</td>
+                  <td>
+                    <code>120</code>
+                  </td>
+                  <td>The price of the item, based on the variant price and the quantity.</td>
+                </tr>
+                <tr class="substructure">
+                  <td>shipping_method</td>
+                  <td>Object</td>
+                  <td>---</td>
+                  <td>
+                    <code></code>
+                  </td>
+                  <td><code>TBD</code></td>
+                </tr>
+                <tr class="substructure">
+                  <td>payment_details</td>
+                  <td>Object</td>
+                  <td>---</td>
+                  <td>
+                    <code></code>
+                  </td>
+                  <td><code>TBD</code></td>
+                </tr>
+                <tr>
+                  <td>note</td>
+                  <td>String</td>
+                  <td>---</td>
+                  <td>
+                    <code>null</code>
+                  </td>
+                  <td>A note about the order, or <code>null</code> if not specified.</td>
+                </tr>
+                <tr>
+                  <td>gateway</td>
+                  <td>String</td>
+                  <td>x</td>
+                  <td>
+                    <code>GoogleCheckout</code>
+                  </td>
+                  <td>The gateway used to purchase the order. It must be Prepayment, PayPal, GoogleCheckout, CashOnDelivery, Invoice.</td>
+                </tr>
+                <tr>
+                  <td>currency</td>
+                  <td>String</td>
+                  <td>x</td>
+                  <td>
+                    <code>USD</code>
+                  </td>
+                  <td>The currency of the order.</td>
+                </tr>
+                <tr class="substructure">
+                  <td>customer</td>
+                  <td>Object</td>
+                  <td>---</td>
+                  <td>
+                    <code></code>
+                  </td>
+                  <td><code>TBD</code></td>
+                </tr>
+                <tr class="substructure">
+                  <td>shipping_address</td>
+                  <td>Object</td>
+                  <td>---</td>
+                  <td>
+                    <code></code>
+                  </td>
+                  <td><code>TBD</code></td>
+                </tr>
+                <tr class="substructure">
+                  <td>billing_address</td>
+                  <td>Object</td>
+                  <td>---</td>
+                  <td>
+                    <code></code>
+                  </td>
+                  <td><code>TBD</code></td>
+                </tr>
+                <tr>
+                  <td>order_number</td>
+                  <td>String</td>
+                  <td>x</td>
+                  <td>
+                    <code>GC-123456789123456</code>
+                  </td>
+                  <td>The order number. A prefix is appended to indicate from where the order was generated (<code>GC</code> for GoogleCheckout, <code>PP</code> for PayPal, <code>SM</code> for Sellmate).</td>
+                </tr>
+                <tr>
+                  <td>order_name</td>
+                  <td>String</td>
+                  <td>---</td>
+                  <td>
+                    <code></code>
+                  </td>
+                  <td><code>TBD</code></td>
+                </tr>
+                <tr>
+                  <td>cancelled_at</td>
+                  <td>String</td>
+                  <td>---</td>
+                  <td>
+                    <code></code>
+                  </td>
+                  <td><code>TBD</code></td>
+                </tr>
+                <tr>
+                  <td>closed_at</td>
+                  <td>String</td>
+                  <td>---</td>
+                  <td>
+                    <code></code>
+                  </td>
+                  <td><code>TBD</code></td>
+                </tr>
+                <tr>
+                  <td>cancel_reason</td>
+                  <td>String</td>
+                  <td>---</td>
+                  <td>
+                    <code></code>
+                  </td>
+                  <td><code>TBD</code></td>
+                </tr>
+                <tr>
+                  <td>referring_site</td>
+                  <td>String</td>
+                  <td>---</td>
+                  <td>
+                    <code></code>
+                  </td>
+                  <td><code>TBD</code></td>
+                </tr>
+                <tr>
+                  <td>fulfillment_status</td>
+                  <td>Object</td>
+                  <td>x</td>
+                  <td>
+                    <code>NEW</code>
+                  </td>
+                  <td>The fulfillment status of the order. It must be FULFILLED, UNFULFILLED, NEW, PROCESSING, DELIVERED, WILL_NOT_DELIVER</td>
+                </tr>
+                <tr>
+                  <td>financial_status</td>
+                  <td>Object</td>
+                  <td>x</td>
+                  <td>
+                    <code>REVIEWING</code>
+                  </td>
+                  <td>The financial status of the order. It must be AUTHORIZED, REVIEWING, CHARGEABLE, CHARGING, CHARGED, PAYMENT_DECLINED, REFUNDED, CANCELLED, CANCELLED_BY_GOOGLE</td>
+                </tr>
+                <tr>
+                  <td>isSandbox</td>
+                  <td>Boolean</td>
+                  <td>x</td>
+                  <td>
+                    <code>false</code>
+                  </td>
+                  <td>true if the order was made in a Sandbox environment, false otherwise.</td>
+                </tr>
+              </tbody>
+            </table>
+            <h3>Examples:</h3>
+            <p><code>200 GET /&lt;shop-handle&gt;/rest/orders/743</code></p>
+            <pre class="prettyprint lang-js">
+{
+    "id": 743,
+    "created_at": "mar, 07 ago 2012 14:34:55 UTC",
+    "updated_at": null,
+    "subtotal_price": 120,
+    "shipping_price": 4.95,
+    "tax_price": 0,
+    "total_price": 124.95,
+    "line_items": [
+        {
+            "id": null,
+            "created_at": null,
+            "updated_at": null,
+            "variant_id": 14,
+            "product_id": 10,
+            "title": "T-Shirt - Blue XL",
+            "product_title": "T-Shirt",
+            "product_description": "A Cool Adidas T-Shirt",
+            "product_vendor": "Adidas",
+            "variant_option1": "Blue",
+            "variant_option2": "XL",
+            "variant_option3": "",
+            "variant_sku": null,
+            "variant_price": 120,
+            "variant_weight": null,
+            "variant_weight_unit": null,
+            "variant_requires_shipping": true,
+            "variant_taxable": true,
+            "quantity": 1,
+            "line_price": 120
+        }
+    ],
+    "shipping_method": null,
+    "payment_details": null,
+    "note": null,
+    "gateway": "GoogleCheckout",
+    "currency": "USD",
+    "customer": {
+        "id": null,
+        "version": 0,
+        "created_at": null,
+        "updated_at": null,
+        "first_name": "John",
+        "last_name": "Doe",
+        "email": "john.doe@example.com",
+        "note": null,
+        "accepts_marketing": null,
+        "orders": null
+    },
+    "shipping_address": {
+        "first_name": "John",
+        "last_name": "Doe",
+        "company": "Example Corp.",
+        "address1": "42 My Street",
+        "address2": "",
+        "city": "New York",
+        "zip": "10000",
+        "province": "NY",
+        "country": "USA",
+        "country_code": "us",
+        "phone": "615-123-4567"
+    },
+    "billing_address": {
+        "first_name": "John",
+        "last_name": "Doe",
+        "company": "Example Corp.",
+        "address1": "42 My Street",
+        "address2": "",
+        "city": "New York",
+        "zip": "10000",
+        "province": "NY",
+        "country": "USA",
+        "country_code": "us",
+        "phone": "615-123-4567"
+    },
+    "order_number": "GC-123456789123456",
+    "order_name": null,
+    "cancelled_at": null,
+    "closed_at": null,
+    "cancel_reason": null,
+    "referring_site": null,
+    "fulfillment_status": "NEW",
+    "financial_status": "REVIEWING",
+    "isSandbox": false
+}</pre>
+            <p><code>201 POST /&lt;shop-handle&gt;/rest/orders</code></p>
+            <p>To create a new Order you just need to provide the required fields (and no Id):</p>
+            <pre class="prettyprint lang-js">
+{
+    "subtotal_price": 120,
+    "shipping_price": 4.95,
+    "tax_price": 0,
+    "total_price": 124.95,
+    "line_items": [
+        {
+            "variant_id": 14,
+            "product_id": 10,
+            "title": "T-Shirt - Blue XL",
+            "product_title": "T-Shirt",
+            "product_description": "A Cool Adidas T-Shirt",
+            "product_vendor": "Adidas",
+            "variant_option1": "Blue",
+            "variant_option2": "XL",
+            "variant_price": 120,
+            "quantity": 1,
+            "line_price": 120
+        }
+    ],
+    "gateway": "GoogleCheckout",
+    "currency": "USD",
+    "customer": {
+        "first_name": "John",
+        "last_name": "Doe",
+        "email": "john.doe@example.com"
+    },
+    "shipping_address": {
+        "first_name": "John",
+        "last_name": "Doe",
+        "company": "Example Corp.",
+        "address1": "42 My Street",
+        "city": "New York",
+        "zip": "10000",
+        "province": "NY",
+        "country": "USA",
+        "country_code": "us",
+        "phone": "615-123-4567"
+    },
+    "billing_address": {
+        "first_name": "John",
+        "last_name": "Doe",
+        "company": "Example Corp.",
+        "address1": "42 My Street",
+        "address2": "",
+        "city": "New York",
+        "zip": "10000",
+        "province": "NY",
+        "country": "USA",
+        "country_code": "us"
+    },
+    "order_number": "GC-123456789123456",
+    "fulfillment_status": "NEW",
+    "financial_status": "REVIEWING",
+    "isSandbox": false
+}</pre>
           </div>
           <!-- /orders -->    
         </div>
