@@ -159,7 +159,7 @@
             <h1>General <small>General concepts & getting started</small></h1>
           </div>
           <!-- overview -->
-          <div id="Overview">
+          <div id="Overview" class="section">
             <h2>Overview</h2>
             <p>The Sellmate HTTP API follows the common REST API principles, supports JSON data format (<code>application/json</code> content-type) and all 4 HTTP verbs (GET/POST/PUT/DELETE) in a way consistent with the HTTP protocol and REST API best practices. Each resource (e.g. Products, Collections, Orders) has its own URL scheme and is manipulated in isolation.</p>
             <p>The Sellmate REST API is implemented in JSON format for all 4 verbs (<code>GET</code>/<code>POST</code>/<code>PUT</code>/<code>DELETE</code>). Each resource (e.g. Products, Collections, Orders) has its own URL scheme and is manipulated in isolation.</p>
@@ -168,7 +168,7 @@
           </div>
           <!-- /overview -->
           <!-- http verbs -->
-          <div id="HTTPVerbs">
+          <div id="HTTPVerbs" class="section">
             <h2>HTTP Verbs</h2>
             <p>The general meaning of HTTP verbs for Sellmate API is:
               <ul class="unstyled">
@@ -181,7 +181,7 @@
           </div>
           <!-- /http verbs -->
           <!-- authentication -->
-          <div id="Authentication">
+          <div id="Authentication" class="section">
             <h2>Authentication &amp; Authorization</h2>
             <p>Sellmate REST API uses OAuth2 flow to provide authentication and authorization. The initial OAuth2 exchange is done over SSL via the auth URL (<code>https://auth.sellmate.com</code>), subsequent REST API calls are done over plain http (<code>http://api.sellmate.com</code>) and need to contain an <pre>"Authorization": "Mac XXXXXXXXXXX"</pre> HTTP header. Sellmate API uses combination of http protocol + one time calculated Mac tokens to protect against abuse.
             </p>
@@ -241,7 +241,7 @@
                             <code>http://example.com/callback</code>
                           </td>
                           <td>
-                            The redirect uri registered with your Application. If provided, it must match the one registered.
+                            The redirect URI registered with your Application. If provided, it must match the one registered.
                           </td>
                         </tr>
                         <tr>
@@ -290,8 +290,7 @@
                     </p>
                     <p>Example Java code to calculate the authorization key value:
                       <pre class="prettyprint lang-java">
-String auth_header = "Basic " + new String(Base64.encodeBase64((client_id+":"+client_secret).getBytes()));
-                      </pre>
+String auth_header = "Basic " + new String(Base64.encodeBase64((client_id+":"+client_secret).getBytes()));</pre>
                     </p>
                     <p>Body payload comes in 2 variants:
                       <ol>
@@ -347,7 +346,7 @@ String auth_header = "Basic " + new String(Base64.encodeBase64((client_id+":"+cl
                                 <td>
                                   <code>http://example.com/callback</code>
                                 </td>
-                                <td>The redirect uri registered with your Application.</td>
+                                <td>The redirect URI registered with your Application.</td>
                               </tr>
                             </tbody>
                           </table>
@@ -404,7 +403,7 @@ String auth_header = "Basic " + new String(Base64.encodeBase64((client_id+":"+cl
                                 <td>
                                   <code>http://example.com/callback</code>
                                 </td>
-                                <td>The redirect uri registered with your Application.</td>
+                                <td>The redirect URI registered with your Application.</td>
                               </tr>
                             </tbody>
                           </table>
@@ -420,8 +419,7 @@ String auth_header = "Basic " + new String(Base64.encodeBase64((client_id+":"+cl
     "token_type": "mac",
     "refresh_token": "P4xv2UOgfJTxQcTBeZyF05moNPt2VN",
     "access_token": "H2kgGYmN6Hylj3F0XKvjUYdB5m4SQA"
-}
-                      </pre>
+}</pre>
                     <div class="alert alert-info">Note: The Access Token expires after <b>1h</b> from the time the response was generated.</div>                        
                   </td>
                 </tr>
@@ -435,16 +433,14 @@ String auth_header = "Basic " + new String(Base64.encodeBase64((client_id+":"+cl
                     <p>
                       <pre>
 Authorization: Mac id=ksynNsJ67xNs3BB8vgIlXl65qnhMwu,ts=1343842942,nonce=LgLZugNat3Qt,mac=B+BsVY7wU0rh4Lk3p/mWaygAoK5GmZWW+jC7UGgAed8="
-Content-Type: application/json
-                      </pre>
+Content-Type: application/json</pre>
                     </p>
                     <p>The Mac token has the following format:
                       <pre>
 Mac id={access_token},
 ts={timestamp in sec (unix epoch time)},
 nonce={a random alphanumeric string},
-mac={Base64 encoded result of Mac algorithm applied on a normalized encoded string}
-                      </pre>
+mac={Base64 encoded result of Mac algorithm applied on a normalized encoded string}</pre>
                     </p>
                     <p>The normalized encoded string is built this way:
                       <pre>
@@ -454,8 +450,7 @@ method\n
 target_url\n
 host\n
 port\n
-\n
-                      </pre>
+\n</pre>
                     </p>
                     <p>The value is calculated from the credentials obtained in the previous step</p>
                     <p>Here is a sample Java code to calculate the Mac token from the credentials:
@@ -528,8 +523,7 @@ public class SellmateClient {
   String authHeader = " Mac id=\"" + access_token + "\"," + "ts=\"" + timestamp + "\"," + "nonce=\"" + nonce
   	+ "\"," + "mac=\"" + mac_string + "\"";
   }
-}
-                    </pre>
+}</pre>
                   </td>
                 </tr>
                 <!-- step 3 -->
@@ -538,7 +532,7 @@ public class SellmateClient {
           </div>
           <!-- /authentication -->
           <!-- error handling -->
-          <div id="ErrorHandling">
+          <div id="ErrorHandling" class="section">
             <h2>Error Handling</h2>
             <p>REST calls or Token requests may result in an error. In that case error responses are provided as follow:</p>
             <table class="table table-condensed">
@@ -569,8 +563,7 @@ public class SellmateClient {
 {
     "error": "invalid_grant",
     "error_description": "grant code is expired, you need to request a new one"
-}                     
-                      </pre>
+}</pre>
                     </p>
                     <p>If the Client Id sent is invalid, the response HTTP status will be <code>401</code> with the following header</p>
                     <pre>WWW-Authenticate: Basic realm="/oauth/token"</pre>
@@ -587,14 +580,12 @@ public class SellmateClient {
 {
     "statusCode": 400,
     "statusMessage": "The request could not be understood by the server due to malformed syntax."
-}
-                      </pre>
+}</pre>
                       <pre class="prettyprint lang-js">
 {
     "statusCode": 404,
     "statusMessage": "No Product found"
-}
-                      </pre>
+}</pre>
                     </p>
                   </td>
                 </tr>
@@ -672,7 +663,7 @@ public class SellmateClient {
           </div>
           <!-- /error handling -->
           <!-- approval -->
-          <div id="AppApproval">
+          <div id="AppApproval" class="section">
             <h2>Application Approval Process</h2>
             <p>For any application that requests to access Sellmate data for regular merchant accounts (which will be the case for vast majority of applications), it needs to be approved by the Sellmate team as a last step. If you create a new Application in the Developer Center, it only has an access to the Sandbox store and any stores owned by you (as the developer user). This will allow you to develop the application against the sandbox or real shop with a fully functioning REST API.</p>
             <p>Once the application is finished, you can request the approval on the Application page in the Developer Center - this will notify the Sellmate team, which will review the application and enable it to be installed for any shop. The approval process is in place to prevent abuse and/or malicious applications to be able to access the real stores.</p>
@@ -684,7 +675,7 @@ public class SellmateClient {
             <h1>Resource endpoints <small>The operations and data available via the REST API</small></h1>
           </div>
           <!-- shop -->
-          <div id="Shop">
+          <div id="Shop" class="section">
             <h2>Shop</h2>
             <p>Summary: Read access to the metadata and settings of the shop the application accesses</p>
             <p>Supported methods: <code>GET</code></p>
@@ -1006,20 +997,18 @@ public class SellmateClient {
         "type": "image/png"
     },
     "html_snippet": "My great store"
-}
-            </pre>          
+}</pre>          
           </div>
           <!-- /shop -->
           <!-- user -->
-          <div id="User">
+          <div id="User" class="section">
             <h2 id="User">User</h2>
             <p>Summary: Read access to the metadata about the user using the app (the authenticated user using the application)</p>
             <p>Supported methods: <code>GET</code></p>
             <div style="margin-top:10px;" id="User-patterns">
               <h3>Request patterns:</h3>
               <pre>
-GET    /&lt;shop-handle&gt;/rest/user          to get (currently authenticated) user info and settings
-              </pre>
+GET    /&lt;shop-handle&gt;/rest/user          to get (currently authenticated) user info and settings</pre>
             </div>
             <h3>User Resource properties:</h3>
             <table class="table table-striped table-bordered table-condensed">
@@ -1142,12 +1131,11 @@ GET    /&lt;shop-handle&gt;/rest/user          to get (currently authenticated) 
     ],
     "sandbox_id": "ids4h5sd8e",
     "locale": "en"
-}
-            </pre>
+}</pre>
           </div>
           <!-- /user -->          
           <!-- products -->
-          <div id="Products">
+          <div id="Products" class="section">
             <h2 id="Products">Products</h2>
             <p>Summary: Read/Write access to products within a shop</p>
             <p>Supported methods: <code>GET</code>, <code>POST</code>, <code>PUT</code>, <code>DELETE</code></p>
@@ -1157,10 +1145,9 @@ GET    /&lt;shop-handle&gt;/rest/user          to get (currently authenticated) 
 GET    /&lt;shop-handle&gt;/rest/products          to get list of all products in the shop
 GET    /&lt;shop-handle&gt;/rest/products/count    to get the count of all products in the shop
 POST   /&lt;shop-handle&gt;/rest/products          to create a new product
-GET    /&lt;shop-handle&gt;/rest/products/{id}     to get a specific product
-PUT    /&lt;shop-handle&gt;/rest/products/{id}     to modify an existing product
-DELETE /&lt;shop-handle&gt;/rest/products/{id}     to delete an existing product
-              </pre>
+GET    /&lt;shop-handle&gt;/rest/products/&lt;id&gt;     to get a specific product
+PUT    /&lt;shop-handle&gt;/rest/products/&lt;id&gt;     to modify an existing product
+DELETE /&lt;shop-handle&gt;/rest/products/&lt;id&gt;     to delete an existing product</pre>
             </div>
             <h3>Common URL query parameters</h3>
             <p>Query parameters can be used to fetch specific Products (they can be combined together). <code>GET /products</code> only.</p>
@@ -1804,8 +1791,7 @@ DELETE /&lt;shop-handle&gt;/rest/products/{id}     to delete an existing product
     "mpn": "adidas-1",
     "gtin": null,
     "condition": "new"
-}
-            </pre>
+}</pre>
             <p><code>201 POST /&lt;shop-handle&gt;/rest/products</code></p>
             <p>To create a new Product you just need to provide the required fields (and no Id):</p>
             <pre class="prettyprint lang-js">
@@ -1822,12 +1808,11 @@ DELETE /&lt;shop-handle&gt;/rest/products/{id}     to delete an existing product
     "age_group": "adult",
     "mpn": "adidas-1",
     "condition": "new"
-}
-            </pre>
+}</pre>
           </div>
           <!-- /products -->
           <!-- collections -->
-          <div id="Collections">
+          <div id="Collections" class="section">
             <h2>Collections</h2>
             <p>Summary: Read/Write access to collections within a shop</p>
             <p>Supported methods: <code>GET</code>, <code>POST</code>, <code>PUT</code>, <code>DELETE</code></p>
@@ -1837,9 +1822,9 @@ DELETE /&lt;shop-handle&gt;/rest/products/{id}     to delete an existing product
 GET    /&lt;shop-handle&gt;/rest/collections          to get all collections in the shop
 GET    /&lt;shop-handle&gt;/rest/collections/count    to get the count of all collections in the shop
 POST   /&lt;shop-handle&gt;/rest/collections          to create a new collection
-GET    /&lt;shop-handle&gt;/rest/collections/{id}     to get a specific collection
-PUT    /&lt;shop-handle&gt;/rest/collections/{id}     to modify an existing collection
-DELETE /&lt;shop-handle&gt;/rest/collections/{id}     to delete an existing collection</pre>
+GET    /&lt;shop-handle&gt;/rest/collections/&lt;id&gt;     to get a specific collection
+PUT    /&lt;shop-handle&gt;/rest/collections/&lt;id&gt;     to modify an existing collection
+DELETE /&lt;shop-handle&gt;/rest/collections/&lt;id&gt;     to delete an existing collection</pre>
             </div>
             <h3>Common URL query parameters</h3>
             <p>Query parameters can be used to fetch specific Collections (they can be combined together). <code>GET /collections</code> only.</p>
@@ -2091,24 +2076,29 @@ DELETE /&lt;shop-handle&gt;/rest/collections/{id}     to delete an existing coll
         "type": "image/jpeg"
     },
     "num_of_products": 1
-}
-            </pre>
+}</pre>
+            <p><code>201 POST /&lt;shop-handle&gt;/rest/collections</code></p>
+            <p>To create a new Collection you just need to provide the required fields (and no Id):</p>
+            <pre class="prettyprint lang-js">
+{
+    "title": "Snowboards"
+}</pre>
           </div>
           <!-- /collections -->
           <!-- images -->
-          <div id="Images">
+          <div id="Images" class="section">
             <h2>Images (Products + Collections)</h2>
             <p>Summary: Read/Write access to images within a resource (Product or Collection)</p>
             <p>Supported methods: <code>GET</code>, <code>POST</code>, <code>PUT</code>, <code>DELETE</code></p>
             <div style="margin-top:10px;" id="Collections-patterns">
               <h3>Request patterns:</h3>
               <pre>
-GET    /&lt;shop-handle&gt;/rest/&lt;products|collections&gt;/{id}/images          to get all images in the resource
-GET    /&lt;shop-handle&gt;/rest/&lt;products|collections&gt;/{id}/images/count    to get the count of all images in the resource
-POST   /&lt;shop-handle&gt;/rest/&lt;products|collections&gt;/{id}/images          to create a new image for a resource
-GET    /&lt;shop-handle&gt;/rest/&lt;products|collections&gt;/{id}/images/{id}     to get a specific image in the resource
-PUT    /&lt;shop-handle&gt;/rest/&lt;products|collections&gt;/{id}/images/{id}     to modify an existing image in the resource
-DELETE /&lt;shop-handle&gt;/rest/&lt;products|collections&gt;/{id}/images/{id}     to delete an existing image in the resource</pre>
+GET    /&lt;shop-handle&gt;/rest/&lt;products|collections&gt;/&lt;id&gt;/images          to get all images in the resource
+GET    /&lt;shop-handle&gt;/rest/&lt;products|collections&gt;/&lt;id&gt;/images/count    to get the count of all images in the resource
+POST   /&lt;shop-handle&gt;/rest/&lt;products|collections&gt;/&lt;id&gt;/images          to create a new image for a resource
+GET    /&lt;shop-handle&gt;/rest/&lt;products|collections&gt;/&lt;id&gt;/images/&lt;id&gt;     to get a specific image in the resource
+PUT    /&lt;shop-handle&gt;/rest/&lt;products|collections&gt;/&lt;id&gt;/images/&lt;id&gt;     to modify an existing image in the resource
+DELETE /&lt;shop-handle&gt;/rest/&lt;products|collections&gt;/&lt;id&gt;/images/&lt;id&gt;     to delete an existing image in the resource</pre>
             </div>
             <h3>Common URL query parameters</h3>
             <p>Query parameters can be used to fetch specific Images (they can be combined together). <code>GET /images</code> only.</p>
@@ -2215,26 +2205,23 @@ DELETE /&lt;shop-handle&gt;/rest/&lt;products|collections&gt;/{id}/images/{id}  
     "name": "KobeJersey.jpg",
     "url": "http://lh5.ggpht.com/JeuOabgSa7SOpPug_BK64iHoI2AFU-0mo3EccFTaRNKZL_vECv3WpY9TNI_W9MBDeTOcZeBKpiNDi8dH2zaZFCA",
     "type": "image/jpeg"
-}
-            </pre>
+}</pre>
             <p><code>201 POST /&lt;shop-handle&gt;/rest/products/78/images</code></p>
             <p>To create a new image you have 2 possibilities: provide a url or a base-64 encoded string:</p>
             <pre class="prettyprint lang-js">
 {
     "src": "http://www.nysportsjournalism.com/storage/KobeJersey.jpg"
-}
-            </pre>
+}</pre>
             <pre class="prettyprint lang-js">
 {
     "name": "image-name",
     "type":"image/png",
     "attachment": "put your base64-encoded image data here"
-}
-            </pre>
+}</pre>
           </div>
           <!-- /images -->
           <!-- orders -->
-          <div id="Orders">
+          <div id="Orders" class="section">
             <h2 id="Orders">Orders</h2>
             <p><code>TBD</code></p>
           </div>
