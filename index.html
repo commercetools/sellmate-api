@@ -2356,7 +2356,7 @@ PUT    /&lt;shop-handle&gt;/rest/orders/&lt;id&gt;     to modify an existing ord
                   <td>Order total price, the sum of <code>subtotal_price</code>, <code>shipping_price</code>, <code>tax_price</code>. It must be not <code>null</code> and <code>&gt;0</code>.</td>
                 </tr>
                 <tr class="substructure">
-                  <td>list_items</td>
+                  <td>line_items</td>
                   <td>Array of Objects</td>
                   <td>---</td>
                   <td></td>
@@ -2521,18 +2521,41 @@ PUT    /&lt;shop-handle&gt;/rest/orders/&lt;id&gt;     to modify an existing ord
                   <td>shipping_method</td>
                   <td>Object</td>
                   <td>---</td>
+                  <td></td>
+                  <td>Info about the shipping method or <code>null</code> if not specified.</td>
+                </tr>
+                <tr class="subelement">
+                  <td>price</td>
+                  <td>String</td>
+                  <td>x</td>
                   <td>
-                    <code></code>
+                    <code>3.99</code>
                   </td>
-                  <td><code>TBD</code></td>
+                  <td>The price of the shipping method. It must be <code>&gt;0</code></td>
+                </tr>
+                <tr class="subelement">
+                  <td>tracking_code</td>
+                  <td>String</td>
+                  <td>---</td>
+                  <td>
+                    <code>abcd1234</code>
+                  </td>
+                  <td>The code used to track the shipment or <code>null</code> if not specified.</td>
+                </tr>
+                <tr class="subelement">
+                  <td>carrier</td>
+                  <td>String</td>
+                  <td>x</td>
+                  <td>
+                    <code>UPS</code>
+                  </td>
+                  <td>The carrier used to ship (UPS, FedEx, ...)</td>
                 </tr>
                 <tr class="substructure">
                   <td>payment_details</td>
                   <td>Object</td>
                   <td>---</td>
-                  <td>
-                    <code></code>
-                  </td>
+                  <td></td>
                   <td><code>TBD</code></td>
                 </tr>
                 <tr>
@@ -2565,83 +2588,318 @@ PUT    /&lt;shop-handle&gt;/rest/orders/&lt;id&gt;     to modify an existing ord
                 <tr class="substructure">
                   <td>customer</td>
                   <td>Object</td>
-                  <td>---</td>
+                  <td>x</td>
+                  <td></td>
+                  <td>Info about customer</td>
+                </tr>
+                <tr class="subelement">
+                  <td>first_name</td>
+                  <td>String</td>
+                  <td>x</td>
                   <td>
-                    <code></code>
+                    <code>John</code>
                   </td>
-                  <td><code>TBD</code></td>
+                  <td>First name</td>
+                </tr>
+                <tr class="subelement">
+                  <td>last_name</td>
+                  <td>String</td>
+                  <td>x</td>
+                  <td>
+                    <code>Doe</code>
+                  </td>
+                  <td>Last name</td>
+                </tr>
+                <tr class="subelement">
+                  <td>email</td>
+                  <td>String</td>
+                  <td>x</td>
+                  <td>
+                    <code>John</code>
+                  </td>
+                  <td>Email address</td>
                 </tr>
                 <tr class="substructure">
                   <td>shipping_address</td>
                   <td>Object</td>
+                  <td>x</td>
+                  <td></td>
+                  <td>Shipping address</td>
+                </tr>
+                <tr class="subelement">
+                  <td>first_name</td>
+                  <td>String</td>
+                  <td>x</td>
+                  <td>
+                    <code>John</code>
+                  </td>
+                  <td>First name</td>
+                </tr>
+                <tr class="subelement">
+                  <td>last_name</td>
+                  <td>String</td>
+                  <td>x</td>
+                  <td>
+                    <code>Doe</code>
+                  </td>
+                  <td>Last name</td>
+                </tr>
+                <tr class="subelement">
+                  <td>company</td>
+                  <td>String</td>
+                  <td>---</td>
+                  <td>
+                    <code>Example Corp.</code>
+                  </td>
+                  <td>Company name</td>
+                </tr>
+                <tr class="subelement">
+                  <td>address1</td>
+                  <td>String</td>
+                  <td>x</td>
+                  <td>
+                    <code>42 My Street</code>
+                  </td>
+                  <td>Address line 1</td>
+                </tr>
+                <tr class="subelement">
+                  <td>address2</td>
+                  <td>String</td>
                   <td>---</td>
                   <td>
                     <code></code>
                   </td>
-                  <td><code>TBD</code></td>
+                  <td>
+                    Address line 2 or <code>null</code> if not specified
+                  </td>
+                </tr>
+                <tr class="subelement">
+                  <td>city</td>
+                  <td>String</td>
+                  <td>x</td>
+                  <td>
+                    <code>New York</code>
+                  </td>
+                  <td>City</td>
+                </tr>
+                <tr class="subelement">
+                  <td>zip</td>
+                  <td>String</td>
+                  <td>x</td>
+                  <td>
+                    <code>10000</code>
+                  </td>
+                  <td>ZIP code</td>
+                </tr>
+                <tr class="subelement">
+                  <td>province</td>
+                  <td>String</td>
+                  <td>---</td>
+                  <td>
+                    <code>NY</code>
+                  </td>
+                  <td>
+                    Province/State or <code>null</code> if not specified
+                  </td>
+                </tr>
+                <tr class="subelement">
+                  <td>country</td>
+                  <td>String</td>
+                  <td>x</td>
+                  <td>
+                    <code>USA</code>
+                  </td>
+                  <td>Country</td>
+                </tr>
+                <tr class="subelement">
+                  <td>country_code</td>
+                  <td>String</td>
+                  <td>---</td>
+                  <td>
+                    <code>us</code>
+                  </td>
+                  <td>
+                    2-letter
+                    <a target="_blank" href="http://en.wikipedia.org/wiki/ISO_3166-1">ISO 3166-1</a>
+                    country code
+                  </td>
+                </tr>
+                <tr class="subelement">
+                  <td>phone</td>
+                  <td>String</td>
+                  <td>---</td>
+                  <td>
+                    <code>615-123-4567</code>
+                  </td>
+                  <td>Phone number</td>
                 </tr>
                 <tr class="substructure">
                   <td>billing_address</td>
                   <td>Object</td>
+                  <td>x</td>
+                  <td></td>
+                  <td>Billing address</td>
+                </tr>
+                <tr class="subelement">
+                  <td>first_name</td>
+                  <td>String</td>
+                  <td>x</td>
+                  <td>
+                    <code>John</code>
+                  </td>
+                  <td>First name</td>
+                </tr>
+                <tr class="subelement">
+                  <td>last_name</td>
+                  <td>String</td>
+                  <td>x</td>
+                  <td>
+                    <code>Doe</code>
+                  </td>
+                  <td>Last name</td>
+                </tr>
+                <tr class="subelement">
+                  <td>company</td>
+                  <td>String</td>
+                  <td>---</td>
+                  <td>
+                    <code>Example Corp.</code>
+                  </td>
+                  <td>Company name</td>
+                </tr>
+                <tr class="subelement">
+                  <td>address1</td>
+                  <td>String</td>
+                  <td>x</td>
+                  <td>
+                    <code>42 My Street</code>
+                  </td>
+                  <td>Address line 1</td>
+                </tr>
+                <tr class="subelement">
+                  <td>address2</td>
+                  <td>String</td>
                   <td>---</td>
                   <td>
                     <code></code>
                   </td>
-                  <td><code>TBD</code></td>
+                  <td>
+                    Address line 2 or <code>null</code> if not specified
+                  </td>
+                </tr>
+                <tr class="subelement">
+                  <td>city</td>
+                  <td>String</td>
+                  <td>x</td>
+                  <td>
+                    <code>New York</code>
+                  </td>
+                  <td>City</td>
+                </tr>
+                <tr class="subelement">
+                  <td>zip</td>
+                  <td>String</td>
+                  <td>x</td>
+                  <td>
+                    <code>10000</code>
+                  </td>
+                  <td>ZIP code</td>
+                </tr>
+                <tr class="subelement">
+                  <td>province</td>
+                  <td>String</td>
+                  <td>---</td>
+                  <td>
+                    <code>NY</code>
+                  </td>
+                  <td>
+                    Province/State or <code>null</code> if not specified
+                  </td>
+                </tr>
+                <tr class="subelement">
+                  <td>country</td>
+                  <td>String</td>
+                  <td>x</td>
+                  <td>
+                    <code>USA</code>
+                  </td>
+                  <td>Country</td>
+                </tr>
+                <tr class="subelement">
+                  <td>country_code</td>
+                  <td>String</td>
+                  <td>---</td>
+                  <td>
+                    <code>us</code>
+                  </td>
+                  <td>
+                    2-letter
+                    <a target="_blank" href="http://en.wikipedia.org/wiki/ISO_3166-1">ISO 3166-1</a>
+                    country code
+                  </td>
+                </tr>
+                <tr class="subelement">
+                  <td>phone</td>
+                  <td>String</td>
+                  <td>---</td>
+                  <td>
+                    <code>615-123-4567</code>
+                  </td>
+                  <td>Phone number</td>
                 </tr>
                 <tr>
                   <td>order_number</td>
                   <td>String</td>
                   <td>x</td>
                   <td>
-                    <code>GC-123456789123456</code>
+                    <code>123456789123456</code>
                   </td>
-                  <td>The order number. A prefix is appended to indicate from where the order was generated (<code>GC</code> for GoogleCheckout, <code>PP</code> for PayPal, <code>SM</code> for Sellmate).</td>
+                  <td>The order number.</td>
                 </tr>
                 <tr>
                   <td>order_name</td>
                   <td>String</td>
-                  <td>---</td>
+                  <td>x</td>
                   <td>
-                    <code></code>
+                    <code>GC-123456789123456</code>
                   </td>
-                  <td><code>TBD</code></td>
+                  <td>The order name, tipically with a prefix followed by the order_number to indicate where the order was generated from (<code>GC</code> for GoogleCheckout, <code>PP</code> for PayPal, <code>SM</code> for orders created with the REST API).</td>
                 </tr>
                 <tr>
                   <td>cancelled_at</td>
                   <td>String</td>
                   <td>---</td>
                   <td>
-                    <code></code>
+                    <code>null</code>
                   </td>
-                  <td><code>TBD</code></td>
+                  <td>Order cancel date or <code>null</code> if not specified.</td>
+                </tr>                
+                <tr>
+                  <td>cancel_reason</td>
+                  <td>String</td>
+                  <td>---</td>
+                  <td>
+                    <code>null</code>
+                  </td>
+                  <td>The reason why the order has been cancelled or <code>null</code> if not specified.</td>
                 </tr>
                 <tr>
                   <td>closed_at</td>
                   <td>String</td>
                   <td>---</td>
                   <td>
-                    <code></code>
+                    <code>Mer, 08 ago 2012 09:26:10 UTC</code>
                   </td>
-                  <td><code>TBD</code></td>
-                </tr>
-                <tr>
-                  <td>cancel_reason</td>
-                  <td>String</td>
-                  <td>---</td>
-                  <td>
-                    <code></code>
-                  </td>
-                  <td><code>TBD</code></td>
+                  <td>Order close date or <code>null</code> if not specified.</td>
                 </tr>
                 <tr>
                   <td>referring_site</td>
                   <td>String</td>
                   <td>---</td>
                   <td>
-                    <code></code>
+                    <code>https://www.google.com/search?tbm=shop&q=my-product</code>
                   </td>
-                  <td><code>TBD</code></td>
+                  <td>Contains the url of the referrer that brought the customer to your store or <code>null</code> if not specified.</td>
                 </tr>
                 <tr>
                   <td>fulfillment_status</td>
@@ -2685,9 +2943,6 @@ PUT    /&lt;shop-handle&gt;/rest/orders/&lt;id&gt;     to modify an existing ord
     "total_price": 124.95,
     "line_items": [
         {
-            "id": null,
-            "created_at": null,
-            "updated_at": null,
             "variant_id": 14,
             "product_id": 10,
             "title": "T-Shirt - Blue XL",
@@ -2713,16 +2968,9 @@ PUT    /&lt;shop-handle&gt;/rest/orders/&lt;id&gt;     to modify an existing ord
     "gateway": "GoogleCheckout",
     "currency": "USD",
     "customer": {
-        "id": null,
-        "version": 0,
-        "created_at": null,
-        "updated_at": null,
         "first_name": "John",
         "last_name": "Doe",
-        "email": "john.doe@example.com",
-        "note": null,
-        "accepts_marketing": null,
-        "orders": null
+        "email": "john.doe@example.com"
     },
     "shipping_address": {
         "first_name": "John",
@@ -2750,8 +2998,8 @@ PUT    /&lt;shop-handle&gt;/rest/orders/&lt;id&gt;     to modify an existing ord
         "country_code": "us",
         "phone": "615-123-4567"
     },
-    "order_number": "GC-123456789123456",
-    "order_name": null,
+    "order_number": "123456789123456",
+    "order_name": "GC-123456789123456",
     "cancelled_at": null,
     "closed_at": null,
     "cancel_reason": null,
@@ -2764,44 +3012,6 @@ PUT    /&lt;shop-handle&gt;/rest/orders/&lt;id&gt;     to modify an existing ord
             <p>To create a new Order you just need to provide the required fields (and no Id):</p>
             <pre class="prettyprint lang-js">
 {
-    "subtotal_price": 120,
-    "shipping_price": 4.95,
-    "tax_price": 0,
-    "total_price": 124.95,
-    "line_items": [
-        {
-            "variant_id": 14,
-            "product_id": 10,
-            "title": "T-Shirt - Blue XL",
-            "product_title": "T-Shirt",
-            "product_description": "A Cool Adidas T-Shirt",
-            "product_vendor": "Adidas",
-            "variant_option1": "Blue",
-            "variant_option2": "XL",
-            "variant_price": 120,
-            "quantity": 1,
-            "line_price": 120
-        }
-    ],
-    "gateway": "GoogleCheckout",
-    "currency": "USD",
-    "customer": {
-        "first_name": "John",
-        "last_name": "Doe",
-        "email": "john.doe@example.com"
-    },
-    "shipping_address": {
-        "first_name": "John",
-        "last_name": "Doe",
-        "company": "Example Corp.",
-        "address1": "42 My Street",
-        "city": "New York",
-        "zip": "10000",
-        "province": "NY",
-        "country": "USA",
-        "country_code": "us",
-        "phone": "615-123-4567"
-    },
     "billing_address": {
         "first_name": "John",
         "last_name": "Doe",
@@ -2812,12 +3022,64 @@ PUT    /&lt;shop-handle&gt;/rest/orders/&lt;id&gt;     to modify an existing ord
         "zip": "10000",
         "province": "NY",
         "country": "USA",
-        "country_code": "us"
+        "country_code": "us",
+        "phone": "615-123-4567"
     },
-    "order_number": "GC-123456789123456",
-    "fulfillment_status": "NEW",
+    "cancel_reason": null,
+    "currency": "USD",
+    "customer": {
+        "first_name": "John",
+        "last_name": "Doe",
+        "email": "john.doe@example.com"
+    },
     "financial_status": "REVIEWING",
-    "isSandbox": false
+    "fulfillment_status": "NEW",
+    "gateway": "GoogleCheckout",
+    "line_items": [
+        {
+            "variant_id": 14,
+            "product_id": 10,
+            "title": "T-Shirt - Blue XL",
+            "product_title": "T-Shirt",
+            "product_description": "A Cool Adidas T-Shirt",
+            "product_vendor": "Adidas",
+            "variant_option1": "Blue",
+            "variant_option2": "XL",
+            "variant_option3": "",
+            "variant_sku": null,
+            "variant_price": 120,
+            "variant_weight": null,
+            "variant_weight_unit": null,
+            "variant_requires_shipping": true,
+            "variant_taxable": true,
+            "quantity": 1,
+            "line_price": 120
+        }
+    ],
+    "note": null,
+    "order_name": "GC-335042596951346",
+    "order_number": "335042596951346",
+    "payment_details": null,
+    "referring_site": null,
+    "isSandbox": false,
+    "shipping_address": {
+        "first_name": "John",
+        "last_name": "Doe",
+        "company": "Example Corp.",
+        "address1": "42 My Street",
+        "address2": "",
+        "city": "New York",
+        "zip": "10000",
+        "province": "NY",
+        "country": "USA",
+        "country_code": "us",
+        "phone": "615-123-4567"
+    },
+    "shipping_method": null,
+    "shipping_price": 4.95,
+    "subtotal_price": 120,
+    "tax_price": 0,
+    "total_price": 124.95
 }</pre>
           </div>
           <!-- /orders -->    
