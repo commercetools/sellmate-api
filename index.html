@@ -924,7 +924,7 @@ public class SellmateClient {
                   <td>updated_at</td>
                   <td>String</td>
                   <td>
-                    <code></code>
+                    <code>null</code>
                   </td>
                   <td>
                     Resource last update date or
@@ -944,9 +944,17 @@ public class SellmateClient {
                   <td>url</td>
                   <td>String</td>
                   <td>
-                    <code>http://lh5.ggpht.com/eoc_kFpwewhjv6lNQlWi...</code>
+                    <code>http://lh5.ggpht.com/JeuOabgSa7SOpPug...</code>
                   </td>
-                  <td>Image url</td>
+                  <td>Image url (<code>GET</code> only). Default max size is 512px. </td>
+                </tr>
+                <tr class="subelement">
+                  <td>original_size_url</td>
+                  <td>String</td>
+                  <td>
+                    <code>http://lh5.ggpht.com/JeuOabgSa7SOpPug...=s0</code>
+                  </td>
+                  <td>Image url (<code>GET</code> only) at original size (by appending the <code>=s0</code> parameter)</td>
                 </tr>
                 <tr class="subelement">
                   <td>type</td>
@@ -999,6 +1007,7 @@ public class SellmateClient {
         "updated_at": null,
         "name": "logo.png",
         "url": "http://lh5.ggpht.com/eoc_kFpwewhjv6lNQlWijpv2TTSgH-wNsCOXC_3D9a5cgHtblJyBPLZa0sUqawEtSUyh3uYmf2xneW4VtBq9K20",
+        "original_size_url": "http://lh5.ggpht.com/eoc_kFpwewhjv6lNQlWijpv2TTSgH-wNsCOXC_3D9a5cgHtblJyBPLZa0sUqawEtSUyh3uYmf2xneW4VtBq9K20=s0",
         "type": "image/png"
     },
     "html_snippet": "My great store"
@@ -1440,7 +1449,16 @@ DELETE /&lt;shop-handle&gt;/rest/products/&lt;id&gt;     to delete an existing p
                   <td>
                     <code>http://lh5.ggpht.com/JeuOabgSa7SOpPug...</code>
                   </td>
-                  <td>Image url</td>
+                  <td>Image url (<code>GET</code> only). Default max size is 512px. </td>
+                </tr>
+                <tr class="subelement">
+                  <td>original_size_url</td>
+                  <td>String</td>
+                  <td>---</td>
+                  <td>
+                    <code>http://lh5.ggpht.com/JeuOabgSa7SOpPug...=s0</code>
+                  </td>
+                  <td>Image url (<code>GET</code> only) at original size (by appending the <code>=s0</code> parameter)</td>
                 </tr>
                 <tr class="subelement">
                   <td>type</td>
@@ -1765,6 +1783,7 @@ DELETE /&lt;shop-handle&gt;/rest/products/&lt;id&gt;     to delete an existing p
         "updated_at": null,
         "name": "NBA-Jersey.jpg",
         "url": "http://lh5.ggpht.com/JeuOabgSa7SOpPug_BK64iHoI2AFU-0mo3EccFTaRNKZL_vECv3WpY9TNI_W9MBDeTOcZeBKpiNDi8dH2zaZFCA",
+        "original_size_url": "http://lh5.ggpht.com/JeuOabgSa7SOpPug_BK64iHoI2AFU-0mo3EccFTaRNKZL_vECv3WpY9TNI_W9MBDeTOcZeBKpiNDi8dH2zaZFCA=s0",
         "type": "image/jpeg"
     },
     "options": [
@@ -2032,7 +2051,16 @@ DELETE /&lt;shop-handle&gt;/rest/collections/&lt;id&gt;     to delete an existin
                   <td>
                     <code>http://lh5.ggpht.com/JeuOabgSa7SOpPug...</code>
                   </td>
-                  <td>Image url</td>
+                  <td>Image url (<code>GET</code> only). Default max size is 512px. </td>
+                </tr>
+                <tr class="subelement">
+                  <td>original_size_url</td>
+                  <td>String</td>
+                  <td>---</td>
+                  <td>
+                    <code>http://lh5.ggpht.com/JeuOabgSa7SOpPug...=s0</code>
+                  </td>
+                  <td>Image url (<code>GET</code> only) at original size (by appending the <code>=s0</code> parameter)</td>
                 </tr>
                 <tr class="subelement">
                   <td>type</td>
@@ -2078,6 +2106,7 @@ DELETE /&lt;shop-handle&gt;/rest/collections/&lt;id&gt;     to delete an existin
         "updated_at": null,
         "name": "KobeJersey.jpg",
         "url": "http://lh5.ggpht.com/JeuOabgSa7SOpPug_BK64iHoI2AFU-0mo3EccFTaRNKZL_vECv3WpY9TNI_W9MBDeTOcZeBKpiNDi8dH2zaZFCA",
+        "original_size_url": "http://lh5.ggpht.com/JeuOabgSa7SOpPug_BK64iHoI2AFU-0mo3EccFTaRNKZL_vECv3WpY9TNI_W9MBDeTOcZeBKpiNDi8dH2zaZFCA=s0",
         "type": "image/jpeg"
     },
     "num_of_products": 1
@@ -2187,7 +2216,16 @@ DELETE /&lt;shop-handle&gt;/rest/&lt;products|collections&gt;/&lt;id&gt;/images/
                   <td>
                     <code>http://lh5.ggpht.com/JeuOabgSa7SOpPug...</code>
                   </td>
-                  <td>Image url</td>
+                  <td>Image url (<code>GET</code> only). Default max size is 512px. </td>
+                </tr>
+                <tr>
+                  <td>original_size_url</td>
+                  <td>String</td>
+                  <td>---</td>
+                  <td>
+                    <code>http://lh5.ggpht.com/JeuOabgSa7SOpPug...=s0</code>
+                  </td>
+                  <td>Image url (<code>GET</code> only) at original size (by appending the <code>=s0</code> parameter)</td>
                 </tr>
                 <tr>
                   <td>type</td>
@@ -2200,6 +2238,9 @@ DELETE /&lt;shop-handle&gt;/rest/&lt;products|collections&gt;/&lt;id&gt;/images/
                 </tr>
               </tbody>
             </table>
+            <h3>Image URL modifications:</h3>
+            <p>To <b>resize</b> an image, append <code>=sXX</code> to the end of the image URL, where <code>XX</code> is an integer from 0–1600 representing the new image size in pixels. The API resizes the image to the supplied value, applying the specified size to the image's longest dimension and preserving the original aspect ratio. For example, if you use <code>=s32</code> to resize a <code>1200x1600</code> image, the resulting image is a <code>24x32</code>. If that image were <code>1600x1200</code>, the resized image would be <code>32x24</code> pixels.</p>
+            <p>To <b>crop</b> and <b>resize</b> an image, append <code>=sXX-c</code> to the end of the image URL, where <code>XX</code> is an integer from 0–1600 representing the new image size in pixels. The API resizes the image to the supplied value, applying the specified size to the image's longest dimension and preserving the original aspect ratio. If the image is portrait, the API slices evenly from the top and bottom to make a square. If the image is landscape, the API slices evenly from the left and right to make a square. After cropping, the API resizes the image to the specified size.</p>
             <h3>Examples:</h3>
             <p><code>200 GET /&lt;shop-handle&gt;/rest/products/78/images/1133</code></p>
             <pre class="prettyprint lang-js">
@@ -2209,6 +2250,7 @@ DELETE /&lt;shop-handle&gt;/rest/&lt;products|collections&gt;/&lt;id&gt;/images/
     "updated_at": null,
     "name": "KobeJersey.jpg",
     "url": "http://lh5.ggpht.com/JeuOabgSa7SOpPug_BK64iHoI2AFU-0mo3EccFTaRNKZL_vECv3WpY9TNI_W9MBDeTOcZeBKpiNDi8dH2zaZFCA",
+    "original_size_url": "http://lh5.ggpht.com/JeuOabgSa7SOpPug_BK64iHoI2AFU-0mo3EccFTaRNKZL_vECv3WpY9TNI_W9MBDeTOcZeBKpiNDi8dH2zaZFCA=s0",
     "type": "image/jpeg"
 }</pre>
             <p><code>201 POST /&lt;shop-handle&gt;/rest/products/78/images</code></p>
