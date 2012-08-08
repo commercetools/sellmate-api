@@ -21,6 +21,15 @@
     <script type="text/javascript">
       $(document).ready(function() {
         prettyPrint();
+        $(".collapse").collapse();
+        $(".collapse").on('hidden', function () {
+          $('a[data-target="#'+$(this).attr('id')+'"]').html('<i class="icon-chevron-down icon-white"></i> Show code');
+          console.log("hidden");
+        });
+        $(".collapse").on('shown', function () {
+          $('a[data-target="#'+$(this).attr('id')+'"]').html('<i class="icon-chevron-up icon-white"></i> Hide code');
+          console.log("shown");
+        });
 
         // Scroll to an element on the page
         $('.scrollto').click(function(e){
@@ -47,8 +56,7 @@
 
         // Intercept all anchor clicks and append the query parameters to the new target
         $('a').click(function(e){
-          console.log($(this).attr('class'));
-          if (!$(this).hasClass('scrollto') && !$(this).hasClass('btn-navbar')) {
+          if (!$(this).hasClass('scrollto') && !$(this).hasClass('btn-navbar') && !$(this).attr('data-toggle') == 'collapse') {
             e.preventDefault();
             var target = $(this).attr('href') + document.location.search;
             window.open(target, '_self');
@@ -453,7 +461,11 @@ port\n
 \n</pre>
                     </p>
                     <p>The value is calculated from the credentials obtained in the previous step</p>
-                    <p>Here is a sample Java code to calculate the Mac token from the credentials:
+                    <p>Here is a sample Java code to calculate the Mac token from the credentials:</p>
+                    <a data-target="#javaCode" data-toggle="collapse" class="btn btn-info">
+                      <i class="icon-chevron-down icon-white"></i> Show code
+                    </a>
+                    <div id="javaCode" class="collapse in">
                       <pre class="prettyprint lang-java">
 import java.net.URL;
 import java.security.InvalidKeyException;
@@ -524,6 +536,7 @@ public class SellmateClient {
   	+ "\"," + "mac=\"" + mac_string + "\"";
   }
 }</pre>
+                    </div>
                   </td>
                 </tr>
                 <!-- step 3 -->
@@ -976,7 +989,11 @@ public class SellmateClient {
             </table>
             <h3>Examples:</h3>
             <p><code>200 GET /&lt;shop-handle&gt;/rest/shop</code></p>
-            <pre class="prettyprint lang-js">
+            <a data-target="#shopGetSample" data-toggle="collapse" class="btn btn-info">
+              <i class="icon-chevron-down icon-white"></i> Show code
+            </a>
+            <div id="shopGetSample" class="collapse in">
+              <pre class="prettyprint lang-js">
 {
     "handle": "sample-store",
     "created_at": "Sat, 28 Apr 2012 19:24:06 UTC",
@@ -1011,7 +1028,8 @@ public class SellmateClient {
         "type": "image/png"
     },
     "html_snippet": "My great store"
-}</pre>          
+}</pre>         
+            </div> 
           </div>
           <!-- /shop -->
           <!-- user -->
@@ -1127,7 +1145,11 @@ GET    /&lt;shop-handle&gt;/rest/user          to get (currently authenticated) 
             </table>
             <h3>Examples:</h3>
             <p><code>200 GET /&lt;shop-handle&gt;/rest/user</code></p>
-            <pre class="prettyprint lang-js">
+            <a data-target="#userGetSample" data-toggle="collapse" class="btn btn-info">
+              <i class="icon-chevron-down icon-white"></i> Show code
+            </a>
+            <div id="userGetSample" class="collapse in">
+              <pre class="prettyprint lang-js">
 {
     "id": 1,
     "created_at": "Sat, 28 Apr 2012 19:24:05 UTC",
@@ -1146,6 +1168,7 @@ GET    /&lt;shop-handle&gt;/rest/user          to get (currently authenticated) 
     "sandbox_id": "ids4h5sd8e",
     "locale": "en"
 }</pre>
+            </div>
           </div>
           <!-- /user -->          
           <!-- products -->
@@ -1752,7 +1775,11 @@ DELETE /&lt;shop-handle&gt;/rest/products/&lt;id&gt;     to delete an existing p
             </table>
             <h3>Examples:</h3>
             <p><code>200 GET /&lt;shop-handle&gt;/rest/product/51001</code></p>
-            <pre class="prettyprint lang-js">
+            <a data-target="#productGetSample" data-toggle="collapse" class="btn btn-info">
+              <i class="icon-chevron-down icon-white"></i> Show code
+            </a>
+            <div id="productGetSample" class="collapse in">
+              <pre class="prettyprint lang-js">
 {
     "id": 51001,
     "created_at": "Sat, 26 May 2012 08:37:12 UTC",
@@ -1816,9 +1843,14 @@ DELETE /&lt;shop-handle&gt;/rest/products/&lt;id&gt;     to delete an existing p
     "gtin": null,
     "condition": "new"
 }</pre>
+            </div>
             <p><code>201 POST /&lt;shop-handle&gt;/rest/products</code></p>
             <p>To create a new Product you just need to provide the required fields (and no Id):</p>
-            <pre class="prettyprint lang-js">
+            <a data-target="#shopPostSample" data-toggle="collapse" class="btn btn-info">
+              <i class="icon-chevron-down icon-white"></i> Show code
+            </a>
+            <div id="shopPostSample" class="collapse in">
+              <pre class="prettyprint lang-js">
 {
     "title": "Adidas T-Shirt",
     "vendor": "Adidas",
@@ -1833,6 +1865,7 @@ DELETE /&lt;shop-handle&gt;/rest/products/&lt;id&gt;     to delete an existing p
     "mpn": "adidas-1",
     "condition": "new"
 }</pre>
+          </div>
           </div>
           <!-- /products -->
           <!-- collections -->
@@ -2088,7 +2121,11 @@ DELETE /&lt;shop-handle&gt;/rest/collections/&lt;id&gt;     to delete an existin
             </table>
             <h3>Examples:</h3>
             <p><code>200 GET /&lt;shop-handle&gt;/rest/collections/1</code></p>
-            <pre class="prettyprint lang-js">
+            <a data-target="#collectionGetSample" data-toggle="collapse" class="btn btn-info">
+              <i class="icon-chevron-down icon-white"></i> Show code
+            </a>
+            <div id="collectionGetSample" class="collapse in">
+              <pre class="prettyprint lang-js">
 {
     "id": 1,
     "created_at": "Sat, 28 Apr 2012 19:24:05 UTC",
@@ -2111,12 +2148,18 @@ DELETE /&lt;shop-handle&gt;/rest/collections/&lt;id&gt;     to delete an existin
     },
     "num_of_products": 1
 }</pre>
+            </div>
             <p><code>201 POST /&lt;shop-handle&gt;/rest/collections</code></p>
             <p>To create a new Collection you just need to provide the required fields (and no Id):</p>
-            <pre class="prettyprint lang-js">
+            <a data-target="#collectionPostSample" data-toggle="collapse" class="btn btn-info">
+              <i class="icon-chevron-down icon-white"></i> Show code
+            </a>
+            <div id="collectionPostSample" class="collapse in">
+              <pre class="prettyprint lang-js">
 {
     "title": "Snowboards"
 }</pre>
+            </div>
           </div>
           <!-- /collections -->
           <!-- images -->
@@ -2243,7 +2286,11 @@ DELETE /&lt;shop-handle&gt;/rest/&lt;products|collections&gt;/&lt;id&gt;/images/
             <p>To <b>crop</b> and <b>resize</b> an image, append <code>=sXX-c</code> to the end of the image URL, where <code>XX</code> is an integer from 0–1600 representing the new image size in pixels. The API resizes the image to the supplied value, applying the specified size to the image's longest dimension and preserving the original aspect ratio. If the image is portrait, the API slices evenly from the top and bottom to make a square. If the image is landscape, the API slices evenly from the left and right to make a square. After cropping, the API resizes the image to the specified size.</p>
             <h3>Examples:</h3>
             <p><code>200 GET /&lt;shop-handle&gt;/rest/products/78/images/1133</code></p>
-            <pre class="prettyprint lang-js">
+            <a data-target="#imageGetSample" data-toggle="collapse" class="btn btn-info">
+              <i class="icon-chevron-down icon-white"></i> Show code
+            </a>
+            <div id="imageGetSample" class="collapse in">
+              <pre class="prettyprint lang-js">
 {
     "id": 1133,
     "created_at": "mar, 06 mar 2012 10:49:13 UTC",
@@ -2253,18 +2300,24 @@ DELETE /&lt;shop-handle&gt;/rest/&lt;products|collections&gt;/&lt;id&gt;/images/
     "original_size_url": "http://lh5.ggpht.com/JeuOabgSa7SOpPug_BK64iHoI2AFU-0mo3EccFTaRNKZL_vECv3WpY9TNI_W9MBDeTOcZeBKpiNDi8dH2zaZFCA=s0",
     "type": "image/jpeg"
 }</pre>
+            </div>
             <p><code>201 POST /&lt;shop-handle&gt;/rest/products/78/images</code></p>
             <p>To create a new image you have 2 possibilities: provide a url or a base-64 encoded string:</p>
-            <pre class="prettyprint lang-js">
+            <a data-target="#imagePostSample" data-toggle="collapse" class="btn btn-info">
+              <i class="icon-chevron-down icon-white"></i> Show code
+            </a>
+            <div id="imagePostSample" class="collapse in">
+              <pre class="prettyprint lang-js">
 {
     "src": "http://www.nysportsjournalism.com/storage/KobeJersey.jpg"
 }</pre>
-            <pre class="prettyprint lang-js">
+              <pre class="prettyprint lang-js">
 {
     "name": "image-name",
     "type":"image/png",
     "attachment": "put your base64-encoded image data here"
 }</pre>
+            </div>
           </div>
           <!-- /images -->
           <!-- orders -->
@@ -2974,7 +3027,11 @@ PUT    /&lt;shop-handle&gt;/rest/orders/&lt;id&gt;     to modify an existing ord
             </table>
             <h3>Examples:</h3>
             <p><code>200 GET /&lt;shop-handle&gt;/rest/orders/743</code></p>
-            <pre class="prettyprint lang-js">
+            <a data-target="#orderGetSample" data-toggle="collapse" class="btn btn-info">
+              <i class="icon-chevron-down icon-white"></i> Show code
+            </a>
+            <div id="orderGetSample" class="collapse in">
+              <pre class="prettyprint lang-js">
 {
     "id": 743,
     "created_at": "mar, 07 ago 2012 14:34:55 UTC",
@@ -3050,9 +3107,14 @@ PUT    /&lt;shop-handle&gt;/rest/orders/&lt;id&gt;     to modify an existing ord
     "financial_status": "REVIEWING",
     "isSandbox": false
 }</pre>
+            </div>
             <p><code>201 POST /&lt;shop-handle&gt;/rest/orders</code></p>
             <p>To create a new Order you just need to provide the required fields (and no Id):</p>
-            <pre class="prettyprint lang-js">
+            <a data-target="#orderPostSample" data-toggle="collapse" class="btn btn-info">
+              <i class="icon-chevron-down icon-white"></i> Show code
+            </a>
+            <div id="orderPostSample" class="collapse in">
+              <pre class="prettyprint lang-js">
 {
     "billing_address": {
         "first_name": "John",
@@ -3123,6 +3185,7 @@ PUT    /&lt;shop-handle&gt;/rest/orders/&lt;id&gt;     to modify an existing ord
     "tax_price": 0,
     "total_price": 124.95
 }</pre>
+            </div>
           </div>
           <!-- /orders -->    
         </div>
