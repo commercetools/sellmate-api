@@ -629,6 +629,18 @@ public class SellmateClient {
                 <tr>
                   <td></td>
                   <td>x</td>
+                  <td><code>invalid_client</code></td>
+                  <td>Client authentication failed (e.g. unknown client, no client authentication included, or unsupported authentication method). The authorization server MAY return an HTTP <code>401</code> (Unauthorized) status code to indicate which HTTP authentication schemes are supported.</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>x</td>
+                  <td><code>invalid_grant</code></td>
+                  <td>The provided authorization grant (e.g. authorization code, resource owner credentials) or refresh token is invalid, expired, revoked, does not match the redirection URI used in the authorization request, or was issued to another client.</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>x</td>
                   <td><code>unauthorized_client</code></td>
                   <td>The client is not authorized to request an authorization code using this method.</td>
                 </tr>
@@ -643,6 +655,12 @@ public class SellmateClient {
                   <td>x</td>
                   <td><code>unsupported_response_type</code></td>
                   <td>The authorization server does not support obtaining an authorization code using this method.</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>x</td>
+                  <td><code>unsupported_grant_type</code></td>
+                  <td>The authorization grant type is not supported by the authorization server.</td>
                 </tr>
                 <tr>
                   <td></td>
@@ -666,7 +684,7 @@ public class SellmateClient {
                   <td>error_description</td>
                   <td>x</td>
                   <td><code>Wrong%20redirect_uri</code></td>
-                  <td>A human-readable UTF-8 encoded text providing additional information, used to assist the client developer in understanding the error that occurred.</td>
+                  <td>A human-readable <code>UTF-8</code> encoded text providing additional information, used to assist the client developer in understanding the error that occurred.</td>
                 </tr>
                 <tr>
                   <td>state</td>
