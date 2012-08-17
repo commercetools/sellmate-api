@@ -3093,11 +3093,6 @@ PUT    /&lt;shop-handle&gt;/rest/orders/&lt;id&gt;     to modify an existing ord
     "note": null,
     "gateway": "GoogleCheckout",
     "currency": "USD",
-    "customer": {
-        "first_name": "John",
-        "last_name": "Doe",
-        "email": "john.doe@example.com"
-    },
     "shipping_address": {
         "first_name": "John",
         "last_name": "Doe",
@@ -3123,6 +3118,26 @@ PUT    /&lt;shop-handle&gt;/rest/orders/&lt;id&gt;     to modify an existing ord
         "country": "USA",
         "country_code": "us",
         "phone": "615-123-4567"
+    },
+    "customer": {
+        "first_name": "John",
+        "last_name": "Doe",
+        "email": "john.doe@example.com",
+        "addresses": [
+            {
+                "first_name": "John",
+                "last_name": "Doe",
+                "company": "Example Corp.",
+                "address1": "42 My Street",
+                "address2": "",
+                "city": "New York",
+                "zip": "10000",
+                "province": "NY",
+                "country": "USA",
+                "country_code": "us",
+                "phone": "615-123-4567"
+            }
+        ]
     },
     "order_number": "123456789123456",
     "order_name": "GC-123456789123456",
