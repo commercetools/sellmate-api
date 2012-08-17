@@ -2699,40 +2699,6 @@ PUT    /&lt;shop-handle&gt;/rest/orders/&lt;id&gt;     to modify an existing ord
                   <td>The currency of the order.</td>
                 </tr>
                 <tr class="substructure">
-                  <td>customer</td>
-                  <td>Object</td>
-                  <td>x</td>
-                  <td></td>
-                  <td>Info about customer</td>
-                </tr>
-                <tr class="subelement">
-                  <td>first_name</td>
-                  <td>String</td>
-                  <td>x</td>
-                  <td>
-                    <code>John</code>
-                  </td>
-                  <td>First name</td>
-                </tr>
-                <tr class="subelement">
-                  <td>last_name</td>
-                  <td>String</td>
-                  <td>x</td>
-                  <td>
-                    <code>Doe</code>
-                  </td>
-                  <td>Last name</td>
-                </tr>
-                <tr class="subelement">
-                  <td>email</td>
-                  <td>String</td>
-                  <td>x</td>
-                  <td>
-                    <code>John</code>
-                  </td>
-                  <td>Email address</td>
-                </tr>
-                <tr class="substructure">
                   <td>shipping_address</td>
                   <td>Object</td>
                   <td>x</td>
@@ -2960,6 +2926,49 @@ PUT    /&lt;shop-handle&gt;/rest/orders/&lt;id&gt;     to modify an existing ord
                   </td>
                   <td>Phone number</td>
                 </tr>
+                <tr class="substructure">
+                  <td>customer</td>
+                  <td>Object</td>
+                  <td>x</td>
+                  <td></td>
+                  <td>Info about customer</td>
+                </tr>
+                <tr class="subelement">
+                  <td>first_name</td>
+                  <td>String</td>
+                  <td>x</td>
+                  <td>
+                    <code>John</code>
+                  </td>
+                  <td>First name</td>
+                </tr>
+                <tr class="subelement">
+                  <td>last_name</td>
+                  <td>String</td>
+                  <td>x</td>
+                  <td>
+                    <code>Doe</code>
+                  </td>
+                  <td>Last name</td>
+                </tr>
+                <tr class="subelement">
+                  <td>email</td>
+                  <td>String</td>
+                  <td>x</td>
+                  <td>
+                    <code>John</code>
+                  </td>
+                  <td>Email address</td>
+                </tr>
+                <tr class="subelement">
+                  <td>addresses</td>
+                  <td>Array of Objects</td>
+                  <td>x</td>
+                  <td></td>
+                  <td>
+                    The list of addresses in the customer
+                  </td>
+                </tr>
                 <tr>
                   <td>order_number</td>
                   <td>String</td>
@@ -3152,7 +3161,22 @@ PUT    /&lt;shop-handle&gt;/rest/orders/&lt;id&gt;     to modify an existing ord
     "customer": {
         "first_name": "John",
         "last_name": "Doe",
-        "email": "john.doe@example.com"
+        "email": "john.doe@example.com",
+        "addresses": [
+            {
+                "first_name": "John",
+                "last_name": "Doe",
+                "company": "Example Corp.",
+                "address1": "42 My Street",
+                "address2": "",
+                "city": "New York",
+                "zip": "10000",
+                "province": "NY",
+                "country": "USA",
+                "country_code": "us",
+                "phone": "615-123-4567"
+            }
+        ]
     },
     "financial_status": "REVIEWING",
     "fulfillment_status": "NEW",
